@@ -1,0 +1,61 @@
+<resources>
+    <string name="app_name">闲来垂钓</string>
+    <string name="action_settings">Settings</string>
+
+
+    <!--登录-->
+    <string name="hint_input_user">请输入用户名</string>
+    <string name="hint_input_pass">请输入密码</string>
+    <string name="btn_login">登录</string>
+    <string name="tv_login_forget_pass">忘记密码</string>
+    <string name="tv_register">注册</string>
+
+    <!--注册获取验证界面-->
+    <string name="tv_register_input_phone">请输入手机号码</string>
+    <string name="tv_register_input_yzCode">请输入验证码</string>
+    <string name="tv_china">中国+86</string>
+    <string name="tv_yzCode">验证码</string>
+    <string name="btn_get_yzCode">获取验证码</string>
+    <string name="next">下一步</string>
+
+    <!--注册设置密码界面-->
+    <string name="main_set_password_title">设置密码</string>
+    <string name="get_phone_number">手机号</string>
+    <string name="tv_title_pass">密码</string>
+    <string name="tv_title_checkpass">重复密码</string>
+    <string name="btn_finish">完成</string>
+    <string name="ed_hint_pass">请输入密码</string>
+    <string name="ed_hint_checkpass">再次输入密码</string>
+
+    <!--忘记密码获取验证码界面-->
+    <string name="tv_title_forgetpass">忘记密码</string>
+
+    <!-- 首页Fragment -->
+    <string name="home_menu_title">首页</string>
+    <string name="tv_logo_weather">天气</string>
+    <string name="tv_logo_fishing_point">钓点</string>
+    <string name="tv_logo_fishing_boat">船钓</string>
+
+    <!-- 消息Fragment -->
+    <string name="new_menu_title">消息</string>
+
+    <!-- 通讯录Fragment -->
+    <string name="book_menu_title">通讯录</string>
+
+    <!--鱼圈Fragment-->
+    <string name="fisher_menu_title">鱼圈</string>
+    <string name="fisher_menu_fisher_new">鱼讯</string>
+    <string name="fisher_menu_fisher_daily">鱼记</string>
+    <string name="fisher_menu_fisher_study">知鱼</string>
+    <string name="fisher_menu_fisher_friend">附近的钓友</string>
+
+    <!-- 下拉刷新和上拉加载更多的文本 -->
+    <string name="pull_to_refresh">下拉可以刷新</string>
+    <string name="release_to_refresh">释放立即刷新</string>
+    <string name="refreshing">正在刷新…</string>
+    <string name="not_updated_yet">暂未更新过</string>
+    <string name="updated_at">上次更新于%1$s前</string>
+    <string name="updated_just_now">刚刚更新</string>
+    <string name="time_error">时间有问题</string>
+
+</resources>

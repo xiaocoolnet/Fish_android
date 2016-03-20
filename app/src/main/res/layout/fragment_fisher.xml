@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="fill_parent"
+    android:background="@color/main_ground_color"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dip" >
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/white"
+            android:gravity="center"
+            android:text="@string/fisher_menu_title"
+            android:textColor="@color/tv_bar_color"
+            android:textSize="20sp" />
+    </RelativeLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_margin="@dimen/fragmet_home_logo_size_5">
+            <!--鱼讯-->
+            <RelativeLayout
+                android:id="@+id/rl_logo_weather"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/fragmet_home_logo_height_size_100"
+                android:layout_weight="1"
+                android:background="@color/white">
+
+                <ImageView
+                    android:id="@+id/iv_logo_weather"
+                    android:layout_width="@dimen/fragmet_home_logo_size_50"
+                    android:layout_height="@dimen/fragmet_home_logo_size_50"
+                    android:background="@drawable/home_logo_weather"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="@dimen/fragmet_home_logo_size_10" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:text="@string/fisher_menu_fisher_new"
+                    android:layout_below="@+id/iv_logo_weather"
+                    android:layout_marginTop="@dimen/fragmet_home_logo_size_8"
+                    android:textSize="@dimen/fragmet_home_logo_size_15" />
+
+            </RelativeLayout>
+
+            <!--鱼记-->
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/fragmet_home_logo_height_size_100"
+                android:layout_weight="1"
+                android:background="@color/white">
+                <ImageView
+                    android:id="@+id/iv_logo_fishing_point"
+                    android:layout_width="@dimen/fragmet_home_logo_size_50"
+                    android:layout_height="@dimen/fragmet_home_logo_size_50"
+                    android:background="@drawable/home_logo_weather"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="@dimen/fragmet_home_logo_size_10" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:text="@string/fisher_menu_fisher_daily"
+                    android:layout_below="@+id/iv_logo_fishing_point"
+                    android:layout_marginTop="@dimen/fragmet_home_logo_size_8"
+                    android:textSize="@dimen/fragmet_home_logo_size_15" />
+
+            </RelativeLayout>
+
+          </LinearLayout>
+
+        <!--知鱼-->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginLeft="@dimen/fragmet_home_logo_size_5"
+            android:layout_marginRight="@dimen/fragmet_home_logo_size_5">
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/fragmet_home_logo_size_50"
+                android:background="@color/white">
+
+                <ImageView
+                    android:id="@+id/tv_study_logo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/home_logo_weather"
+                    android:layout_margin="@dimen/tv_margin_top_6.5"/>
+                <TextView
+                    android:id="@+id/tv_study"
+                    android:layout_toRightOf="@id/tv_study_logo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text="@string/fisher_menu_fisher_study"
+                    android:gravity="center_vertical"
+                    android:layout_marginLeft="@dimen/fragmet_home_logo_size_8"
+                    android:textSize="@dimen/fragmet_home_logo_size_15" />
+
+            </RelativeLayout>
+        </LinearLayout>
+
+        <!--附近的钓友-->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_margin="@dimen/fragmet_home_logo_size_5">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/fragmet_home_logo_size_50"
+                android:background="@color/white">
+                <ImageView
+                    android:id="@+id/tv_friend_logo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/home_logo_weather"
+                    android:layout_margin="@dimen/tv_margin_top_6.5"/>
+                <TextView
+                    android:id="@+id/tv_friend"
+                    android:layout_toRightOf="@id/tv_friend_logo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text="@string/fisher_menu_fisher_friend"
+                    android:gravity="center_vertical"
+                    android:layout_marginLeft="@dimen/fragmet_home_logo_size_8"
+                    android:textColor="@color/bg_black"
+                    android:textSize="@dimen/fragmet_home_logo_size_15" />
+            </RelativeLayout>
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+</LinearLayout>

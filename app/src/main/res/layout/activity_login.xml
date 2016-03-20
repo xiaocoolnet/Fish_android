@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Copyright (c) 2016 3 8.
+  ~ 公司:北京校酷网络有限公司
+  ~ 工作室：Hello Fish  闲来垂钓APP （登录布局界面）
+  -->
+
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@drawable/login_background">
+
+    <TextView
+        android:id="@+id/edit_view"
+        android:background="@drawable/login_user_name"
+        android:layout_width="@dimen/login_tv_user_bg_width"
+        android:layout_height="@dimen/login_tv_user_bg_height"
+        android:layout_marginTop="@dimen/login_tv_margin_200"
+        android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:id="@+id/edit_view2"
+        android:background="@drawable/login_password"
+        android:layout_width="@dimen/login_tv_user_bg_width"
+        android:layout_height="@dimen/login_tv_user_bg_height"
+        android:layout_marginTop="@dimen/login_tv_margin_24"
+        android:layout_below="@+id/edit_view"
+        android:layout_alignLeft="@+id/edit_view" />
+
+    <EditText
+        android:id="@+id/login_phonenum"
+        android:background="@null"
+        android:layout_width="@dimen/login_et_user_bg_width"
+        android:layout_height="@dimen/login_et_user_bg_height"
+        android:hint="@string/hint_input_user"
+        android:layout_alignBottom="@+id/edit_view"
+        android:layout_alignRight="@+id/edit_view" />
+
+    <EditText
+        android:id="@+id/login_Password"
+        android:background="@null"
+        android:layout_width="@dimen/login_et_user_bg_width"
+        android:layout_height="@dimen/login_et_user_bg_height"
+        android:hint="@string/hint_input_pass"
+        android:layout_alignBottom="@+id/edit_view2"
+        android:layout_alignRight="@+id/edit_view2"
+        android:inputType="textPassword" />
+
+    <Button
+        android:id="@+id/btn_login"
+        android:background="@drawable/login_button"
+        android:layout_width="@dimen/login_tv_user_bg_width"
+        android:layout_height="@dimen/login_tv_user_bg_height"
+        android:layout_below="@+id/edit_view2"
+        android:layout_marginTop="@dimen/login_btn_margin_24"
+        android:layout_alignLeft="@+id/edit_view2"
+        android:text="@string/btn_login"
+        android:textSize="23sp"
+        android:textColor="#36be64" />
+
+    <ImageView
+        android:id="@+id/user_small"
+        android:background="@drawable/login_user_logo"
+        android:layout_width="@dimen/login_iv_logo_top"
+        android:layout_height="@dimen/login_iv_logo_left"
+        android:layout_alignTop="@+id/edit_view"
+        android:layout_alignLeft="@+id/edit_view"
+        android:layout_marginTop="@dimen/login_iv_logo_margin"
+        android:layout_marginLeft="@dimen/login_iv_logo_margin" />
+
+    <CheckBox
+        android:id="@+id/cb_showPass"
+        android:layout_width="@dimen/login_iv_logo_top"
+        android:layout_height="@dimen/login_iv_logo_left"
+        android:layout_alignTop="@+id/login_Password"
+        android:layout_alignRight="@+id/login_Password"
+        android:layout_marginTop="@dimen/login_iv_logo_margin"
+        android:layout_marginRight="@dimen/login_iv_logo_margin" />
+
+    <ImageView
+        android:id="@+id/small_password"
+        android:layout_width="@dimen/login_iv_logo_top"
+        android:layout_height="@dimen/login_iv_logo_left"
+        android:background="@drawable/login_password_logo"
+        android:layout_alignTop="@+id/edit_view2"
+        android:layout_alignLeft="@+id/edit_view2"
+        android:layout_marginTop="@dimen/login_iv_logo_margin"
+        android:layout_marginLeft="@dimen/login_iv_logo_margin" />
+
+    <ImageView
+        android:id="@+id/left_jiantou"
+        android:background="@drawable/login_left_arrow"
+        android:layout_height="10dp"
+        android:layout_width="6dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginLeft="20dp"
+        android:layout_marginBottom="30dp" />
+
+    <TextView
+        android:id="@+id/tv_login_forget_password"
+        android:layout_width="wrap_content"
+        android:layout_height="17dp"
+        android:text="@string/tv_login_forget_pass"
+        android:layout_alignParentBottom="true"
+        android:layout_marginLeft="30dp"
+        android:layout_marginBottom="28dp"
+        android:textColor="#36be64" />
+
+    <ImageView
+        android:id="@+id/right_jiantou"
+        android:background="@drawable/login_right_arrow"
+        android:layout_height="10dp"
+        android:layout_width="6dp"
+        android:layout_alignBottom="@+id/left_jiantou"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="20dp" />
+
+    <TextView
+        android:id="@+id/tv_login_register"
+        android:layout_width="70dp"
+        android:layout_height="17dp"
+        android:text="@string/tv_register"
+        android:textColor="#36be64"
+        android:layout_alignTop="@+id/tv_login_forget_password"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginRight="-13dp"/>
+
+</RelativeLayout>

@@ -1,0 +1,9 @@
+<component name="CopyrightManager">
+  <copyright>
+    <option name="notice" value="Copyright (c) &amp;#36;today.year &amp;#36;today.month &amp;#36;today.day. &#10;版权所有 Hello Fish工作室&#10;用途：社交软件" />
+    <option name="keyword" value="Copyright" />
+    <option name="allowReplaceKeyword" value="" />
+    <option name="myName" value="Hello Fish" />
+    <option name="myLocal" value="true" />
+  </copyright>
+</component>

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/main_ground_color"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dip" >
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/white"
+            android:gravity="center"
+            android:text="@string/new_menu_title"
+            android:textColor="@color/tv_bar_color"
+            android:textSize="20sp" />
+    </RelativeLayout>
+
+    <ListView
+        android:layout_margin="@dimen/fragmet_home_logo_size_5"
+        android:id="@+id/lv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <cn.xiaocool.fish.ui.ReboundScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbars="none">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <!--放列表消息的布局-->
+            <include layout="@layout/fragment_new_list"></include>
+            <include layout="@layout/fragment_new_list"></include>
+
+        </LinearLayout>
+    </cn.xiaocool.fish.ui.ReboundScrollView>
+
+
+
+</LinearLayout>
