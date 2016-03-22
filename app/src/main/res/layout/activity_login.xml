@@ -60,6 +60,18 @@
         android:textSize="23sp"
         android:textColor="#36be64" />
 
+    <Button
+        android:id="@+id/fisher_null"
+        android:background="@drawable/login_button"
+        android:layout_width="@dimen/login_tv_user_bg_width"
+        android:layout_height="@dimen/login_tv_user_bg_height"
+        android:layout_below="@+id/btn_login"
+        android:layout_marginTop="@dimen/tv_margin_top_6.5"
+        android:layout_alignLeft="@+id/edit_view2"
+        android:text="游客入口"
+        android:textSize="23sp"
+        android:textColor="#36be64" />
+
     <ImageView
         android:id="@+id/user_small"
         android:background="@drawable/login_user_logo"

@@ -29,7 +29,6 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
 
     private RelativeLayout rl_logo_weather, rl_logo_fishing_point, rl_logo_fishing_boat; // 天气，钓点，船钓
     private FragmentActivity mContext;
-    private TextView tv_get_user_name;
 
     private HomeViewFlow mViewFlow;
     private CircleFlowIndicator mFlowIndicator;
@@ -58,7 +57,6 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
         rl_logo_fishing_boat.setOnClickListener(this);
 
         AddImageGroup(); // 往数组添加图片链接索引
-        getUser(); // 获取用户名
 
     }
 
@@ -66,7 +64,6 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
         rl_logo_weather = (RelativeLayout) getView().findViewById(R.id.rl_logo_weather);
         rl_logo_fishing_point = (RelativeLayout) getView().findViewById(R.id.rl_logo_fishing_point);
         rl_logo_fishing_boat = (RelativeLayout) getView().findViewById(R.id.rl_logo_fishing_boat);
-        tv_get_user_name = (TextView) getView().findViewById(R.id.tv_get_user_name);
 
         mViewFlow = (HomeViewFlow) getView().findViewById(R.id.viewflow);
         mFlowIndicator = (CircleFlowIndicator) getView().findViewById(R.id.viewflowindic);
@@ -135,9 +132,9 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
     }
 
     private void AddImageGroup() {
-        imageUrlList.add("http://7xrjcc.com1.z0.glb.clouddn.com/h1.png");
-        imageUrlList.add("http://7xrjcc.com1.z0.glb.clouddn.com/h2.png");
-        imageUrlList.add("http://7xrjcc.com1.z0.glb.clouddn.com/h3.png");
+        imageUrlList.add("http://7xrjcc.com1.z0.glb.clouddn.com/h4.png");
+        imageUrlList.add("http://7xrjcc.com1.z0.glb.clouddn.com/h4.png");
+        imageUrlList.add("http://7xrjcc.com1.z0.glb.clouddn.com/h4.png");
         imageUrlList.add("http://7xrjcc.com1.z0.glb.clouddn.com/h4.png");
 //        linkUrlArray.add("http://blog.csdn.net/a1260157543/article/details/50853656");
 //        linkUrlArray.add("http://blog.csdn.net/a1260157543/article/details/50853706");
@@ -148,12 +145,6 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
         titleList.add("3");
         titleList.add("4");
         initBanner(imageUrlList);
-    }
-
-    private void getUser() {
-        SharedPreferences user = getActivity().getSharedPreferences("user", mContext.MODE_PRIVATE);
-        String getuser = user.getString("userphone", "");
-        tv_get_user_name.setText(getuser);
     }
 
 }

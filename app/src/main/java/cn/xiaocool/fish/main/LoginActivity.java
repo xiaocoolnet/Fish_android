@@ -29,6 +29,7 @@ import java.io.FileReader;
 import java.io.OutputStream;
 
 import cn.xiaocool.fish.R;
+import cn.xiaocool.fish.dao.DataCleanManager;
 import cn.xiaocool.fish.utils.IntentUtils;
 
 public class LoginActivity extends Activity implements View.OnClickListener {
@@ -37,6 +38,7 @@ public class LoginActivity extends Activity implements View.OnClickListener {
     private EditText tx_vertifycode; // 输入密码
 
     private Button btn_login; // 登录按钮
+    private Button fisher_null;
     private TextView tv_forget; // 忘记密码按钮
     private TextView tv_register; // 注册按钮
     private CheckBox cb_showPass; // 是否显示密码
@@ -58,6 +60,7 @@ public class LoginActivity extends Activity implements View.OnClickListener {
     private void initEvent() {
         // 添加点击事件
         btn_login.setOnClickListener(this);
+        fisher_null.setOnClickListener(this);
         tv_forget.setOnClickListener(this);
         tv_register.setOnClickListener(this);
 
@@ -72,6 +75,7 @@ public class LoginActivity extends Activity implements View.OnClickListener {
         tx_phonenumber = (EditText) findViewById(R.id.login_phonenum);
         tx_vertifycode = (EditText) findViewById(R.id.login_Password);
         btn_login = (Button) findViewById(R.id.btn_login);
+        fisher_null = (Button) findViewById(R.id.fisher_null);
         tv_forget = (TextView) findViewById(R.id.tv_login_forget_password);
         tv_register = (TextView) findViewById(R.id.tv_login_register);
         cb_showPass = (CheckBox) findViewById(R.id.cb_showPass);
@@ -81,6 +85,9 @@ public class LoginActivity extends Activity implements View.OnClickListener {
     @Override
     public void onClick(View v) {
         switch (v.getId()){
+            case R.id.fisher_null:
+                getFisher_Null();
+                break;
             case R.id.btn_login : // 登录
                 //DataCleanManager.cleanExternalCache(this); // 清除本应用内部缓存
                 //DataCleanManager.cleanInternalCache(this); // 清除外部cache下的内容
@@ -95,10 +102,17 @@ public class LoginActivity extends Activity implements View.OnClickListener {
         }
     }
 
+    private void getFisher_Null() {
+        DataCleanManager.cleanSharedPreference(this); //清除用户信息
+        Toast.makeText(this, "请先登录", Toast.LENGTH_SHORT).show();
+        IntentUtils.getIntent(LoginActivity.this, MainActivity.class); // 跳转到首页
+    }
+
     // 登录实现的操作
     private void getLogin() {
         isEditEmpty(); //判断用户输入是否为空
     }
+
 
     private void isEditEmpty() {
         String phonenumber = tx_phonenumber.getText().toString().trim();
@@ -116,23 +130,23 @@ public class LoginActivity extends Activity implements View.OnClickListener {
         }else{
 
             // 将用户名和密码保存到sava.txt文件中
-            boolean isChecked = cb_remember.isChecked();
-            if(isChecked){
-                try {
-                    File file = new File(this.getFilesDir(),"sava.txt");
-                    OutputStream out = new FileOutputStream(file);
-                    String value = phonenumber+"#XLCD#"+password;
-                    out.write(value.getBytes());
-                    out.close();
-                    //Toast.makeText(this, "勾选了, 保存成功", Toast.LENGTH_SHORT).show();
-                } catch (Exception e) {
-                    e.printStackTrace();
-                    //Toast.makeText(this, "勾选了, 没保存成功", Toast.LENGTH_SHORT).show();
-                }
-
-            }else{
-                //Toast.makeText(this, "没勾选了", Toast.LENGTH_SHORT).show();
-            }
+//            boolean isChecked = cb_remember.isChecked();
+//            if(isChecked){
+//                try {
+//                    File file = new File(this.getFilesDir(),"sava.txt");
+//                    OutputStream out = new FileOutputStream(file);
+//                    String value = phonenumber+"#XLCD#"+password;
+//                    out.write(value.getBytes());
+//                    out.close();
+//                    //Toast.makeText(this, "勾选了, 保存成功", Toast.LENGTH_SHORT).show();
+//                } catch (Exception e) {
+//                    e.printStackTrace();
+//                    //Toast.makeText(this, "勾选了, 没保存成功", Toast.LENGTH_SHORT).show();
+//                }
+//
+//            }else{
+//                //Toast.makeText(this, "没勾选了", Toast.LENGTH_SHORT).show();
+//            }
 
             // 将用户名保存到user.xml文件中
             Context userCtx = LoginActivity.this; // 获取SharedPreferences对象

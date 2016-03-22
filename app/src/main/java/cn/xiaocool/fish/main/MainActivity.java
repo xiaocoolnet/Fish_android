@@ -5,6 +5,8 @@
  */
 package cn.xiaocool.fish.main;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.Window;
 
@@ -14,6 +16,8 @@ import cn.xiaocool.fish.fragment.FisherFragment;
 import cn.xiaocool.fish.fragment.NewFragment;
 import cn.xiaocool.fish.fragment.BookFragment;
 import cn.xiaocool.fish.fragment.HomeFragment;
+import cn.xiaocool.fish.utils.IntentUtils;
+
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.view.View;
@@ -68,7 +72,13 @@ public class MainActivity extends BaseActivity {
                 index = 2;
                 break;
             case R.id.btn_fisher:
-                index = 3;
+                SharedPreferences user = getSharedPreferences("user", Context.MODE_PRIVATE);
+                String getuser = user.getString("userphone", "");
+                if(getuser==null || getuser.isEmpty() ){
+                    IntentUtils.getIntent(MainActivity.this, LoginActivity.class); // 跳转到首页
+                }else{
+                    index = 3;
+                }
                 break;
 
         }
