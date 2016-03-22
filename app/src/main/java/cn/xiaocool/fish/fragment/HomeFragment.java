@@ -5,7 +5,9 @@
  */
 package cn.xiaocool.fish.fragment;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
@@ -27,6 +29,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
 
     private RelativeLayout rl_logo_weather, rl_logo_fishing_point, rl_logo_fishing_boat; // 天气，钓点，船钓
     private FragmentActivity mContext;
+    private TextView tv_get_user_name;
 
     private HomeViewFlow mViewFlow;
     private CircleFlowIndicator mFlowIndicator;
@@ -54,8 +57,8 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
         rl_logo_fishing_point.setOnClickListener(this);
         rl_logo_fishing_boat.setOnClickListener(this);
 
-        // 往数组添加图片链接索引
-        AddImageGroup();
+        AddImageGroup(); // 往数组添加图片链接索引
+        getUser(); // 获取用户名
 
     }
 
@@ -63,6 +66,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
         rl_logo_weather = (RelativeLayout) getView().findViewById(R.id.rl_logo_weather);
         rl_logo_fishing_point = (RelativeLayout) getView().findViewById(R.id.rl_logo_fishing_point);
         rl_logo_fishing_boat = (RelativeLayout) getView().findViewById(R.id.rl_logo_fishing_boat);
+        tv_get_user_name = (TextView) getView().findViewById(R.id.tv_get_user_name);
 
         mViewFlow = (HomeViewFlow) getView().findViewById(R.id.viewflow);
         mFlowIndicator = (CircleFlowIndicator) getView().findViewById(R.id.viewflowindic);
@@ -145,4 +149,11 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
         titleList.add("4");
         initBanner(imageUrlList);
     }
+
+    private void getUser() {
+        SharedPreferences user = getActivity().getSharedPreferences("user", mContext.MODE_PRIVATE);
+        String getuser = user.getString("userphone", "");
+        tv_get_user_name.setText(getuser);
+    }
+
 }

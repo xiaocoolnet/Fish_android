@@ -11,13 +11,22 @@
         android:layout_height="50dip"
         android:background="@color/white">
 
-        <ImageView
-            android:id="@+id/iv_slidingmunu_btn"
+        <!--<ImageView-->
+            <!--android:id="@+id/iv_slidingmunu_btn"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:gravity="center"-->
+            <!--android:src="@drawable/home_logo_weather"-->
+            <!--android:layout_margin="@dimen/fragmet_home_logo_size_8"/>-->
+
+        <TextView
+            android:id="@+id/tv_get_user_name"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:gravity="center"
-            android:src="@drawable/home_logo_weather"
+            android:text="@string/app_name"
             android:layout_margin="@dimen/fragmet_home_logo_size_8"/>
+
 
         <TextView
             android:id="@+id/tv_home_tilte"

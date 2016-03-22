@@ -128,4 +128,12 @@
         android:layout_alignParentEnd="true"
         android:layout_marginRight="-13dp"/>
 
+    <CheckBox
+        android:id="@+id/cb_remember"
+        android:checked="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        android:text="记住信息"/>
+
 </RelativeLayout>
