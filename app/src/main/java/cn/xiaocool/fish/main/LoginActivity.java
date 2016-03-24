@@ -24,9 +24,7 @@ import android.widget.Toast;
 
 import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.FileReader;
-import java.io.OutputStream;
 
 import cn.xiaocool.fish.R;
 import cn.xiaocool.fish.dao.DataCleanManager;
@@ -49,12 +47,6 @@ public class LoginActivity extends Activity implements View.OnClickListener {
         super.onCreate(savedInstanceState);
         initView(); // 初始化界面
         initEvent(); // 初始化事件
-//        // 有用户信息直接跳到主页
-//        SharedPreferences user = getSharedPreferences("user", MODE_PRIVATE);
-//        String getuser = user.getString("userphone", "");
-//        if (getuser!=null){
-//            IntentUtils.getIntent(LoginActivity.this, MainActivity.class);
-//        }
     }
 
     private void initEvent() {
@@ -65,7 +57,7 @@ public class LoginActivity extends Activity implements View.OnClickListener {
         tv_register.setOnClickListener(this);
 
         isShowPassWord(); // 输入密码是否显示
-        isReTurnShowUser(); // 回显用户名和密码
+        //isReTurnShowUser(); // 回显用户名和密码
     }
 
     private void initView() {
@@ -85,13 +77,12 @@ public class LoginActivity extends Activity implements View.OnClickListener {
     @Override
     public void onClick(View v) {
         switch (v.getId()){
-            case R.id.fisher_null:
+            case R.id.fisher_null: // 游客入口
                 getFisher_Null();
                 break;
             case R.id.btn_login : // 登录
-                //DataCleanManager.cleanExternalCache(this); // 清除本应用内部缓存
-                //DataCleanManager.cleanInternalCache(this); // 清除外部cache下的内容
                 getLogin();
+                DataCleanManager.cleanSharedPreference(this); // 清除用户信息
                 break;
             case R.id.tv_login_forget_password : // 忘记密码
                 IntentUtils.getIntent(LoginActivity.this, ForgetPasswordActivity.class);
@@ -103,9 +94,10 @@ public class LoginActivity extends Activity implements View.OnClickListener {
     }
 
     private void getFisher_Null() {
-        DataCleanManager.cleanSharedPreference(this); //清除用户信息
+        DataCleanManager.cleanSharedPreference(this); // 清除用户信息
         Toast.makeText(this, "请先登录", Toast.LENGTH_SHORT).show();
         IntentUtils.getIntent(LoginActivity.this, MainActivity.class); // 跳转到首页
+        return;
     }
 
     // 登录实现的操作
@@ -154,7 +146,6 @@ public class LoginActivity extends Activity implements View.OnClickListener {
             SharedPreferences.Editor editor = sp.edit(); // 存入数据
             editor.putString("userphone", phonenumber);
             editor.commit();
-
             Toast.makeText(this, phonenumber+"登录成功", Toast.LENGTH_SHORT).show();
             IntentUtils.getIntent(LoginActivity.this, MainActivity.class); // 跳转到首页
             return;

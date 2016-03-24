@@ -5,9 +5,7 @@
  */
 package cn.xiaocool.fish.fragment;
 
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
@@ -17,11 +15,17 @@ import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.baidu.location.BDLocation;
+import com.baidu.location.BDLocationListener;
+import com.baidu.location.LocationClient;
+
 import java.util.ArrayList;
 
 import cn.xiaocool.fish.R;
 import cn.xiaocool.fish.adapter.HomeImagePagerAdapter;
 import cn.xiaocool.fish.main.HomeBaseWebActivity;
+import cn.xiaocool.fish.service.LocationService;
 import cn.xiaocool.fish.view.Indicator.CircleFlowIndicator;
 import cn.xiaocool.fish.view.HomeViewFlow;
 
@@ -36,6 +40,10 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
     ArrayList<String> linkUrlArray= new ArrayList<String>();
     ArrayList<String> titleList= new ArrayList<String>();
     private int mCurrPos;
+
+    public LocationClient mLocationClient = null; // 定位
+    public BDLocationListener myListener = new MyLocationListener();
+    TextView getLocation ;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -57,6 +65,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
         rl_logo_fishing_boat.setOnClickListener(this);
 
         AddImageGroup(); // 往数组添加图片链接索引
+        StartLocation(); // 开始定位
 
     }
 
@@ -67,6 +76,8 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
 
         mViewFlow = (HomeViewFlow) getView().findViewById(R.id.viewflow);
         mFlowIndicator = (CircleFlowIndicator) getView().findViewById(R.id.viewflowindic);
+
+        getLocation = (TextView) getView().findViewById(R.id.getLocation);
     }
 
     private void setView(int curr, int next) {
@@ -132,9 +143,9 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
     }
 
     private void AddImageGroup() {
-        imageUrlList.add("http://7xrjcc.com1.z0.glb.clouddn.com/h4.png");
-        imageUrlList.add("http://7xrjcc.com1.z0.glb.clouddn.com/h4.png");
-        imageUrlList.add("http://7xrjcc.com1.z0.glb.clouddn.com/h4.png");
+        imageUrlList.add("http://7xrjcc.com1.z0.glb.clouddn.com/h1.png");
+        imageUrlList.add("http://7xrjcc.com1.z0.glb.clouddn.com/h2.png");
+        imageUrlList.add("http://7xrjcc.com1.z0.glb.clouddn.com/h3.png");
         imageUrlList.add("http://7xrjcc.com1.z0.glb.clouddn.com/h4.png");
 //        linkUrlArray.add("http://blog.csdn.net/a1260157543/article/details/50853656");
 //        linkUrlArray.add("http://blog.csdn.net/a1260157543/article/details/50853706");
@@ -145,6 +156,43 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
         titleList.add("3");
         titleList.add("4");
         initBanner(imageUrlList);
+    }
+
+    // 定位监听器
+    public class MyLocationListener implements BDLocationListener {
+
+        @Override
+        public void onReceiveLocation(BDLocation location) {
+            StringBuffer sb = new StringBuffer(256);
+            sb.append(location.getAddrStr());
+            if (location.getLocType()== BDLocation.TypeGpsLocation) {
+                //Toast.makeText(mContext,"gps定位成功",Toast.LENGTH_SHORT).show(); //不知道怎么让它只显示一次:现在就是每3秒刷新一次显示一次Toast
+            }else if (location.getLocType() == BDLocation.TypeNetWorkLocation) {
+                //Toast.makeText(mContext,"网络定位成功",Toast.LENGTH_SHORT).show();
+            } else if (location.getLocType() == BDLocation.TypeOffLineLocation) {
+                //Toast.makeText(mContext,"离线定位成功，离线定位结果也是有效的",Toast.LENGTH_SHORT).show();
+            } else if (location.getLocType() == BDLocation.TypeServerError) {
+                //Toast.makeText(mContext,"服务端网络定位失败，可以反馈IMEI号和大体定位时间到loc-bugs@baidu.com，会有人追查原因",Toast.LENGTH_SHORT).show();
+            } else if (location.getLocType() == BDLocation.TypeNetWorkException) {
+                //Toast.makeText(mContext,"网络不同导致定位失败，请检查网络是否通畅",Toast.LENGTH_SHORT).show();
+            } else if (location.getLocType() == BDLocation.TypeCriteriaException) {
+                //Toast.makeText(mContext,"无法获取有效定位依据导致定位失败，一般是由于手机的原因，处于飞行模式下一般会造成这种结果，可以试着重启手机",Toast.LENGTH_SHORT).show();
+            }
+            String getLocate=sb.toString(); // 待处理
+            String [] locate1 = null;
+            locate1 = getLocate.split("省");
+            String locate2 = locate1[1];
+            String [] locate3 = null;
+            locate3 = locate2.split("市");
+            getLocation.setText(locate3[0]);
+            //getLocation.setText(locate3[0]+"--"+getLocate);
+        }
+    }
+
+    private void StartLocation() {
+        LocationService locationService = new LocationService(mContext);
+        locationService.registerListener(myListener);
+        locationService.start();
     }
 
 }

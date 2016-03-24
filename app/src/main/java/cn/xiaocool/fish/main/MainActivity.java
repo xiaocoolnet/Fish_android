@@ -41,7 +41,7 @@ public class MainActivity extends BaseActivity {
     }
 
     private void initEvent() {
-        isHomeTabSeclect(); // 把第一个tab设为选中状态
+        isHomeTabSeclect(); // 默认第一个tab设为选中状态
         isShowFragment(); // 显示哪个Fragment
     }
 
@@ -72,13 +72,7 @@ public class MainActivity extends BaseActivity {
                 index = 2;
                 break;
             case R.id.btn_fisher:
-                SharedPreferences user = getSharedPreferences("user", Context.MODE_PRIVATE);
-                String getuser = user.getString("userphone", "");
-                if(getuser==null || getuser.isEmpty() ){
-                    IntentUtils.getIntent(MainActivity.this, LoginActivity.class); // 跳转到首页
-                }else{
-                    index = 3;
-                }
+                ifUserNull(); // 判断用户名是否为空
                 break;
 
         }
@@ -94,6 +88,16 @@ public class MainActivity extends BaseActivity {
         // 把当前tab设为选中状态
         mTabs[index].setSelected(true);
         currentTabIndex = index;
+    }
+
+    private void ifUserNull() {
+        SharedPreferences user = getSharedPreferences("user", Context.MODE_PRIVATE);
+        String getuser = user.getString("userphone", "");
+        if(getuser==null || getuser.isEmpty() ){
+            IntentUtils.getIntent(MainActivity.this, LoginActivity.class); // 跳转到首页
+        }else{
+            index = 3;
+        }
     }
 
     private void isHomeTabSeclect() {

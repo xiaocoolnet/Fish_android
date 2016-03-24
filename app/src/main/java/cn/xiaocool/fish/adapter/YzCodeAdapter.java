@@ -1,8 +1,8 @@
 package cn.xiaocool.fish.adapter;
-    import android.os.CountDownTimer;
-    import android.util.Log;
-    import android.widget.Button;
 
+import android.os.CountDownTimer;
+import android.util.Log;
+import android.widget.Button;
 
     public class YzCodeAdapter {
 
