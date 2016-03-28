@@ -7,20 +7,11 @@ import com.baidu.location.LocationClient;
 import com.baidu.location.LocationClientOption;
 import com.baidu.location.LocationClientOption.LocationMode;
 
-/**
- * 
- * @author baidu
- *
- */
 public class LocationService {
 	private LocationClient client = null;
 	private LocationClientOption mOption,DIYoption;
 	private Object objLock = new Object();
 
-	/***
-	 * 
-	 * @param locationContext
-	 */
 	public LocationService(Context locationContext){
 		synchronized (objLock) {
 			if(client == null){
@@ -29,13 +20,7 @@ public class LocationService {
 			}
 		}
 	}
-	
-	/***
-	 * 
-	 * @param listener
-	 * @return
-	 */
-	
+
 	public boolean registerListener(BDLocationListener listener){
 		boolean isSuccess = false;
 		if(listener != null){
@@ -50,12 +35,7 @@ public class LocationService {
 			client.unRegisterLocationListener(listener);
 		}
 	}
-	
-	/***
-	 * 
-	 * @param option
-	 * @return isSuccessSetOption
-	 */
+
 	public boolean setLocationOption(LocationClientOption option){
 		boolean isSuccess = false;
 		if(option != null){
@@ -70,10 +50,7 @@ public class LocationService {
 	public LocationClientOption getOption(){
 		return DIYoption;
 	}
-	/***
-	 * 
-	 * @return DefaultLocationClientOption
-	 */
+
 	public LocationClientOption getDefaultLocationClientOption(){
 		if(mOption == null){
 			mOption = new LocationClientOption();

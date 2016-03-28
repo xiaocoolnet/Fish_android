@@ -5,14 +5,16 @@
  */
 package cn.xiaocool.fish.main;
 
+
 import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.Handler;
 import android.text.Editable;
 import android.text.InputType;
 import android.text.Selection;
-import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
@@ -22,13 +24,20 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 
 import cn.xiaocool.fish.R;
+import cn.xiaocool.fish.bean.UserInfo;
 import cn.xiaocool.fish.dao.DataCleanManager;
+import cn.xiaocool.fish.net.HttpTool;
 import cn.xiaocool.fish.utils.IntentUtils;
+import cn.xiaocool.fish.utils.ToastUtils;
+import cn.xiaocool.fish.view.FishApplication;
 
 public class LoginActivity extends Activity implements View.OnClickListener {
 
@@ -41,6 +50,54 @@ public class LoginActivity extends Activity implements View.OnClickListener {
     private TextView tv_register; // 注册按钮
     private CheckBox cb_showPass; // 是否显示密码
     private CheckBox cb_remember; // 记住账号和密码并回显
+
+    private static String UID;
+    private String result_data, token;
+    private UserInfo user;
+    private Context mContext;
+    private Handler handler = new Handler() {
+        public void handleMessage(android.os.Message msg) {
+            switch (msg.what) {
+                case 1:
+                    ToastUtils.ToastShort(mContext, "手机号或密码输入错误！");
+                    break;
+                case 2:
+                    ToastUtils.ToastShort(mContext, "网络问题，请稍后重试！");
+                    break;
+                case 3:
+                    try {
+                        JSONObject json = new JSONObject(result_data);
+                        String status = json.getString("status");
+                        String data = json.getString("data");
+                        if (status.equals("success")) {
+                            JSONObject item = new JSONObject(data);
+                            FishApplication.UID = Integer.parseInt(item.getString("id"));
+                            user.setUserId(item.getString("id"));
+                            user.setUserName(item.getString("name"));
+                            user.writeData(mContext);
+                            user.setUserImg(item.getString("photo"));
+                            Toast.makeText(LoginActivity.this, "登陆成功",
+                                    Toast.LENGTH_SHORT).show();
+                            IntentUtils.getIntent(LoginActivity.this, MainActivity.class);
+                            finish();
+//                        mDialog.dismiss();
+                        } else {
+                            Toast.makeText(LoginActivity.this, data,
+                                    Toast.LENGTH_SHORT).show();
+                            Log.e("hou", data);
+//                        mDialog.dismiss();
+                        }
+                    } catch (JSONException e) {
+                        // TODO Auto-generated catch block
+                        e.printStackTrace();
+                    }
+                    break;
+                default:
+                    break;
+            }
+        }
+
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,11 +115,19 @@ public class LoginActivity extends Activity implements View.OnClickListener {
 
         isShowPassWord(); // 输入密码是否显示
         //isReTurnShowUser(); // 回显用户名和密码
+
+        user = new UserInfo();
+        user.readData(this);
+        if (!user.getUserPhone().equals("")) {
+            tx_phonenumber.setText(user.getUserPhone());
+        }
+
     }
 
     private void initView() {
         requestWindowFeature(Window.FEATURE_NO_TITLE); // 去掉标题栏
         setContentView(R.layout.activity_login); // 登录界面
+        mContext = this;
         // 控件实例化
         tx_phonenumber = (EditText) findViewById(R.id.login_phonenum);
         tx_vertifycode = (EditText) findViewById(R.id.login_Password);
@@ -110,46 +175,93 @@ public class LoginActivity extends Activity implements View.OnClickListener {
         String phonenumber = tx_phonenumber.getText().toString().trim();
         String password = tx_vertifycode.getText().toString().trim();
 
-        if(TextUtils.isEmpty(phonenumber)&&TextUtils.isEmpty(password)){
-            Toast.makeText(this, "请输入用户名和密码 ", Toast.LENGTH_SHORT).show();
-            return;
-        }else if(TextUtils.isEmpty(phonenumber)){
-            Toast.makeText(this, "请输入用户名", Toast.LENGTH_SHORT).show();
-            return;
-        }else if(TextUtils.isEmpty(password)){
-            Toast.makeText(this, "请输入密码", Toast.LENGTH_SHORT).show();
-            return;
-        }else{
+        Context userCtx = LoginActivity.this; // 获取SharedPreferences对象
+        SharedPreferences sp = userCtx.getSharedPreferences("user", MODE_PRIVATE);
+        SharedPreferences.Editor editor = sp.edit(); // 存入数据
+        editor.putString("userphone", phonenumber);
+        editor.commit();
 
-            // 将用户名和密码保存到sava.txt文件中
-//            boolean isChecked = cb_remember.isChecked();
-//            if(isChecked){
-//                try {
-//                    File file = new File(this.getFilesDir(),"sava.txt");
-//                    OutputStream out = new FileOutputStream(file);
-//                    String value = phonenumber+"#XLCD#"+password;
-//                    out.write(value.getBytes());
-//                    out.close();
-//                    //Toast.makeText(this, "勾选了, 保存成功", Toast.LENGTH_SHORT).show();
-//                } catch (Exception e) {
-//                    e.printStackTrace();
-//                    //Toast.makeText(this, "勾选了, 没保存成功", Toast.LENGTH_SHORT).show();
-//                }
+        user.setUserPhone(phonenumber);
+        user.setUserPassword(password);
+        user.writeData(mContext);
+        //线程
+        new Thread() {
+            public void run() {
+                //1、获取输入的手机号码
+                if (tx_phonenumber.getText().length() ==11 && tx_vertifycode.getText().length() !=0){
+                    String phoneNum = tx_phonenumber.getText().toString();
+                    String password = tx_vertifycode.getText().toString();
+
+                    if (HttpTool.isConnnected(mContext)){
+                        result_data = HttpTool.Login(phoneNum,password);
+                        //调用服务器登录函数
+                        handler.sendEmptyMessage(3);
+                    }else {
+                        //输出：网络连接有问题！
+                        handler.sendEmptyMessage(2);
+                    }
+
+                }else {
+                    //输出：手机号或密码不正确！
+                    handler.sendEmptyMessage(1);
+                }
+            }
+        }.start();
+
+//                    String phonenum = tx_phonenumber.getText().toString();
+//                    //2、获取收入的密码
+//                    String vertifycode = tx_vertifycode.getText().toString();
+//                    //------逻辑判断
+//                    if(phonenum.length()==11) {
+//                        if (HttpTool.isConnnected(mContext)) {
+//                            result_data = HttpTool.Login(phonenum, vertifycode);
 //
-//            }else{
-//                //Toast.makeText(this, "没勾选了", Toast.LENGTH_SHORT).show();
-//            }
+//                        } else {
+//                            handler.sendEmptyMessage(2);
+//                        }
+//                        //--调用服务器登录函数
+//                        handler.sendEmptyMessage(3);
+//                        Log.e("wzh","enter");
+//                    }
+//                    else{
+//                        handler.sendEmptyMessage(1);
+//                    }
 
-            // 将用户名保存到user.xml文件中
-            Context userCtx = LoginActivity.this; // 获取SharedPreferences对象
-            SharedPreferences sp = userCtx.getSharedPreferences("user", MODE_PRIVATE);
-            SharedPreferences.Editor editor = sp.edit(); // 存入数据
-            editor.putString("userphone", phonenumber);
-            editor.commit();
-            Toast.makeText(this, phonenumber+"登录成功", Toast.LENGTH_SHORT).show();
-            IntentUtils.getIntent(LoginActivity.this, MainActivity.class); // 跳转到首页
-            return;
-        }
+
+//        if(TextUtils.isEmpty(phonenumber)&&TextUtils.isEmpty(password)){
+//            Toast.makeText(this, "请输入用户名和密码 ", Toast.LENGTH_SHORT).show();
+//            return;
+//        }else if(TextUtils.isEmpty(phonenumber)){
+//            Toast.makeText(this, "请输入用户名", Toast.LENGTH_SHORT).show();
+//            return;
+//        }else if(TextUtils.isEmpty(password)){
+//            Toast.makeText(this, "请输入密码", Toast.LENGTH_SHORT).show();
+//            return;
+//        }else{
+//
+//            // 将用户名和密码保存到sava.txt文件中
+////            boolean isChecked = cb_remember.isChecked();
+////            if(isChecked){
+////                try {
+////                    File file = new File(this.getFilesDir(),"sava.txt");
+////                    OutputStream out = new FileOutputStream(file);
+////                    String value = phonenumber+"#XLCD#"+password;
+////                    out.write(value.getBytes());
+////                    out.close();
+////                    //Toast.makeText(this, "勾选了, 保存成功", Toast.LENGTH_SHORT).show();
+////                } catch (Exception e) {
+////                    e.printStackTrace();
+////                    //Toast.makeText(this, "勾选了, 没保存成功", Toast.LENGTH_SHORT).show();
+////                }
+////
+////            }else{
+////                //Toast.makeText(this, "没勾选了", Toast.LENGTH_SHORT).show();
+////            }
+//
+//            // 将用户名保存到user.xml文件中
+//
+
+//        }
 
     }
 
@@ -172,9 +284,7 @@ public class LoginActivity extends Activity implements View.OnClickListener {
 
     private void isReTurnShowUser() {
         File file = new File(this.getFilesDir(),"sava.txt");
-
         if(file.exists()&&file.length()>0){
-
             try {
                 BufferedReader br = new BufferedReader(new FileReader(file));
                 String line = br.readLine();
@@ -182,7 +292,6 @@ public class LoginActivity extends Activity implements View.OnClickListener {
                 String pwd = line.split("#XLCD#")[1];
                 tx_phonenumber.setText(num);
                 tx_vertifycode.setText(pwd);
-
             } catch (Exception e) {
                 e.printStackTrace();
             }

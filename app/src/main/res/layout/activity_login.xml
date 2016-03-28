@@ -35,6 +35,7 @@
         android:layout_width="@dimen/login_et_user_bg_width"
         android:layout_height="@dimen/login_et_user_bg_height"
         android:hint="@string/hint_input_user"
+        android:singleLine="true"
         android:layout_alignBottom="@+id/edit_view"
         android:layout_alignRight="@+id/edit_view" />
 

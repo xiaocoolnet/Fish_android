@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/main_ground_color"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/title_bar_height_50"
+        android:background="@color/white">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="@string/tv_logo_weather"
+            android:textColor="@color/tv_bar_color"
+            android:textSize="@dimen/tv_size_20" />
+        <RelativeLayout
+            android:layout_width="@dimen/title_bar_height_50"
+            android:layout_height="fill_parent"
+            android:gravity="center" >
+            <ImageView
+                android:id="@+id/btn_exit"
+                android:layout_width="@dimen/left_arrow"
+                android:layout_height="@dimen/left_arrow"
+                android:contentDescription="@string/app_name"
+                android:src="@drawable/login_left_arrow" />
+        </RelativeLayout>
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/txt_weather_city"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:id="@+id/txt_weather_temp"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:id="@+id/txt_weather_detail"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content" />
+
+</LinearLayout>

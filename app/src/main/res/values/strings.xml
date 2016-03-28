@@ -35,6 +35,7 @@
     <string name="tv_logo_weather">天气</string>
     <string name="tv_logo_fishing_point">钓点</string>
     <string name="tv_logo_fishing_boat">船钓</string>
+    <string name="tv_bar_title_location">当前位置</string>
 
     <!-- 消息Fragment -->
     <string name="new_menu_title">消息</string>

@@ -5,8 +5,11 @@
  */
 package cn.xiaocool.fish.fragment;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.view.LayoutInflater;
@@ -25,7 +28,10 @@ import java.util.ArrayList;
 import cn.xiaocool.fish.R;
 import cn.xiaocool.fish.adapter.HomeImagePagerAdapter;
 import cn.xiaocool.fish.main.HomeBaseWebActivity;
+import cn.xiaocool.fish.main.LocationActivity;
+import cn.xiaocool.fish.main.WeatherActivity;
 import cn.xiaocool.fish.service.LocationService;
+import cn.xiaocool.fish.utils.IntentUtils;
 import cn.xiaocool.fish.view.Indicator.CircleFlowIndicator;
 import cn.xiaocool.fish.view.HomeViewFlow;
 
@@ -41,9 +47,20 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
     ArrayList<String> titleList= new ArrayList<String>();
     private int mCurrPos;
 
-    public LocationClient mLocationClient = null; // 定位
     public BDLocationListener myListener = new MyLocationListener();
     TextView getLocation ;
+    private Handler handler = new Handler();
+    private Runnable runnable = new Runnable() {
+        public void run() {
+            this.update();
+            handler.postDelayed(this, 1000*10);// 间隔10秒
+        }
+        void update() {
+            // 刷新msg的内容
+            StartLocation(); // 开始定位
+            getLocate(); // 获得位置
+        }
+    };
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -56,17 +73,15 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
         mContext = getActivity();
         initView(); // 初始化界面
         initEvent(); // 初始化事件
-
+        handler.postDelayed(runnable, 1000);
     }
 
     private void initEvent() {
         rl_logo_weather.setOnClickListener(this);
         rl_logo_fishing_point.setOnClickListener(this);
         rl_logo_fishing_boat.setOnClickListener(this);
-
+        getLocation.setOnClickListener(this);
         AddImageGroup(); // 往数组添加图片链接索引
-        StartLocation(); // 开始定位
-
     }
 
     private void initView() {
@@ -111,7 +126,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
         mViewFlow.setAdapter(new HomeImagePagerAdapter(mContext, imageUrlList,
                 linkUrlArray, titleList).setInfiniteLoop(true));
         mViewFlow.setmSideBuffer(imageUrlList.size()); // 实际图片张数，
-        // 我的ImageAdapter实际图片张数为3
+        // 我的HomeImagePagerAdapter实际图片张数为4
 
         mViewFlow.setFlowIndicator(mFlowIndicator);
         mViewFlow.setTimeSpan(4500);
@@ -124,21 +139,21 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
     @Override
     public void onClick(View v) {
         switch (v.getId()){
-            case R.id.rl_logo_weather:
-                Toast.makeText(mContext, "天气", Toast.LENGTH_SHORT).show();
-                //IntentUtils.getIntent(mContext, WeatherActivity.class);
+            case R.id.rl_logo_weather :
+                IntentUtils.getIntent(mContext, WeatherActivity.class);
                 break;
-            case R.id.rl_logo_fishing_point:
+            case R.id.rl_logo_fishing_point :
                 Toast.makeText(mContext, "钓点", Toast.LENGTH_SHORT).show();
                 //IntentUtils.getIntent(mContext, FishingPointActivity.class);
                 break;
-            case R.id.rl_logo_fishing_boat:
+            case R.id.rl_logo_fishing_boat :
                 Toast.makeText(mContext, "船钓", Toast.LENGTH_SHORT).show();
                 //IntentUtils.getIntent(mContext, FishingBoatActivity.class);
                 break;
+            case R.id.getLocation :
+                IntentUtils.getIntent(mContext, LocationActivity.class);
             default:
                 break;
-
         }
     }
 
@@ -171,8 +186,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
                 //Toast.makeText(mContext,"网络定位成功",Toast.LENGTH_SHORT).show();
             } else if (location.getLocType() == BDLocation.TypeOffLineLocation) {
                 //Toast.makeText(mContext,"离线定位成功，离线定位结果也是有效的",Toast.LENGTH_SHORT).show();
-            } else if (location.getLocType() == BDLocation.TypeServerError) {
-                //Toast.makeText(mContext,"服务端网络定位失败，可以反馈IMEI号和大体定位时间到loc-bugs@baidu.com，会有人追查原因",Toast.LENGTH_SHORT).show();
+            } else if (location.getLocType() == BDLocation.TypeServerError) {Toast.makeText(mContext,"服务端网络定位失败，可以反馈IMEI号和大体定位时间到loc-bugs@baidu.com，会有人追查原因",Toast.LENGTH_SHORT).show();
             } else if (location.getLocType() == BDLocation.TypeNetWorkException) {
                 //Toast.makeText(mContext,"网络不同导致定位失败，请检查网络是否通畅",Toast.LENGTH_SHORT).show();
             } else if (location.getLocType() == BDLocation.TypeCriteriaException) {
@@ -184,8 +198,16 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
             String locate2 = locate1[1];
             String [] locate3 = null;
             locate3 = locate2.split("市");
-            getLocation.setText(locate3[0]);
+            //getLocation.setText(locate3[0]);
             //getLocation.setText(locate3[0]+"--"+getLocate);
+
+            // 将用户名保存到user.xml文件中
+            Context locateCtx = mContext; // 获取SharedPreferences对象
+            SharedPreferences sp = locateCtx.getSharedPreferences("locate", mContext.MODE_PRIVATE);
+            SharedPreferences.Editor editor = sp.edit(); // 存入数据
+            editor.putString("userLocate", locate3[0]);
+            editor.commit();
+            return;
         }
     }
 
@@ -193,6 +215,14 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
         LocationService locationService = new LocationService(mContext);
         locationService.registerListener(myListener);
         locationService.start();
+        return;
+    }
+
+    private void getLocate() {
+        SharedPreferences locate = getActivity().getSharedPreferences("locate", mContext.MODE_PRIVATE);
+        String getlocate = locate.getString("userLocate", "");
+        getLocation.setText(getlocate);
+        return;
     }
 
 }
