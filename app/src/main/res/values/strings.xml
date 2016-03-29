@@ -29,6 +29,7 @@
 
     <!--忘记密码获取验证码界面-->
     <string name="tv_title_forgetpass">忘记密码</string>
+    <string name="main_reset_password_title">重新设置密码</string>
 
     <!-- 首页Fragment -->
     <string name="home_menu_title">首页</string>

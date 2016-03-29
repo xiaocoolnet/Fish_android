@@ -50,6 +50,7 @@
         <activity android:name=".main.RegisterActivity"/>
         <activity android:name=".main.MainActivity"/>
         <activity android:name=".main.ForgetPasswordActivity"/>
+        <activity android:name=".main.ResetPasswordActivity"/>
         <activity android:name=".main.SetPasswordActivity"/>
         <activity android:name=".main.HomeBaseWebActivity"/>
         <activity android:name=".main.WeatherActivity"/>

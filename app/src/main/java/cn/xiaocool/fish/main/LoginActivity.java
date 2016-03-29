@@ -5,7 +5,6 @@
  */
 package cn.xiaocool.fish.main;
 
-
 import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;

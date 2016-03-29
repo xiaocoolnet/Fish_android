@@ -61,7 +61,6 @@ public class RegisterActivity extends Activity implements View.OnClickListener {
                             FishApplication.UID = Integer.parseInt(item.getString("id"));
                             Toast.makeText(RegisterActivity.this, "注册成功！",0).show();
                             IntentUtils.getIntent(RegisterActivity.this, SetPasswordActivity.class);
-
                         } else {
                             Toast.makeText(RegisterActivity.this, data,0).show();
                         }

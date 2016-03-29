@@ -2,15 +2,18 @@
 
     <!--登录-->
     <dimen name="login_tv_user_bg_width">291dp</dimen>
+    <dimen name="login_line_width2">289dp</dimen>
+    <dimen name="login_line_width">280dp</dimen>
     <dimen name="login_tv_user_bg_height">48dp</dimen>
     <dimen name="login_tv_margin_200">200dp</dimen>
     <dimen name="login_tv_margin_24">24dp</dimen>
     <dimen name="login_btn_margin_24">27dp</dimen>
     <dimen name="login_et_user_bg_width">254dp</dimen>
     <dimen name="login_et_user_bg_height">48dp</dimen>
-    <dimen name="login_iv_logo_top">27dp</dimen>
-    <dimen name="login_iv_logo_left">34dp</dimen>
-    <dimen name="login_iv_logo_margin">6dp</dimen>
+    <dimen name="login_iv_logo_top">25dp</dimen>
+    <dimen name="login_iv_logo_left">22dp</dimen>
+    <dimen name="login_iv_logo_margin">12dp</dimen>
+    <dimen name="login_iv_logo_margin2">6dp</dimen>
 
     <!--注册手机验证-设置密码-忘记密码-->
     <dimen name="title_bar_height_50">50dp</dimen>
