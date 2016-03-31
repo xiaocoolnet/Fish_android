@@ -3,13 +3,14 @@
 
     <!--注册手机验证-->
     <color name="et_color">#d8d6d6</color>
-    <color name="tv_color">#36be64</color>
+    <color name="tv_color">#afd6ee</color>
     <color name="title_bg_color">#9BE5B4</color> <!--标题栏颜色-->
     <color name="white">#ffffff</color> <!--白色-->
     <color name="line">#EFF2F7</color>
     <color name="main_ground_color">#eff2f7</color> <!--注册界面背景-->
     <color name="bottom_bar_normal_bg">#2D2F31</color>
-    <color name="tv_bar_color">#9BE687</color>
+    <color name="tv_bar_color">#60b8eb</color>
+    <color name="tv_bar_color_hint">#60b9bc</color>
     <color name="bg_black">#000000</color>
 
 

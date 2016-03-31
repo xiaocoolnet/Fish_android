@@ -17,7 +17,10 @@ import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import java.util.List;
 
 import cn.xiaocool.fish.R;
+import cn.xiaocool.fish.main.FishPointActivity;
 import cn.xiaocool.fish.main.HomeBaseWebActivity;
+import cn.xiaocool.fish.main.WeatherActivity;
+import cn.xiaocool.fish.utils.IntentUtils;
 
 public class HomeImagePagerAdapter extends BaseAdapter {
 
@@ -91,9 +94,9 @@ public class HomeImagePagerAdapter extends BaseAdapter {
 
 			@Override
 			public void onClick(View arg0) {
-				String url = linkUrlArray.get(HomeImagePagerAdapter.this
+				String url1 = linkUrlArray.get(HomeImagePagerAdapter.this
 						.getPosition(position));
-				String title = urlTitlesList.get(HomeImagePagerAdapter.this
+				String title1 = urlTitlesList.get(HomeImagePagerAdapter.this
 						.getPosition(position));
 				/*
 				 * if (TextUtils.isEmpty(url)) {
@@ -101,13 +104,12 @@ public class HomeImagePagerAdapter extends BaseAdapter {
 				 */
 				Bundle bundle = new Bundle();
 
-				bundle.putString("url", url);
-				bundle.putString("title", title);
-				Intent intent = new Intent(context, HomeBaseWebActivity.class);
+				bundle.putString("url", url1);
+				bundle.putString("title", title1);
+				Intent intent = new Intent(context, FishPointActivity.class);
 				intent.putExtras(bundle);
-
 				context.startActivity(intent);
-				Toast.makeText(context, "点击了第" + getPosition(position) + "图片",
+				Toast.makeText(context, "点击了第" + (getPosition(position)+1) + "图片",
 						0).show();
 
 			}

@@ -17,9 +17,13 @@
 
     <!--注册手机验证-设置密码-忘记密码-->
     <dimen name="title_bar_height_50">50dp</dimen>
+    <dimen name="tv_size_16">16sp</dimen>
     <dimen name="tv_size_18">18sp</dimen>
-    <dimen name="tv_size_20">20sp</dimen>
+    <dimen name="tv_size_20">20dp</dimen>
+    <dimen name="tv_size_22">22dp</dimen>
     <dimen name="left_arrow">26dp</dimen>
+    <dimen name="tv_75">75dp</dimen>
+    <dimen name="ed_input_code_80">80dp</dimen>
     <dimen name="register_ed_width_210">210dp</dimen>
     <dimen name="register_iv_bg_height_56">56dp</dimen>
     <dimen name="ed_width_180">180dp</dimen>
@@ -32,9 +36,13 @@
     <dimen name="next_height">48dp</dimen>
     <dimen name="next_margin_32">32dp</dimen>
     <dimen name="et_margin_left_100">100dp</dimen>
+    <dimen name="tv_margin_top_17">17dp</dimen>
     <dimen name="tv_margin_top_16">16dp</dimen>
     <dimen name="tv_margin_top_6.5">6.5dp</dimen>
+    <dimen name="tv_margin_top_5">5dp</dimen>
+    <dimen name="tv_margin_left_4">-4dp</dimen>
     <dimen name="tv_margin_left_10">10dp</dimen>
+    <dimen name="tv_margin_left_85">85dp</dimen>
 
     <!--Fragmet首页-->
     <dimen name="fragmet_home_logo_size_2">2dp</dimen>

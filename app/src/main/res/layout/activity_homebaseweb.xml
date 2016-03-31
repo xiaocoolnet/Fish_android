@@ -7,8 +7,12 @@
     <cn.xiaocool.fish.view.ProgressWebView
         android:id="@+id/baseweb_webview"
         android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
+        android:layout_height="wrap_content"
         android:fadeScrollbars="true"
         android:scrollbarStyle="insideOverlay" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/app_name"/>
 
 </LinearLayout>

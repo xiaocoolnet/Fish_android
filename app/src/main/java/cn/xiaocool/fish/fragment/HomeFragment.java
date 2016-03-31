@@ -12,6 +12,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,17 +22,20 @@ import android.widget.Toast;
 
 import com.baidu.location.BDLocation;
 import com.baidu.location.BDLocationListener;
-import com.baidu.location.LocationClient;
 
 import java.util.ArrayList;
 
 import cn.xiaocool.fish.R;
 import cn.xiaocool.fish.adapter.HomeImagePagerAdapter;
+import cn.xiaocool.fish.main.BoatFishActivity;
+import cn.xiaocool.fish.main.FishPointActivity;
 import cn.xiaocool.fish.main.HomeBaseWebActivity;
 import cn.xiaocool.fish.main.LocationActivity;
 import cn.xiaocool.fish.main.WeatherActivity;
+import cn.xiaocool.fish.net.HttpTool;
 import cn.xiaocool.fish.service.LocationService;
 import cn.xiaocool.fish.utils.IntentUtils;
+import cn.xiaocool.fish.utils.ToastUtils;
 import cn.xiaocool.fish.view.Indicator.CircleFlowIndicator;
 import cn.xiaocool.fish.view.HomeViewFlow;
 
@@ -47,13 +51,29 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
     ArrayList<String> titleList= new ArrayList<String>();
     private int mCurrPos;
 
+    private Handler h = new Handler() {
+        public void handleMessage(android.os.Message msg) {
+            switch (msg.what) {
+                case 1:
+                    ToastUtils.ToastShort(mContext, "网络连接成功");
+                    break;
+                case 2:
+                    ToastUtils.ToastShort(mContext, "网络问题，请稍后重试！");
+                    break;
+                default:
+                    break;
+            }
+        }
+
+    };
+
     public BDLocationListener myListener = new MyLocationListener();
     TextView getLocation ;
     private Handler handler = new Handler();
     private Runnable runnable = new Runnable() {
         public void run() {
             this.update();
-            handler.postDelayed(this, 1000*10);// 间隔10秒
+            handler.postDelayed(this, 1000*8);// 间隔8秒
         }
         void update() {
             // 刷新msg的内容
@@ -73,10 +93,10 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
         mContext = getActivity();
         initView(); // 初始化界面
         initEvent(); // 初始化事件
-        handler.postDelayed(runnable, 1000);
     }
 
     private void initEvent() {
+        handler.postDelayed(runnable, 1000);
         rl_logo_weather.setOnClickListener(this);
         rl_logo_fishing_point.setOnClickListener(this);
         rl_logo_fishing_boat.setOnClickListener(this);
@@ -143,12 +163,10 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
                 IntentUtils.getIntent(mContext, WeatherActivity.class);
                 break;
             case R.id.rl_logo_fishing_point :
-                Toast.makeText(mContext, "钓点", Toast.LENGTH_SHORT).show();
-                //IntentUtils.getIntent(mContext, FishingPointActivity.class);
+                IntentUtils.getIntent(mContext, FishPointActivity.class);
                 break;
             case R.id.rl_logo_fishing_boat :
-                Toast.makeText(mContext, "船钓", Toast.LENGTH_SHORT).show();
-                //IntentUtils.getIntent(mContext, FishingBoatActivity.class);
+                IntentUtils.getIntent(mContext, BoatFishActivity.class);
                 break;
             case R.id.getLocation :
                 IntentUtils.getIntent(mContext, LocationActivity.class);
@@ -168,9 +186,19 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
 //        linkUrlArray.add("http://blog.csdn.net/a1260157543/article/details/50853820");
         titleList.add("1");
         titleList.add("2");
-        titleList.add("3");
+        titleList.add("5");
         titleList.add("4");
         initBanner(imageUrlList);
+        new Thread() {
+            public void run() {
+                if (HttpTool.isConnnected(mContext)){
+                    //h.sendEmptyMessage(1);
+                }else {
+                    //输出：网络连接有问题！
+                    //h.sendEmptyMessage(2);
+                }
+            }
+        }.start();
     }
 
     // 定位监听器

@@ -21,7 +21,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import cn.xiaocool.fish.R;
-import cn.xiaocool.fish.adapter.YzCodeAdapter;
 import cn.xiaocool.fish.net.HttpTool;
 import cn.xiaocool.fish.utils.IntentUtils;
 import cn.xiaocool.fish.view.FishApplication;

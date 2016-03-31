@@ -4,7 +4,6 @@
   ~ 公司:北京校酷网络有限公司
   ~ 工作室：Hello Fish  闲来垂钓APP （登录布局界面）
   -->
-
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
@@ -62,7 +61,9 @@
         android:layout_width="@dimen/login_et_user_bg_width"
         android:layout_height="@dimen/login_et_user_bg_height"
         android:hint="@string/hint_input_user"
-        android:textColorHint="#60b9bc"
+        android:textSize="@dimen/tv_size_16"
+        android:textColorHint="@color/tv_bar_color_hint"
+        android:textColor="@color/tv_bar_color"
         android:singleLine="true"
         android:layout_alignBottom="@+id/edit_view"
         android:layout_alignRight="@+id/edit_view" />
@@ -73,7 +74,9 @@
         android:layout_width="@dimen/login_et_user_bg_width"
         android:layout_height="@dimen/login_et_user_bg_height"
         android:hint="@string/hint_input_pass"
-        android:textColorHint="#60b9bc"
+        android:textSize="@dimen/tv_size_16"
+        android:textColorHint="@color/tv_bar_color_hint"
+        android:textColor="@color/tv_bar_color"
         android:layout_alignBottom="@+id/edit_view2"
         android:layout_alignRight="@+id/edit_view2"
         android:inputType="textPassword" />
@@ -87,11 +90,10 @@
         android:layout_marginTop="@dimen/login_btn_margin_24"
         android:layout_alignLeft="@+id/edit_view2"
         android:text="@string/btn_login"
-        android:textSize="23sp"
-        android:textColor="@color/white" />
+        android:textSize="@dimen/tv_size_20"
+        android:textColor="@color/tv_color" />
 
     <Button
-        android:visibility="gone"
         android:id="@+id/fisher_null"
         android:background="@drawable/login_button"
         android:layout_width="@dimen/login_tv_user_bg_width"
@@ -100,8 +102,8 @@
         android:layout_marginTop="@dimen/tv_margin_top_6.5"
         android:layout_alignLeft="@+id/edit_view2"
         android:text="游客入口"
-        android:textSize="23sp"
-        android:textColor="@color/white" />
+        android:textSize="@dimen/tv_size_20"
+        android:textColor="@color/tv_color" />
 
     <ImageView
         android:id="@+id/user_small"
@@ -139,13 +141,14 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:gravity="center"
-        android:layout_marginTop="@dimen/login_iv_logo_top">
+        android:layout_marginTop="@dimen/login_iv_logo_top"
+        android:layout_marginLeft="@dimen/tv_size_20">
 
         <TextView
-            android:id="@+id/tv_login_forget_password"
+            android:id="@+id/tv_login_register"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/tv_login_forget_pass"
+            android:text="@string/tv_register"
             android:textColor="@color/white"
             android:layout_marginRight="@dimen/fragmet_home_logo_size_10"/>
         <TextView
@@ -153,10 +156,10 @@
             android:layout_height="wrap_content"
             android:background="@color/white"/>
         <TextView
-            android:id="@+id/tv_login_register"
+            android:id="@+id/tv_login_forget_password"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/tv_register"
+            android:text="@string/tv_login_forget_pass"
             android:textColor="@color/white"
             android:layout_marginLeft="@dimen/fragmet_home_logo_size_10"/>
 

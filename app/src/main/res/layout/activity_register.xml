@@ -4,11 +4,10 @@
   ~ 公司:北京校酷网络有限公司
   ~ 工作室：Hello Fish  闲来垂钓APP （注册获取验证码布局界面）
   -->
-
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:background="@color/main_ground_color"
+    android:background="@drawable/login_background"
     android:orientation="vertical" >
 
     <RelativeLayout
@@ -16,13 +15,13 @@
         android:layout_height="@dimen/title_bar_height_50" >
 
         <TextView
-            android:background="@color/title_bg_color"
+            android:id="@+id/tv_bar"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center"
             android:text="@string/tv_register"
-            android:textColor="@color/white"
-            android:textSize="@dimen/tv_size_20" />
+            android:textColor="@color/tv_bar_color"
+            android:textSize="@dimen/tv_size_22" />
 
         <RelativeLayout
             android:layout_width="@dimen/title_bar_height_50"
@@ -38,96 +37,116 @@
 
     </RelativeLayout>
 
+    <ImageView
+        android:layout_gravity="center_horizontal"
+        android:id="@+id/bar_line"
+        android:layout_width="@dimen/login_tv_user_bg_width"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bar_line" />
+
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:gravity="center">
 
         <ImageView
+            android:layout_centerHorizontal="true"
             android:id="@+id/phone_number"
-            android:layout_width="match_parent"
+            android:layout_width="@dimen/login_tv_user_bg_width"
             android:layout_height="@dimen/register_iv_bg_height_56"
             android:background="@drawable/register_et_bg" />
 
         <!--手机号码输入框-->
         <EditText
             android:id="@+id/edit_phone_number"
+            android:layout_alignLeft="@id/phone_number"
             android:layout_width="@dimen/register_ed_width_210"
             android:layout_height="@dimen/register_iv_bg_height_56"
             android:background="@null"
             android:hint="@string/tv_register_input_phone"
-            android:layout_marginLeft="@dimen/register_ed_margin_left_90"
-            android:textSize="@dimen/tv_size_20"
-            android:textColor="@color/et_color"
+            android:textSize="@dimen/tv_size_16"
+            android:textColorHint="@color/tv_bar_color_hint"
+            android:textColor="@color/tv_bar_color"
             android:layout_alignBottom="@+id/phone_number"
+            android:layout_marginLeft="@dimen/tv_margin_left_85"
             android:inputType="number"/>
 
         <TextView
-            android:layout_width="wrap_content"
+            android:id="@+id/tv_code"
+            android:layout_centerHorizontal="true"
+            android:layout_width="@dimen/tv_75"
             android:layout_height="wrap_content"
             android:text="@string/tv_china"
             android:layout_above="@+id/zhongjianhengxian"
             android:layout_marginBottom="@dimen/tv_margin_top_16"
-            android:layout_marginLeft="@dimen/tv_margin_left_10"
+            android:layout_marginLeft="@dimen/tv_margin_top_5"
+            android:layout_alignLeft="@id/phone_number"
             android:textColor="@color/tv_color"
-            android:textSize="@dimen/tv_size_18" />
+            android:textSize="@dimen/tv_size_16" />
 
         <ImageView
+            android:layout_centerHorizontal="true"
             android:id="@+id/zhongjianhengxian"
             android:layout_width="match_parent"
             android:layout_height="@dimen/line_height_10"
-            android:background="@drawable/register_line"
             android:layout_below="@+id/phone_number" />
 
-
         <ImageView
+            android:layout_centerHorizontal="true"
             android:id="@+id/huoquyanzhengma"
-            android:layout_width="@dimen/yz_iv_width_375"
+            android:layout_width="@dimen/login_tv_user_bg_width"
             android:layout_height="@dimen/register_iv_bg_height_56"
             android:background="@drawable/register_et_bg"
             android:layout_below="@+id/zhongjianhengxian" />
 
         <TextView
-            android:layout_width="wrap_content"
+            android:id="@+id/tv_yzm"
+            android:layout_centerHorizontal="true"
+            android:layout_width="@dimen/tv_75"
             android:layout_height="wrap_content"
             android:text="@string/tv_yzCode"
             android:layout_below="@+id/zhongjianhengxian"
-            android:layout_marginTop="17dp"
-            android:layout_marginLeft="10dp"
+            android:layout_alignLeft="@id/phone_number"
+            android:layout_marginTop="@dimen/tv_margin_top_17"
+            android:layout_marginLeft="@dimen/tv_margin_top_5"
             android:textColor="@color/tv_color"
-            android:textSize="@dimen/tv_size_18" />
+            android:textSize="@dimen/tv_size_16"/>
 
         <!--输入验证码-->
         <EditText
+            android:layout_centerHorizontal="true"
             android:id="@+id/edit_verifycode"
-            android:layout_width="@dimen/ed_width_180"
+            android:layout_width="@dimen/ed_input_code_80"
+            android:layout_toRightOf="@id/tv_yzm"
             android:layout_height="@dimen/register_iv_bg_height_56"
             android:background="@null"
-            android:layout_marginLeft="@dimen/register_ed_margin_left_90"
             android:layout_alignBottom="@+id/huoquyanzhengma"
-            android:hint="@string/tv_register_input_yzCode"
-            android:textSize="@dimen/tv_size_20"
-            android:textColor="@color/et_color"
+            android:textSize="@dimen/tv_size_16"
+            android:textColorHint="@color/tv_bar_color_hint"
+            android:textColor="@color/tv_bar_color"
+            android:layout_marginLeft="@dimen/tv_margin_top_5"
             android:inputType="number"/>
 
         <!--获取验证码按钮-->
         <Button
             android:id="@+id/yanzhengma"
-            android:layout_width="@dimen/yz_btn_width_113"
-            android:layout_height="@dimen/yz_btn_height_42"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:background="@drawable/btn_yzcode_bg"
             android:text="@string/btn_get_yzCode"
+            android:layout_toRightOf="@id/edit_verifycode"
+            android:layout_alignParentRight="@id/huoquyanzhengma"
             android:textColor="@color/tv_color"
-            android:textSize="@dimen/tv_size_18"
+            android:textSize="@dimen/tv_size_16"
             android:layout_below="@+id/zhongjianhengxian"
-            android:layout_alignRight="@+id/zhongjianhengxian"
-            android:layout_marginTop="@dimen/tv_margin_top_6.5"
-            android:layout_marginRight="@dimen/tv_margin_left_10"/>
+            android:layout_marginTop="@dimen/fragmet_home_logo_size_2"
+            android:layout_marginLeft="@dimen/tv_margin_left_4"/>
 
         <Button
             android:id="@+id/btn_next"
             android:layout_width="@dimen/next_width"
             android:layout_height="@dimen/next_height"
-            android:background="@drawable/next"
+            android:background="@drawable/login_button"
             android:text="@string/next"
             android:textSize="@dimen/tv_size_20"
             android:textColor="@color/tv_color"
