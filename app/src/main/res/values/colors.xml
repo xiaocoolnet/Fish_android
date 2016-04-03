@@ -13,5 +13,10 @@
     <color name="tv_bar_color_hint">#60b9bc</color>
     <color name="bg_black">#000000</color>
 
+    <color name="colorPrimary">#106c99</color>
+    <color name="colorPrimaryDark">@color/colorPrimary</color>
+    <color name="colorAccent">#FF4081</color>
+    <color name="black">@android:color/black</color>
+    <color name="grey">#9E9E9E</color>
 
 </resources>

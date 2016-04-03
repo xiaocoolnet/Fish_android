@@ -7,9 +7,11 @@ package cn.xiaocool.fish.main;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -38,6 +40,10 @@ public class SetPasswordActivity extends Activity implements View.OnClickListene
     }
 
     private void initView() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+            getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
+        }
         requestWindowFeature(Window.FEATURE_NO_TITLE); // 去掉标题栏
         setContentView(R.layout.activity_set_password);
         // 控件实例化
@@ -45,7 +51,6 @@ public class SetPasswordActivity extends Activity implements View.OnClickListene
         ed_get_phone_number = (EditText) findViewById(R.id.ed_get_phone_number);
         btn_finish = (Button) findViewById(R.id.btn_finish);
     }
-
 
     @Override
     public void onClick(View v) {

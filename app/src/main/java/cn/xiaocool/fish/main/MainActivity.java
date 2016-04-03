@@ -7,6 +7,7 @@ package cn.xiaocool.fish.main;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.Window;
 
@@ -21,6 +22,7 @@ import cn.xiaocool.fish.utils.IntentUtils;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 
 public class MainActivity extends BaseActivity {

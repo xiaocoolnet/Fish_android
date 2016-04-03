@@ -1,7 +1,9 @@
 <resources>
 
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+    <style name="FishTheme" parent="Theme.AppCompat.Light.DarkActionBar">
         <item name="android:textColor">@color/bg_black</item>
+        <item name="colorPrimaryDark">@color/white</item>
+        <item name="colorPrimary">@color/white</item>
     </style>
 
     <style name="MainTabButton">
@@ -15,6 +17,19 @@
         <item name="android:paddingBottom">2.0dip</item>
         <item name="android:paddingTop">6.0dip</item>
         <item name="android:drawablePadding">2.0dip</item>
+    </style>
+
+    <style name="AppBaseTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
+    <style name="AppTheme" parent="AppBaseTheme" />
+
+    <style name="AppTheme.Splash" parent="AppBaseTheme">
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowFullscreen">true</item>
     </style>
 
 </resources>

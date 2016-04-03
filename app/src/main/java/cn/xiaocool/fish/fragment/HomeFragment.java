@@ -169,7 +169,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
                 IntentUtils.getIntent(mContext, BoatFishActivity.class);
                 break;
             case R.id.getLocation :
-                IntentUtils.getIntent(mContext, LocationActivity.class);
+                //IntentUtils.getIntent(mContext, LocationActivity.class);
             default:
                 break;
         }
