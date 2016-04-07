@@ -7,6 +7,7 @@
 package cn.xiaocool.fish.main;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -19,13 +20,8 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import cn.xiaocool.fish.R;
 import cn.xiaocool.fish.net.HttpTool;
-import cn.xiaocool.fish.utils.IntentUtils;
-import cn.xiaocool.fish.view.FishApplication;
 
 public class ForgetPasswordActivity extends Activity implements View.OnClickListener {
 
@@ -34,8 +30,10 @@ public class ForgetPasswordActivity extends Activity implements View.OnClickList
     private Button btn_next; // 下一步
     private EditText edit_phone_number; // 输入的手机号
     private EditText edit_verifycode; // 输入的验证码
-    private String result_data;
+    private String phone;
+    private String yzCode;
     public static int second;
+    private String verifyCode;
     private Handler handler = new Handler() {
         public void handleMessage(Message msg){
             switch (msg.what){
@@ -54,26 +52,15 @@ public class ForgetPasswordActivity extends Activity implements View.OnClickList
                             Toast.LENGTH_SHORT).show();
                     break;
                 case 3:
-                    //判断与服务器的验证码是否一致，如果一致则提示注册成功，跳转到主界面；否则提示验证码错误
-                    try {
-                        JSONObject json = new JSONObject(result_data);
-                        String status = json.getString("status");
-                        String data = json.getString("data");
-                        if (status.equals("success")) {
-                            JSONObject item = new JSONObject(data);
-                            //实力化缓存类
-                            FishApplication.UID = Integer.parseInt(item.getString("id"));
-                            Toast.makeText(ForgetPasswordActivity.this, "找回密码成功！",Toast.LENGTH_SHORT).show();
-                            IntentUtils.getIntent(ForgetPasswordActivity.this,ResetPasswordActivity.class);
-                        }
-                        else {
-                            Toast.makeText(ForgetPasswordActivity.this, data,Toast.LENGTH_SHORT).show();
-                        }
-                    } catch (JSONException e) {
-                        // TODO Auto-generated catch block
-                        e.printStackTrace();
+                    if(yzCode.equals(verifyCode)){
+                        Intent intent=new Intent();
+                        intent.putExtra("phone", phone);
+                        intent.putExtra("yzCode", yzCode);
+                        intent.setClass(ForgetPasswordActivity.this, ResetPasswordActivity.class);
+                        startActivity(intent);
+                    }else {
+                        Toast.makeText(ForgetPasswordActivity.this, "验证码输入错误", 0).show();
                     }
-
                     break;
                 default:
                     break;
@@ -162,15 +149,13 @@ public class ForgetPasswordActivity extends Activity implements View.OnClickList
 
     //手机验证成功(下一步)操作
     private void Next() {
-        String phone = edit_phone_number.getText().toString(); // 获取用户输入的手机号
-        String yzCode = edit_verifycode.getText().toString(); // 获取用户输入的验证码
+        phone = edit_phone_number.getText().toString(); // 获取用户输入的手机号
+        yzCode = edit_verifycode.getText().toString(); // 获取用户输入的验证码
         if ((phone.length() == 11) && (yzCode.length()) == 6) {
             //启动新线程
             new Thread() {
                 public void run() {
-                    String phoneNum = edit_phone_number.getText().toString();
-                    String verifyCode = edit_verifycode.getText().toString();
-                    result_data = HttpTool.ForgetPasswordSendVerify(phoneNum, verifyCode);
+                    verifyCode = edit_verifycode.getText().toString();
                     handler.sendEmptyMessage(3);
                 }
 

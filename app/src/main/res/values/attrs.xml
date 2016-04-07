@@ -18,7 +18,7 @@
 		<attr name="activeRadius" format="dimension" />
     </declare-styleable>   
      <declare-styleable name="HomeViewFlow">
-        <attr name="sidebuffer" format="integer" />
+        <attr name="sidebuffer" format="integer"/>
     </declare-styleable>
 
 	<declare-styleable name="roundedimageview">

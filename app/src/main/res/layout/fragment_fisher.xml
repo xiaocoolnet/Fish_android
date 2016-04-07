@@ -152,6 +152,37 @@
             android:layout_margin="@dimen/fragmet_home_logo_size_5">
 
             <RelativeLayout
+                android:id="@+id/fisher_quit"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/fragmet_home_logo_size_50"
+                android:background="@color/white">
+                <ImageView
+                    android:id="@+id/quit"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/home_logo_weather"
+                    android:layout_margin="@dimen/tv_margin_top_6.5"/>
+                <TextView
+                    android:id="@+id/tv_friend2"
+                    android:layout_toRightOf="@id/quit"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text="@string/fisher_menu_fisher_quit"
+                    android:gravity="center_vertical"
+                    android:layout_marginLeft="@dimen/fragmet_home_logo_size_8"
+                    android:textColor="@color/bg_black"
+                    android:textSize="@dimen/fragmet_home_logo_size_15" />
+            </RelativeLayout>
+        </LinearLayout>
+
+        <!--用户名-->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_margin="@dimen/fragmet_home_logo_size_5">
+
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/fragmet_home_logo_size_50"
                 android:background="@color/white">
@@ -165,7 +196,6 @@
 
             </RelativeLayout>
         </LinearLayout>
-
 
     </LinearLayout>
 

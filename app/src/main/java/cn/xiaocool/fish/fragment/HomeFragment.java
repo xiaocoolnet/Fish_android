@@ -6,16 +6,18 @@
 package cn.xiaocool.fish.fragment;
 
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
+import android.widget.AdapterView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -23,33 +25,24 @@ import android.widget.Toast;
 import com.baidu.location.BDLocation;
 import com.baidu.location.BDLocationListener;
 
-import java.util.ArrayList;
-
 import cn.xiaocool.fish.R;
-import cn.xiaocool.fish.adapter.HomeImagePagerAdapter;
+import cn.xiaocool.fish.adapter.HomeNoticeAdapter;
 import cn.xiaocool.fish.main.BoatFishActivity;
 import cn.xiaocool.fish.main.FishPointActivity;
-import cn.xiaocool.fish.main.HomeBaseWebActivity;
-import cn.xiaocool.fish.main.LocationActivity;
+import cn.xiaocool.fish.main.HomeNoticeActivity;
 import cn.xiaocool.fish.main.WeatherActivity;
-import cn.xiaocool.fish.net.HttpTool;
 import cn.xiaocool.fish.service.LocationService;
 import cn.xiaocool.fish.utils.IntentUtils;
 import cn.xiaocool.fish.utils.ToastUtils;
-import cn.xiaocool.fish.view.Indicator.CircleFlowIndicator;
-import cn.xiaocool.fish.view.HomeViewFlow;
+import cn.xiaocool.fish.view.HomeGalleryView;
 
 public class HomeFragment extends Fragment implements View.OnClickListener{
 
     private RelativeLayout rl_logo_weather, rl_logo_fishing_point, rl_logo_fishing_boat; // 天气，钓点，船钓
     private FragmentActivity mContext;
-
-    private HomeViewFlow mViewFlow;
-    private CircleFlowIndicator mFlowIndicator;
-    private ArrayList<String> imageUrlList = new ArrayList<String>();
-    ArrayList<String> linkUrlArray= new ArrayList<String>();
-    ArrayList<String> titleList= new ArrayList<String>();
-    private int mCurrPos;
+    private TextView tvTitle;
+    private HomeGalleryView gallery;
+    private HomeNoticeAdapter adapter;
 
     private Handler h = new Handler() {
         public void handleMessage(android.os.Message msg) {
@@ -101,7 +94,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
         rl_logo_fishing_point.setOnClickListener(this);
         rl_logo_fishing_boat.setOnClickListener(this);
         getLocation.setOnClickListener(this);
-        AddImageGroup(); // 往数组添加图片链接索引
+        ImageNotice();
     }
 
     private void initView() {
@@ -109,52 +102,8 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
         rl_logo_fishing_point = (RelativeLayout) getView().findViewById(R.id.rl_logo_fishing_point);
         rl_logo_fishing_boat = (RelativeLayout) getView().findViewById(R.id.rl_logo_fishing_boat);
 
-        mViewFlow = (HomeViewFlow) getView().findViewById(R.id.viewflow);
-        mFlowIndicator = (CircleFlowIndicator) getView().findViewById(R.id.viewflowindic);
-
         getLocation = (TextView) getView().findViewById(R.id.getLocation);
     }
-
-    private void setView(int curr, int next) {
-
-        View noticeView = getLayoutInflater(null).inflate(R.layout.activity_home_notice_item,
-                null);
-        TextView notice_tv = (TextView) noticeView.findViewById(R.id.notice_tv);
-        if ((curr < next) && (next > (titleList.size() - 1))) {
-            next = 0;
-        } else if ((curr > next) && (next < 0)) {
-            next = titleList.size() - 1;
-        }
-        notice_tv.setText(titleList.get(next));
-        notice_tv.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View arg0) {
-                Bundle bundle = new Bundle();
-                bundle.putString("url", linkUrlArray.get(mCurrPos));
-                bundle.putString("title", titleList.get(mCurrPos));
-                Intent intent = new Intent(mContext,
-                        HomeBaseWebActivity.class);
-                intent.putExtras(bundle);
-                startActivity(intent);
-            }
-        });
-        mCurrPos = next;
-    }
-
-    private void initBanner(ArrayList<String> imageUrlList) {
-        mViewFlow.setAdapter(new HomeImagePagerAdapter(mContext, imageUrlList,
-                linkUrlArray, titleList).setInfiniteLoop(true));
-        mViewFlow.setmSideBuffer(imageUrlList.size()); // 实际图片张数，
-        // 我的HomeImagePagerAdapter实际图片张数为4
-
-        mViewFlow.setFlowIndicator(mFlowIndicator);
-        mViewFlow.setTimeSpan(4500);
-        mViewFlow.setSelection(imageUrlList.size() * 1000); // 设置初始位置
-        mViewFlow.startAutoFlowTimer(); // 启动自动播放
-
-    }
-
 
     @Override
     public void onClick(View v) {
@@ -173,32 +122,6 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
             default:
                 break;
         }
-    }
-
-    private void AddImageGroup() {
-        imageUrlList.add("http://7xrjcc.com1.z0.glb.clouddn.com/h1.png");
-        imageUrlList.add("http://7xrjcc.com1.z0.glb.clouddn.com/h2.png");
-        imageUrlList.add("http://7xrjcc.com1.z0.glb.clouddn.com/h3.png");
-        imageUrlList.add("http://7xrjcc.com1.z0.glb.clouddn.com/h4.png");
-//        linkUrlArray.add("http://blog.csdn.net/a1260157543/article/details/50853656");
-//        linkUrlArray.add("http://blog.csdn.net/a1260157543/article/details/50853706");
-//        linkUrlArray.add("http://blog.csdn.net/a1260157543/article/details/50853759");
-//        linkUrlArray.add("http://blog.csdn.net/a1260157543/article/details/50853820");
-        titleList.add("1");
-        titleList.add("2");
-        titleList.add("5");
-        titleList.add("4");
-        initBanner(imageUrlList);
-        new Thread() {
-            public void run() {
-                if (HttpTool.isConnnected(mContext)){
-                    //h.sendEmptyMessage(1);
-                }else {
-                    //输出：网络连接有问题！
-                    //h.sendEmptyMessage(2);
-                }
-            }
-        }.start();
     }
 
     // 定位监听器
@@ -251,6 +174,37 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
         String getlocate = locate.getString("userLocate", "");
         getLocation.setText(getlocate);
         return;
+    }
+
+    private void ImageNotice(){
+        tvTitle = (TextView) getActivity().findViewById(R.id.tvTitle);
+        gallery = (HomeGalleryView) getActivity().findViewById(R.id.mygallery);
+
+        adapter = new HomeNoticeAdapter(mContext);
+        adapter.createReflectedImages();
+        gallery.setAdapter(adapter);
+
+        gallery.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                tvTitle.setText(adapter.titles[position]);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+        gallery.setOnItemClickListener(new AdapterView.OnItemClickListener() { // 设置点击事件监听
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Toast.makeText(mContext, "第" + (position + 1) + "条公告信息", Toast.LENGTH_SHORT).show();
+                if (position == 2) {
+                    IntentUtils.getIntent(mContext, HomeNoticeActivity.class);
+                }
+            }
+        });
     }
 
 }

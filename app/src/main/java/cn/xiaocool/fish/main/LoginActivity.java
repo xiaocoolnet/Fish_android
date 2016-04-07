@@ -36,6 +36,7 @@ import cn.xiaocool.fish.R;
 import cn.xiaocool.fish.bean.UserInfo;
 import cn.xiaocool.fish.dao.DataCleanManager;
 import cn.xiaocool.fish.net.HttpTool;
+import cn.xiaocool.fish.net.constant.NetBaseConstant;
 import cn.xiaocool.fish.utils.IntentUtils;
 import cn.xiaocool.fish.utils.ToastUtils;
 import cn.xiaocool.fish.view.FishApplication;
@@ -53,7 +54,7 @@ public class LoginActivity extends Activity implements View.OnClickListener {
     private CheckBox cb_remember; // 记住账号和密码并回显
 
     private static String UID;
-    private String result_data, token;
+    private String result_data;
     private UserInfo user;
     private Context mContext;
     private Handler handler = new Handler() {
@@ -71,22 +72,20 @@ public class LoginActivity extends Activity implements View.OnClickListener {
                         String status = json.getString("status");
                         String data = json.getString("data");
                         if (status.equals("success")) {
-                            JSONObject item = new JSONObject(data);
-                            FishApplication.UID = Integer.parseInt(item.getString("id"));
-                            user.setUserId(item.getString("id"));
-                            user.setUserName(item.getString("name"));
-                            user.writeData(mContext);
-                            user.setUserImg(item.getString("photo"));
+//                            JSONObject item = new JSONObject(data);
+//                            FishApplication.UID = Integer.parseInt(item.getString("id"));
+//                            user.setUserId(item.getString("id"));
+//                            user.setUserName(item.getString("name"));
+//                            user.writeData(mContext);
+//                            user.setUserImg(item.getString("photo"));
                             Toast.makeText(LoginActivity.this, "登陆成功",
                                     Toast.LENGTH_SHORT).show();
                             IntentUtils.getIntent(LoginActivity.this, MainActivity.class);
                             finish();
-//                        mDialog.dismiss();
                         } else {
                             Toast.makeText(LoginActivity.this, data,
                                     Toast.LENGTH_SHORT).show();
                             Log.e("hou", data);
-//                        mDialog.dismiss();
                         }
                     } catch (JSONException e) {
                         // TODO Auto-generated catch block
@@ -196,9 +195,8 @@ public class LoginActivity extends Activity implements View.OnClickListener {
                 if (tx_phonenumber.getText().length() ==11 && tx_vertifycode.getText().length() !=0){
                     String phoneNum = tx_phonenumber.getText().toString();
                     String password = tx_vertifycode.getText().toString();
-
                     if (HttpTool.isConnnected(mContext)){
-                        result_data = HttpTool.Login(phoneNum,password);
+                        result_data = HttpTool.Login(phoneNum,password, NetBaseConstant.Token);
                         //调用服务器登录函数
                         handler.sendEmptyMessage(3);
                     }else {

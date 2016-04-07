@@ -64,6 +64,7 @@
         android:layout_height="@dimen/login_et_user_bg_height"
         android:hint="@string/hint_input_user"
         android:textSize="@dimen/tv_size_16"
+        android:maxLength="16"
         android:textColorHint="@color/tv_bar_color_hint"
         android:textColor="@color/tv_bar_color"
         android:singleLine="true"
@@ -77,6 +78,7 @@
         android:layout_height="@dimen/login_et_user_bg_height"
         android:hint="@string/hint_input_pass"
         android:textSize="@dimen/tv_size_16"
+        android:maxLength="16"
         android:textColorHint="@color/tv_bar_color_hint"
         android:textColor="@color/tv_bar_color"
         android:layout_alignBottom="@+id/edit_view2"
@@ -105,7 +107,8 @@
         android:layout_alignLeft="@+id/edit_view2"
         android:text="游客入口"
         android:textSize="@dimen/tv_size_20"
-        android:textColor="@color/tv_color" />
+        android:textColor="@color/tv_color"
+        android:visibility="gone"/>
 
     <ImageView
         android:id="@+id/user_small"

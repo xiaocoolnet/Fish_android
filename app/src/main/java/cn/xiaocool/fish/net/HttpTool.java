@@ -37,26 +37,18 @@ public class HttpTool {
         }
         return false;
     }
-    /**
-     *
-     * @param is
-     * @return
-     * @throws IOException
-     */
+
     private static String getStringFromInputStream(InputStream is)
             throws IOException {
 
         ByteArrayOutputStream os = new ByteArrayOutputStream();
-        // 模板代碼 必須熟練
         byte[] buffer = new byte[1024];
         int len = -1;
-        // 一定要寫len=is.read(buffer)
-        // 如果while((is.read(buffer))!=-1)則無法將數據寫入buffer中
         while ((len = is.read(buffer)) != -1) {
             os.write(buffer, 0, len);
         }
         is.close();
-        String state = os.toString();// 將流中的數據轉換成字串,採用的編碼是utf-8(模擬器默認編碼)
+        String state = os.toString();
         os.close();
         return state;
     }
@@ -64,14 +56,14 @@ public class HttpTool {
         String result = "";
         HttpURLConnection conn = null;
         try{
-            // 創建一個url對象
+            // 创建一個url對象
 
             URL mURL = new URL(url);
-            // 調用URL的openConnection()方法,獲得HttpURLConnection對象
+            // 调用URL的openConnection()方法,获得HttpURLConnection对象
             conn = (HttpURLConnection) mURL.openConnection();
 
-            conn.setRequestMethod("POST");       // 設置請求方法post
-            conn.setReadTimeout(5000);           // 設置讀取超時
+            conn.setRequestMethod("POST");       // 设置请求方法post
+            conn.setReadTimeout(5000);           // 設置请求超时
             conn.setConnectTimeout(10000);       // 設置網路連結超時
             conn.setDoInput(true);               // 開啟輸入流
             conn.setDoOutput(true);              // 開啟輸出流
@@ -98,38 +90,29 @@ public class HttpTool {
             return result = "请求失败，请检查网络2332"+e.getMessage().toString();
         }
     }
-    public static String Login(String phone, String password) {
+    public static String Login(String phone, String password,String token) {
 
-        String url = NetBaseConstant.NET_API_HOST + "a=applogin";
-        String data = "phone="+phone+"&password="+password;
+        String url = NetBaseConstant.NET_API_HOST + "a=applogin&";
+        String data = "phone="+phone+"&password="+password+"&token="+token;
+        String result = "";
+        result = getResponse(url,data);
+        return  result;
+    }
+
+    public static String UserRegister(String phone,String password,String code,int devicestate,String token){
+        String url = NetBaseConstant.NET_API_HOST + "a=AppRegister&";
+        String data = "phone="+phone+"&password="+password+"&code="+code+"&devicestate="+devicestate+"&token="+token;
         String result = "";
         result = getResponse(url,data);
         return  result;
     }
 
     public static String UserVerify(String phone,String code){
-        String url = NetBaseConstant.NET_API_HOST + "a=UserVerify";
+        String url = NetBaseConstant.NET_API_HOST + "a=AppRegister&";
         String data = "phone="+phone+"&code="+code;
         String result = "";
         result = getResponse(url,data);
         return  result;
-    }
-    public static  String SendVerifycode(String phone){
-        String url = NetBaseConstant.NET_API_HOST + "a=";
-        String data= "phone="+phone;
-        String result="";
-        result = getResponse(url,data);
-        return result;
-
-    }
-    //注册设置密码
-    public static String SetPassword(int userid,String pass){
-        String url = NetBaseConstant.NET_API_HOST + "a=UserActivate&";
-        String data = "userid="+userid+"&pass="+pass;
-        String result = "";
-        result = getResponse(url,data);
-        Log.i("data", result);
-        return result;
     }
     //未激活的手机号发送验证码
     public static String SendVerifyCode(String phone){
@@ -140,22 +123,11 @@ public class HttpTool {
         Log.e("verify", result);
         return result;
     }
-    //忘记密码（已激活手机号）验证验证码
-    public static String ForgetPasswordSendVerify(String phone,String code){
-        String url = NetBaseConstant.NET_API_HOST + "a=forgetPass_Verify&";
-        String data = "phone="+phone+"&code="+code;
-        String result = "";
-        result = getResponse(url,data);
-        Log.i("data", result);
-        Log.e("wzh",data);
-        return result;
-    }
+
     //忘记密码（已激活手机号）写入数据库手机号和密码
-    public static String ResetPassword(int userid,String password){
-        String url = NetBaseConstant.NET_API_HOST + " a=forgetPass_Activate&";
-        String data = "userid="+userid+"&pass="+password;
-        //Log.e("wzhtest", String.valueOf(userid));
-        // Log.e("wzhtest",password);
+    public static String ResetPassword(String phone,String code,String password,String token){
+        String url = NetBaseConstant.NET_API_HOST + " a=a=forgetpwd&";
+        String data = "phone="+phone+"&code="+code+"&password="+password+"&token="+token;
         String result = "";
         result = getResponse(url,data);
         return result;

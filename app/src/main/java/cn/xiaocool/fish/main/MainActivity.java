@@ -6,9 +6,13 @@
 package cn.xiaocool.fish.main;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
+import android.util.Log;
+import android.view.KeyEvent;
 import android.view.Window;
 
 import cn.xiaocool.fish.BaseActivity;
@@ -24,8 +28,10 @@ import android.support.v4.app.FragmentTransaction;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.Toast;
 
 public class MainActivity extends BaseActivity {
+    private boolean isAppExit; // 退出app标志位
     private Button[] mTabs;
     private Fragment[] fragments; // 定义Fragment数组
     private int index; // 索引空间(4)
@@ -34,6 +40,23 @@ public class MainActivity extends BaseActivity {
     private BookFragment bookFragment;
     private FisherFragment fisherFragment;
     private int currentTabIndex; // 当前Fragment的索引
+
+    Handler handler = new Handler() {
+
+        public void handleMessage(android.os.Message msg) {
+
+            switch (msg.what) {
+                case 1:
+                    isAppExit = false;
+                    break;
+
+                default:
+                    break;
+            }
+
+        };
+
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,7 +71,7 @@ public class MainActivity extends BaseActivity {
     }
 
     private void initView() {
-        requestWindowFeature(Window.FEATURE_NO_TITLE);
+        requestWindowFeature(Window.FEATURE_NO_TITLE); // 去掉标题栏
         setContentView(R.layout.activity_home);
         mTabs = new Button[4];
         mTabs[0] = (Button) findViewById(R.id.btn_home);
@@ -113,6 +136,36 @@ public class MainActivity extends BaseActivity {
         //添加显示第一个fragment
         getSupportFragmentManager().beginTransaction().add(R.id.fragment_container, homeFragment)
                 .add(R.id.fragment_container, newFragment).hide(newFragment).show(homeFragment).commit();
+
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        // TODO Auto-generated method stub
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            AppExit();
+            return false;
+        } /*else if (keyCode == KeyEvent.KEYCODE_HOME) {
+			return false;
+		}*/ else {
+            return super.onKeyDown(keyCode, event);
+        }
+    }
+
+    public void AppExit() {
+        if (!isAppExit) {
+            isAppExit = true;
+            Toast.makeText(MainActivity.this, "再点击退出APP", Toast.LENGTH_LONG)
+                    .show();
+            handler.sendEmptyMessageDelayed(1, 2000);
+
+        } else {// 2s内再次按back时,isExit= true，执行以下操作，app退出
+            Intent intent = new Intent(Intent.ACTION_MAIN);
+            intent.addCategory(Intent.CATEGORY_HOME);
+            startActivity(intent);
+            System.exit(0);
+
+        }
 
     }
 

@@ -88,11 +88,24 @@ public class WeatherActivity extends BaseActivity implements NavigationView.OnNa
 //        if (getSupportActionBar() != null) {
 //            getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_hourly_forecast_hum);
 //        }
-        mACache = ACache.get(getApplicationContext());
-        mCity = mACache.getAsString(Extras.CITY);
-        mCity = TextUtils.isEmpty(mCity) ? "烟台" : mCity;
+
+        SharedPreferences locate = getSharedPreferences("locate", MODE_PRIVATE);
+        String getlocate = locate.getString("userLocate", "");
+
+        if(getlocate=="" || getlocate==null){
+            getlocate="烟台";
+            mACache = ACache.get(getApplicationContext());
+            mCity = mACache.getAsString(Extras.CITY);
+            mCity = TextUtils.isEmpty(mCity) ? getlocate : mCity;
+        }else {
+            mACache = ACache.get(getApplicationContext());
+            mCity = mACache.getAsString(Extras.CITY);
+            mCity = TextUtils.isEmpty(mCity) ? getlocate : mCity;
+        }
+
         collapsingToolbar.setTitle(mCity);
         fetchDataFromCache(mCity);
+
     }
 
     @Override

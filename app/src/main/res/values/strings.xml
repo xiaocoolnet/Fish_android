@@ -24,7 +24,7 @@
     <string name="tv_title_pass">密码</string>
     <string name="tv_title_checkpass">重复密码</string>
     <string name="btn_finish">完成</string>
-    <string name="ed_hint_pass">请输入密码</string>
+    <string name="ed_hint_pass">请输入(8-12)位密码</string>
     <string name="ed_hint_checkpass">再次输入密码</string>
 
     <!--忘记密码获取验证码界面-->
@@ -37,6 +37,7 @@
     <string name="tv_logo_fishing_point">钓点</string>
     <string name="tv_logo_fishing_boat">船钓</string>
     <string name="tv_bar_title_location">当前位置</string>
+    <string name="home_notice">公告</string>
 
     <!-- 消息Fragment -->
     <string name="new_menu_title">消息</string>
@@ -50,6 +51,7 @@
     <string name="fisher_menu_fisher_daily">鱼记</string>
     <string name="fisher_menu_fisher_study">知鱼</string>
     <string name="fisher_menu_fisher_friend">附近的钓友</string>
+    <string name="fisher_menu_fisher_quit">退出APP</string>
 
     <!-- 下拉刷新和上拉加载更多的文本 -->
     <string name="pull_to_refresh">下拉可以刷新</string>

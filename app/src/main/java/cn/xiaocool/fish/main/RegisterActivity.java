@@ -6,6 +6,7 @@
 package cn.xiaocool.fish.main;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -18,13 +19,8 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import cn.xiaocool.fish.R;
 import cn.xiaocool.fish.net.HttpTool;
-import cn.xiaocool.fish.utils.IntentUtils;
-import cn.xiaocool.fish.view.FishApplication;
 
 public class RegisterActivity extends Activity implements View.OnClickListener {
 
@@ -34,7 +30,10 @@ public class RegisterActivity extends Activity implements View.OnClickListener {
     private EditText edit_phone_number; // 输入的手机号
     private EditText edit_verifycode; // 输入的验证码
     private String result_data;
+    private String phone;
+    private String yzCode;
     public static int second;
+    private String verifyCode;
     private Handler handler = new Handler() {
         public void handleMessage(Message msg){
             switch (msg.what){
@@ -50,26 +49,31 @@ public class RegisterActivity extends Activity implements View.OnClickListener {
                     Toast.makeText(RegisterActivity.this, "获取验证码成功", 0).show();
                     break;
                 case 3:
-                    //判断与服务器的验证码是否一致，如果一致则提示注册成功，跳转到主界面；否则提示验证码错误
-                    //   Intent intent_is = new Intent(RegisterActivity.this, MainActivity.class);
-                    //  startActivity(intent_is);
-                    try {
-                        JSONObject json = new JSONObject(result_data);
-                        String status = json.getString("status");
-                        String data = json.getString("data");
-                        if (status.equals("success")) {
-                            JSONObject item = new JSONObject(data);
-                            //实力化缓存类
-                            FishApplication.UID = Integer.parseInt(item.getString("id"));
-                            Toast.makeText(RegisterActivity.this, "注册成功！",0).show();
-                            IntentUtils.getIntent(RegisterActivity.this, SetPasswordActivity.class);
-                        } else {
-                            Toast.makeText(RegisterActivity.this, data,0).show();
-                        }
-                    } catch (JSONException e) {
-                        // TODO Auto-generated catch block
-                        e.printStackTrace();
+                    if(yzCode.equals(verifyCode)){
+                        Intent intent=new Intent();
+                        intent.putExtra("phone", phone);
+                        intent.putExtra("yzCode", yzCode);
+                        intent.setClass(RegisterActivity.this, SetPasswordActivity.class);
+                        startActivity(intent);
+                    }else {
+                        Toast.makeText(RegisterActivity.this, "验证码输入错误", 0).show();
                     }
+//                    try {
+//                        JSONObject json = new JSONObject(result_data);
+//                        String status = json.getString("status");
+//                        String data = json.getString("data");
+//                        if (status.equals("success")) {
+//                            JSONObject item = new JSONObject(data);
+//                            FishApplication.UID = Integer.parseInt(item.getString("id")); // 实力化缓存类
+//                            IntentUtils.getIntent(RegisterActivity.this, SetPasswordActivity.class);
+//                        } else {
+//                            Toast.makeText(RegisterActivity.this, "验证码"+data,0).show();
+//
+//                        }
+//                    } catch (JSONException e) {
+//                        // TODO Auto-generated catch block
+//                        e.printStackTrace();
+//                    }
                     break;
                 default:
                     break;
@@ -154,14 +158,14 @@ public class RegisterActivity extends Activity implements View.OnClickListener {
 
     //手机验证成功(下一步)操作
     private void Next() {
-        String phone = edit_phone_number.getText().toString(); // 获取用户输入的手机号
-        String yzCode = edit_verifycode.getText().toString(); // 获取用户输入的验证码
+        phone = edit_phone_number.getText().toString(); // 获取用户输入的手机号
+        yzCode = edit_verifycode.getText().toString(); // 获取用户输入的验证码
         if ((phone.length() == 11) && (yzCode.length()) == 6) {
             //启动新线程
             new Thread() {
                 public void run() {
                     String phoneNum = edit_phone_number.getText().toString();
-                    String verifyCode = edit_verifycode.getText().toString();
+                    verifyCode = edit_verifycode.getText().toString();
                     result_data = HttpTool.UserVerify(phoneNum, verifyCode);
                     handler.sendEmptyMessage(3);
                 }

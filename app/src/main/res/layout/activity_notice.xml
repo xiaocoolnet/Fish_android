@@ -14,7 +14,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center"
-            android:text="@string/tv_logo_fishing_point"
+            android:text="@string/home_notice"
             android:textColor="@color/tv_bar_color"
             android:textSize="@dimen/tv_size_20" />
         <RelativeLayout
@@ -29,5 +29,20 @@
                 android:src="@drawable/login_left_arrow" />
         </RelativeLayout>
     </RelativeLayout>
+
+    <TextView
+        android:id="@+id/txt_weather_city"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:id="@+id/txt_weather_temp"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:id="@+id/txt_weather_detail"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content" />
 
 </LinearLayout>

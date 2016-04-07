@@ -3,7 +3,6 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/main_ground_color"
     android:orientation="vertical">
 
@@ -47,8 +46,7 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="2"
+            android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:layout_margin="@dimen/fragmet_home_logo_size_5">
             <!--天气-->
@@ -56,8 +54,8 @@
                 android:id="@+id/rl_logo_weather"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/fragmet_home_logo_height_size_100"
-                android:layout_weight="1"
-                android:background="@color/white">
+                android:background="@color/white"
+                android:layout_weight="1">
 
                 <ImageView
                     android:id="@+id/iv_logo_weather"
@@ -85,8 +83,8 @@
                 android:id="@+id/rl_logo_fishing_point"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/fragmet_home_logo_height_size_100"
-                android:layout_weight="1"
-                android:background="@color/white">
+                android:background="@color/white"
+                android:layout_weight="1">
                 <ImageView
                     android:id="@+id/iv_logo_fishing_point"
                     android:layout_width="wrap_content"
@@ -112,8 +110,8 @@
                 android:id="@+id/rl_logo_fishing_boat"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/fragmet_home_logo_height_size_100"
-                android:layout_weight="1"
-                android:background="@color/white">
+                android:background="@color/white"
+                android:layout_weight="1">
 
                 <ImageView
                     android:id="@+id/iv_logo_fishing_boat"
@@ -136,61 +134,37 @@
             </RelativeLayout>
 
         </LinearLayout>
+
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="8"
-            android:orientation="horizontal"
-            android:background="@color/white"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
             android:layout_marginBottom="@dimen/fragmet_home_logo_size_5"
             android:layout_marginLeft="@dimen/fragmet_home_logo_size_5"
             android:layout_marginRight="@dimen/fragmet_home_logo_size_5">
 
-            <FrameLayout
-                android:id="@+id/framelayout"
+            <TextView
+                android:gravity="center"
+                android:id="@+id/tvTitle"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical" >
+                android:layout_height="wrap_content"
+                android:text="xx"
+                android:textSize="16sp"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="30dp"
+                android:layout_marginTop="@dimen/tv_margin_top_16" />
 
-
-                <cn.xiaocool.fish.view.HomeViewFlow
-                    android:id="@+id/viewflow"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent" />
-
-                <FrameLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="bottom"
-                    android:background="@color/bg_black"
-                    android:gravity="center"
-                    android:padding="3dip" >
-
-                    <cn.xiaocool.fish.view.Indicator.CircleFlowIndicator
-                        android:id="@+id/viewflowindic"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_horizontal|bottom"
-                        android:padding="2dip"
-                        app:activeColor="#ff0000"
-                        app:activeType="fill"
-                        app:circleSeparation="20dip"
-                        app:inactiveColor="#ffffff"
-                        app:inactiveType="fill"
-                        app:radius="4dip" />
-                </FrameLayout>
-            </FrameLayout>
-
-            <FrameLayout
-                android:id="@+id/main_notice"
-                android:layout_marginTop="5dip"
-                android:layout_width="match_parent"
-                android:layout_below="@id/framelayout"
-                android:layout_height="wrap_content" >
-            </FrameLayout>
+            <cn.xiaocool.fish.view.HomeGalleryView
+                android:id="@+id/mygallery"
+                android:spacing="20dp"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:unselectedAlpha="128" />
 
         </LinearLayout>
+
     </LinearLayout>
+
 
 
 </LinearLayout>
