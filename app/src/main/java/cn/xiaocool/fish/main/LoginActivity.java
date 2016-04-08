@@ -72,15 +72,15 @@ public class LoginActivity extends Activity implements View.OnClickListener {
                         String status = json.getString("status");
                         String data = json.getString("data");
                         if (status.equals("success")) {
-//                            JSONObject item = new JSONObject(data);
-//                            FishApplication.UID = Integer.parseInt(item.getString("id"));
-//                            user.setUserId(item.getString("id"));
-//                            user.setUserName(item.getString("name"));
-//                            user.writeData(mContext);
-//                            user.setUserImg(item.getString("photo"));
+                            JSONObject item = new JSONObject(data);
+                            FishApplication.UID = Integer.parseInt(item.getString("id"));
                             Toast.makeText(LoginActivity.this, "登陆成功",
                                     Toast.LENGTH_SHORT).show();
                             IntentUtils.getIntent(LoginActivity.this, MainActivity.class);
+                            user.setUserId(item.getString("id"));
+                            user.setUserName(item.getString("name"));
+                            user.writeData(mContext);
+                            user.setUserImg(item.getString("photo"));
                             finish();
                         } else {
                             Toast.makeText(LoginActivity.this, data,

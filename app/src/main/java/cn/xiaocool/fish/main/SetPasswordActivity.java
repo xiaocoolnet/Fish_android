@@ -52,6 +52,9 @@ public class SetPasswordActivity extends Activity implements View.OnClickListene
                         String status = json.getString("status");
                         String data = json.getString("data");
                         if (status.equals("success")) {
+                            //实力化缓存类
+//                            JSONObject item = new JSONObject(data);
+//                            FishApplication.UID = Integer.parseInt(item.getString("id"));
                             IntentUtils.getIntent(SetPasswordActivity.this, MainActivity.class);
                             Toast.makeText(SetPasswordActivity.this,"注册成功",0).show();
                         } else {

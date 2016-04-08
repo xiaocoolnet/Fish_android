@@ -97,7 +97,8 @@ public class MainActivity extends BaseActivity {
                 index = 2;
                 break;
             case R.id.btn_fisher:
-                ifUserNull(); // 判断用户名是否为空
+                //ifUserNull(); // 判断用户名是否为空
+                index = 3;
                 break;
 
         }

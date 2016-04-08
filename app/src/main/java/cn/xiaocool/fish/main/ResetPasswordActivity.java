@@ -41,6 +41,7 @@ public class ResetPasswordActivity extends Activity implements View.OnClickListe
     private String setPassword;
     private String reSetPassword;
     private TextView yzcode;
+    private String phoneNum;
     private String code;
     private String result_data;
     private Handler handler = new Handler() {
@@ -53,11 +54,13 @@ public class ResetPasswordActivity extends Activity implements View.OnClickListe
                         String status = json.getString("status");
                         String data = json.getString("data");
                         if (status.equals("success")) {
+//                            JSONObject item = new JSONObject(data);
+//                            FishApplication.UID = Integer.parseInt(item.getString("id"));
                             IntentUtils.getIntent(ResetPasswordActivity.this, LoginActivity.class);
                             Toast.makeText(ResetPasswordActivity.this, "修改密码成功", 0).show();
                         } else {
                             IntentUtils.getIntent(ResetPasswordActivity.this, LoginActivity.class);
-                            Toast.makeText(ResetPasswordActivity.this,"修改密码失败，重新修改",0).show();
+                            Toast.makeText(ResetPasswordActivity.this,"修改密码失败，重新修改"+code+setPassword+phoneNum+NetBaseConstant.Token,0).show();
                         }
                     } catch (JSONException e) {
                         e.printStackTrace();
@@ -121,11 +124,11 @@ public class ResetPasswordActivity extends Activity implements View.OnClickListe
                 //启动新线程
                 new Thread() {
                     public void run() {
-                        String phoneNum = ed_get_phone_number.getText().toString(); // 获取用户输入的手机号
+                        phoneNum = ed_get_phone_number.getText().toString(); // 获取用户输入的手机号
                         String setPassword = edit_password1.getText().toString();
                         code = yzcode.getText().toString();
                         Toast.makeText(ResetPasswordActivity.this,phoneNum,0).show();
-                        result_data = HttpTool.ResetPassword(phoneNum, setPassword, code,NetBaseConstant.Token);
+                        result_data = HttpTool.ResetPassword(code, setPassword, phoneNum,NetBaseConstant.Token);
                         handler.sendEmptyMessage(0);
                     }
                 }.start();

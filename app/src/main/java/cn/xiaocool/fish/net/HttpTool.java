@@ -123,11 +123,12 @@ public class HttpTool {
         Log.e("verify", result);
         return result;
     }
+//http://www.xiaocool.net/index.php?g=apps&m=index&a=forgetpwd&code=770577&password=209573&phone=13256930251&token=xiaocoolself
 
     //忘记密码（已激活手机号）写入数据库手机号和密码
-    public static String ResetPassword(String phone,String code,String password,String token){
-        String url = NetBaseConstant.NET_API_HOST + " a=a=forgetpwd&";
-        String data = "phone="+phone+"&code="+code+"&password="+password+"&token="+token;
+    public static String ResetPassword(String code,String password,String phone,String token){
+        String url = NetBaseConstant.NET_API_HOST + "a=forgetpwd&";
+        String data = "code="+code+"&password="+password+"&phone="+phone+"&token="+token;
         String result = "";
         result = getResponse(url,data);
         return result;

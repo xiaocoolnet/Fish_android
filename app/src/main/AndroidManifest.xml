@@ -53,6 +53,8 @@
             </intent-filter>
         </activity>
 
+        <activity android:name=".main.SplashActivity"/>
+
         <activity
             android:name=".main.WeatherActivity"
             android:theme="@style/AppTheme"/>
