@@ -44,15 +44,13 @@ public class UserSetInfoActivity extends Activity implements View.OnClickListene
     private Handler handler = new Handler() {
         public void handleMessage(android.os.Message msg) {
             switch (msg.what) {
-                case 0:
-                    ToastUtils.ToastShort(mContext, "网络问题，请稍后重试！");
-                    break;
                 case 1:
                     try {
                         JSONObject jsonObject = new JSONObject(result_data);
                         String status = jsonObject.getString("status");
                         if (status.equals("success")) {
                             Toast.makeText(UserSetInfoActivity.this,"修改资料成功", Toast.LENGTH_SHORT).show();
+                            IntentUtils.getIntent(UserSetInfoActivity.this, UserActivity.class);
                         } else {
                             Toast.makeText(UserSetInfoActivity.this,"----", Toast.LENGTH_SHORT).show();
                         }
