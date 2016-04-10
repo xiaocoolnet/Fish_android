@@ -53,11 +53,14 @@ public class RegisterActivity extends Activity implements View.OnClickListener {
                         Intent intent=new Intent();
                         intent.putExtra("phone", phone);
                         intent.putExtra("yzCode", yzCode);
+//                        Toast.makeText(RegisterActivity.this, result_data, 0).show();
                         intent.setClass(RegisterActivity.this, SetPasswordActivity.class);
                         startActivity(intent);
                     }else {
                         Toast.makeText(RegisterActivity.this, "验证码输入错误", 0).show();
+                        return;
                     }
+
 //                    try {
 //                        JSONObject json = new JSONObject(result_data);
 //                        String status = json.getString("status");

@@ -52,6 +52,7 @@ public class LoginActivity extends Activity implements View.OnClickListener {
     private TextView tv_register; // 注册按钮
     private CheckBox cb_showPass; // 是否显示密码
     private CheckBox cb_remember; // 记住账号和密码并回显
+    private SharedPreferences sharedPreferences;
 
     private static String UID;
     private String result_data;
@@ -74,21 +75,25 @@ public class LoginActivity extends Activity implements View.OnClickListener {
                         if (status.equals("success")) {
                             JSONObject item = new JSONObject(data);
                             FishApplication.UID = Integer.parseInt(item.getString("id"));
-                            Toast.makeText(LoginActivity.this, "登陆成功",
+                            String user_id = user.setUserId(item.getString("id"));
+
+                            sharedPreferences = getSharedPreferences("user_id", Context.MODE_PRIVATE);
+                            SharedPreferences.Editor editor = sharedPreferences.edit();
+                            editor.putString("user_id", user_id);
+                            editor.commit();// 提交修改
+
+                            String user_nicename=user.setUserName(item.getString("user_nicename"));
+                            user.setUserSex(item.getString("sex"));
+                            user.setUserAge(item.getString("age"));
+                            user.writeData(mContext);
+                            Toast.makeText(LoginActivity.this, "你好："+user_nicename,
                                     Toast.LENGTH_SHORT).show();
                             IntentUtils.getIntent(LoginActivity.this, MainActivity.class);
-                            user.setUserId(item.getString("id"));
-                            user.setUserName(item.getString("name"));
-                            user.writeData(mContext);
-                            user.setUserImg(item.getString("photo"));
                             finish();
                         } else {
-                            Toast.makeText(LoginActivity.this, data,
-                                    Toast.LENGTH_SHORT).show();
-                            Log.e("hou", data);
+                            Toast.makeText(LoginActivity.this, data, Toast.LENGTH_SHORT).show();
                         }
                     } catch (JSONException e) {
-                        // TODO Auto-generated catch block
                         e.printStackTrace();
                     }
                     break;
@@ -171,7 +176,7 @@ public class LoginActivity extends Activity implements View.OnClickListener {
 
     // 登录实现的操作
     private void getLogin() {
-        isEditEmpty(); //判断用户输入是否为空
+        isEditEmpty(); // 判断用户输入是否为空
     }
 
 
@@ -197,16 +202,13 @@ public class LoginActivity extends Activity implements View.OnClickListener {
                     String password = tx_vertifycode.getText().toString();
                     if (HttpTool.isConnnected(mContext)){
                         result_data = HttpTool.Login(phoneNum,password, NetBaseConstant.Token);
-                        //调用服务器登录函数
-                        handler.sendEmptyMessage(3);
+                        handler.sendEmptyMessage(3);// 调用服务器登录函数
                     }else {
-                        //输出：网络连接有问题！
-                        handler.sendEmptyMessage(2);
+                        handler.sendEmptyMessage(2); // 输出：网络连接有问题！
                     }
 
                 }else {
-                    //输出：手机号或密码不正确！
-                    handler.sendEmptyMessage(1);
+                    handler.sendEmptyMessage(1); // 输出：手机号或密码不正确！
                 }
             }
         }.start();

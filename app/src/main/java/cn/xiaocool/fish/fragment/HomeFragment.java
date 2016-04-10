@@ -18,6 +18,7 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.AdapterView;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -30,6 +31,7 @@ import cn.xiaocool.fish.adapter.HomeNoticeAdapter;
 import cn.xiaocool.fish.main.BoatFishActivity;
 import cn.xiaocool.fish.main.FishPointActivity;
 import cn.xiaocool.fish.main.HomeNoticeActivity;
+import cn.xiaocool.fish.main.UserActivity;
 import cn.xiaocool.fish.main.WeatherActivity;
 import cn.xiaocool.fish.service.LocationService;
 import cn.xiaocool.fish.utils.IntentUtils;
@@ -43,6 +45,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
     private TextView tvTitle;
     private HomeGalleryView gallery;
     private HomeNoticeAdapter adapter;
+    private ImageView iv_slidingmunu_btn;
 
     private Handler h = new Handler() {
         public void handleMessage(android.os.Message msg) {
@@ -89,6 +92,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
     }
 
     private void initEvent() {
+        iv_slidingmunu_btn.setOnClickListener(this);
         handler.postDelayed(runnable, 1000);
         rl_logo_weather.setOnClickListener(this);
         rl_logo_fishing_point.setOnClickListener(this);
@@ -101,6 +105,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
         rl_logo_weather = (RelativeLayout) getView().findViewById(R.id.rl_logo_weather);
         rl_logo_fishing_point = (RelativeLayout) getView().findViewById(R.id.rl_logo_fishing_point);
         rl_logo_fishing_boat = (RelativeLayout) getView().findViewById(R.id.rl_logo_fishing_boat);
+        iv_slidingmunu_btn = (ImageView) getView().findViewById(R.id.iv_slidingmunu_btn);
 
         getLocation = (TextView) getView().findViewById(R.id.getLocation);
     }
@@ -119,10 +124,13 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
                 break;
             case R.id.getLocation :
                 //IntentUtils.getIntent(mContext, LocationActivity.class);
+            case R.id.iv_slidingmunu_btn :
+                IntentUtils.getIntent(mContext, UserActivity.class);
             default:
                 break;
         }
     }
+
 
     // 定位监听器
     public class MyLocationListener implements BDLocationListener {

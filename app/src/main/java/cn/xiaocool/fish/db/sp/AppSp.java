@@ -5,10 +5,6 @@ import android.content.SharedPreferences;
 
 import cn.xiaocool.fish.bean.AppInfo;
 
-/**
- * Created by mac on 16/1/23.
- */
-
 public class AppSp extends BaseSp<AppInfo> {
 
     public AppSp(Context context) {

@@ -1,21 +1,18 @@
 /*
- * Copyright (c) 2016 3 30.
+ * Copyright (c) 2016 4 9.
  * 公司:北京校酷网络有限公司
- * 工作室：Hello Fish  闲来垂钓APP （钓点Activity）
+ * 工作室：Hello Fish  闲来垂钓APP （用户信息设置Activity）
  */
 package cn.xiaocool.fish.main;
 
 import android.app.Activity;
-import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
-import android.view.WindowManager;
 import android.widget.ImageView;
-
 import cn.xiaocool.fish.R;
 
-public class FishPointActivity extends Activity implements View.OnClickListener {
+public class UserSetInfoActivity extends Activity implements View.OnClickListener {
 
     private ImageView btn_exit; // 返回上一页
 
@@ -33,15 +30,15 @@ public class FishPointActivity extends Activity implements View.OnClickListener 
 
     private void initView() {
         requestWindowFeature(Window.FEATURE_NO_TITLE); // 去掉标题栏
-        setContentView(R.layout.activity_fishpoint); // 登录界面
+        setContentView(R.layout.activity_usersetinfo); // 登录界面
         // 控件实例化
         btn_exit = (ImageView) findViewById(R.id.btn_exit);
     }
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
-            case R.id.btn_exit :
+        switch (v.getId()) {
+            case R.id.btn_exit:
                 finish();
             default:
                 break;

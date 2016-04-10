@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/main_ground_color"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/title_bar_height_50"
+        android:background="@color/white">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="@string/tv_user_setinfo"
+            android:textColor="@color/tv_bar_color"
+            android:textSize="@dimen/tv_size_20" />
+        <RelativeLayout
+            android:layout_width="@dimen/title_bar_height_50"
+            android:layout_height="fill_parent"
+            android:gravity="center" >
+            <ImageView
+                android:id="@+id/btn_exit"
+                android:layout_width="@dimen/left_arrow"
+                android:layout_height="@dimen/left_arrow"
+                android:contentDescription="@string/app_name"
+                android:src="@drawable/login_left_arrow" />
+        </RelativeLayout>
+    </RelativeLayout>
+
+    <!--用户名-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginTop="@dimen/fragmet_home_logo_size_5"
+        android:layout_marginLeft="@dimen/fragmet_home_logo_size_5"
+        android:layout_marginRight="@dimen/fragmet_home_logo_size_5">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/fragmet_home_logo_size_50"
+            android:background="@color/white">
+
+            <TextView
+                android:id="@+id/tv_study_logo"
+                android:gravity="center_vertical"
+                android:layout_width="80dp"
+                android:layout_height="match_parent"
+                android:text="@string/tv_user_name"
+                android:layout_margin="@dimen/tv_margin_top_6.5"/>
+            <TextView
+                android:id="@+id/tv_get_user_name"
+                android:layout_toRightOf="@id/tv_study_logo"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:layout_marginLeft="@dimen/fragmet_home_logo_size_8"
+                android:textSize="@dimen/fragmet_home_logo_size_15" />
+
+        </RelativeLayout>
+    </LinearLayout>
+
+    <!--年龄-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_margin="@dimen/fragmet_home_logo_size_5">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/fragmet_home_logo_size_50"
+            android:background="@color/white">
+            <TextView
+                android:id="@+id/tv_friend_logo"
+                android:gravity="center_vertical"
+                android:layout_width="80dp"
+                android:layout_height="match_parent"
+                android:text="@string/tv_user_age"
+                android:layout_margin="@dimen/tv_margin_top_6.5"/>
+            <TextView
+                android:id="@+id/tv_get_user_age"
+                android:layout_toRightOf="@id/tv_friend_logo"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:layout_marginLeft="@dimen/fragmet_home_logo_size_8"
+                android:textColor="@color/bg_black"
+                android:textSize="@dimen/fragmet_home_logo_size_15" />
+        </RelativeLayout>
+    </LinearLayout>
+
+    <!--性别-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginLeft="@dimen/fragmet_home_logo_size_5"
+        android:layout_marginRight="@dimen/fragmet_home_logo_size_5">
+
+        <RelativeLayout
+            android:id="@+id/fisher_quit"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/fragmet_home_logo_size_50"
+            android:background="@color/white">
+            <TextView
+                android:id="@+id/quit"
+                android:gravity="center_vertical"
+                android:layout_width="80dp"
+                android:layout_height="match_parent"
+                android:text="@string/tv_user_sex"
+                android:layout_margin="@dimen/tv_margin_top_6.5"/>
+            <TextView
+                android:id="@+id/tv_get_user_sex"
+                android:layout_toRightOf="@id/quit"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:layout_marginLeft="@dimen/fragmet_home_logo_size_8"
+                android:textColor="@color/bg_black"
+                android:textSize="@dimen/fragmet_home_logo_size_15" />
+        </RelativeLayout>
+    </LinearLayout>
+
+    <!--性别-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginTop="@dimen/fragmet_home_logo_size_5"
+        android:layout_marginLeft="@dimen/fragmet_home_logo_size_5"
+        android:layout_marginRight="@dimen/fragmet_home_logo_size_5">
+
+        <RelativeLayout
+            android:id="@+id/user"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/fragmet_home_logo_size_50"
+            android:background="@color/white">
+            <TextView
+                android:id="@+id/city"
+                android:gravity="center_vertical"
+                android:layout_width="80dp"
+                android:layout_height="match_parent"
+                android:text="@string/tv_user_city"
+                android:layout_margin="@dimen/tv_margin_top_6.5"/>
+            <TextView
+                android:id="@+id/tv_get_user_city"
+                android:layout_toRightOf="@id/city"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:layout_marginLeft="@dimen/fragmet_home_logo_size_8"
+                android:textColor="@color/bg_black"
+                android:textSize="@dimen/fragmet_home_logo_size_15" />
+        </RelativeLayout>
+    </LinearLayout>
+
+</LinearLayout>

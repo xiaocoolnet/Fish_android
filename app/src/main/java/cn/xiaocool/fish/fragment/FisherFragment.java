@@ -41,7 +41,6 @@ public class FisherFragment extends Fragment implements View.OnClickListener {
 
     private void initEvent() {
         fisher_quit.setOnClickListener(this);
-        getUser(); // 获取用户名
     }
 
     private void initView() {
@@ -51,11 +50,6 @@ public class FisherFragment extends Fragment implements View.OnClickListener {
     }
 
 
-    private void getUser() {
-        SharedPreferences user = getActivity().getSharedPreferences("user", mContext.MODE_PRIVATE);
-        String getuser = user.getString("userphone", "");
-        tv_get_user_name.setText(getuser);
-    }
 
 
     /**

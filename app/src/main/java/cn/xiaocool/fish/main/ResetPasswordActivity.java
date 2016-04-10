@@ -30,6 +30,7 @@ import cn.xiaocool.fish.R;
 import cn.xiaocool.fish.net.HttpTool;
 import cn.xiaocool.fish.net.constant.NetBaseConstant;
 import cn.xiaocool.fish.utils.IntentUtils;
+import cn.xiaocool.fish.view.FishApplication;
 
 public class ResetPasswordActivity extends Activity implements View.OnClickListener {
 

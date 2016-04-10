@@ -90,15 +90,15 @@ public class HttpTool {
             return result = "请求失败，请检查网络2332"+e.getMessage().toString();
         }
     }
+    //登录
     public static String Login(String phone, String password,String token) {
-
         String url = NetBaseConstant.NET_API_HOST + "a=applogin&";
         String data = "phone="+phone+"&password="+password+"&token="+token;
         String result = "";
         result = getResponse(url,data);
         return  result;
     }
-
+    //注册
     public static String UserRegister(String phone,String password,String code,int devicestate,String token){
         String url = NetBaseConstant.NET_API_HOST + "a=AppRegister&";
         String data = "phone="+phone+"&password="+password+"&code="+code+"&devicestate="+devicestate+"&token="+token;
@@ -106,9 +106,9 @@ public class HttpTool {
         result = getResponse(url,data);
         return  result;
     }
-
+    //注册
     public static String UserVerify(String phone,String code){
-        String url = NetBaseConstant.NET_API_HOST + "a=AppRegister&";
+        String url = NetBaseConstant.NET_API_HOST + "a=SendMobileCode&";
         String data = "phone="+phone+"&code="+code;
         String result = "";
         result = getResponse(url,data);
@@ -123,7 +123,6 @@ public class HttpTool {
         Log.e("verify", result);
         return result;
     }
-//http://www.xiaocool.net/index.php?g=apps&m=index&a=forgetpwd&code=770577&password=209573&phone=13256930251&token=xiaocoolself
 
     //忘记密码（已激活手机号）写入数据库手机号和密码
     public static String ResetPassword(String code,String password,String phone,String token){
@@ -133,6 +132,15 @@ public class HttpTool {
         result = getResponse(url,data);
         return result;
 
+    }
+
+    //获取用户信息http://www.xiaocool.net/index.php?g=apps&m=index&a=getuserinfo&userid=34&token=xiaocool
+    public static String GetUser(String userid,String token){
+        String url = NetBaseConstant.NET_API_HOST + "a=getuserinfo&";
+        String data = "userid="+userid+"&token="+token;
+        String result = "";
+        result = getResponse(url,data);
+        return result;
     }
 
 }

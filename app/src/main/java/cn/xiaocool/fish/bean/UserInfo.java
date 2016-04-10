@@ -7,28 +7,31 @@ import java.io.Serializable;
 import java.util.ArrayList;
 
 import cn.xiaocool.fish.db.sp.UserSp;
+import cn.xiaocool.fish.main.LoginActivity;
 
 public class UserInfo implements Serializable {
     private static final long serialVersionUID = 1L;
-    private String userId;// 用户ID
+    private String userId; // 用户ID
+    private String userName; // 姓名
+    private String userAge; // 用户年龄
+    private String userSex; // 用户性别
     private String userIdTemp;
-    private String userPassword;// 用户密码
-    private String userImg;// 用户头像
-    private String userPhone;// 用户手机号
-    private String userCode;// 验证码
-    private String userName;// 姓名
-    private String userGender;// 性别
-    private String userCompany;// 公司
-    private String userPosition;// 职务
-    private String userCityId;// 城市ID
-    private String userCity;// 城市名
-    private String userEase;// 环信名
-    private String userEasePassword;// 环信密码
-    private ArrayList<TagInfo> userTags;// 用户的标签
-    private ArrayList<TagInfo> userCategoryTags;// 用户的业态标签
-    private ArrayList<TagInfo> userSkillsTags;// 用户的技能标签
-    private ArrayList<TagInfo> userPersonalTags;// 用户的行业标签
-    private String isKa;// 0不是，1是
+    private String userPassword; // 用户密码
+    private String userImg; // 用户头像
+    private String userPhone; // 用户手机号
+    private String userCode; // 验证码
+    private String userGender; // 性别
+    private String userCompany; // 公司
+    private String userPosition; // 职务
+    private String userCityId; // 城市ID
+    private String userCity; // 城市名
+    private String userEase; // 环信名
+    private String userEasePassword; // 环信密码
+    private ArrayList<TagInfo> userTags; // 用户的标签
+    private ArrayList<TagInfo> userCategoryTags; // 用户的业态标签
+    private ArrayList<TagInfo> userSkillsTags; // 用户的技能标签
+    private ArrayList<TagInfo> userPersonalTags; // 用户的行业标签
+    private String isKa; // 0不是，1是
 
     public UserInfo() {
 
@@ -84,21 +87,54 @@ public class UserInfo implements Serializable {
         return userId;
     }
 
-    public void setUserId(String userId) {
+    public String setUserId(String userId) {
         this.userId = userId;
+        return userId;
     }
 
-    public String getUserIdTemp() {
-        if (userIdTemp == null) {
+    public String getUserName() {
+        if (userName == null) {
+            return "null";
+        } else if (userName.equals("null")) {
+            return "null";
+        }
+        return userName;
+    }
+
+    public String setUserName(String userName) {
+        Log.e("setname","begin");
+        Log.e("setname",userName);
+        this.userName = userName;
+        return userName;
+    }
+
+    public String getUserAge() {
+        if (userAge == null) {
             return "";
-        } else if (userIdTemp.equals("null")) {
+        } else if (userAge.equals("null")) {
             return "";
         }
-        return userIdTemp;
+        return userAge;
     }
 
-    public void setUserIdTemp(String userIdTemp) {
-        this.userIdTemp = userIdTemp;
+    public String setUserAge(String userage) {
+        this.userAge = userage;
+        return userage;
+    }
+
+
+    public String getUserSex() {
+        if (userSex == null) {
+            return "";
+        } else if (userSex.equals("null")) {
+            return "";
+        }
+        return userSex;
+    }
+
+    public String setUserSex(String userSex) {
+        this.userSex = userSex;
+        return userSex;
     }
 
     public String getUserPhone() {
@@ -112,99 +148,6 @@ public class UserInfo implements Serializable {
 
     public void setUserPhone(String userPhone) {
         this.userPhone = userPhone;
-    }
-
-    public String getUserCode() {
-        if (userCode == null) {
-            return "";
-        } else if (userCode.equals("null")) {
-            return "";
-        }
-        return userCode;
-    }
-
-    public void setUserCode(String userCode) {
-        this.userCode = userCode;
-    }
-
-    public String getUserName() {
-        if (userName == null) {
-            return "null";
-        } else if (userName.equals("null")) {
-            return "null";
-        }
-        return userName;
-    }
-
-    public void setUserName(String userName) {
-        Log.e("setname","begin");
-        Log.e("setname",userName);
-        this.userName = userName;
-    }
-
-    public String getUserGender() {
-        if (userGender == null) {
-            return "";
-        } else if (userGender.equals("null")) {
-            return "";
-        }
-        return userGender;
-    }
-
-    public void setUserGender(String userGender) {
-        this.userGender = userGender;
-    }
-
-    public String getUserCompany() {
-        if (userCompany == null) {
-            return "";
-        } else if (userCompany.equals("null")) {
-            return "";
-        }
-        return userCompany;
-    }
-
-    public void setUserCompany(String userCompany) {
-        this.userCompany = userCompany;
-    }
-
-    public String getUserPosition() {
-        if (userPosition == null) {
-            return "";
-        } else if (userPosition.equals("null")) {
-            return "";
-        }
-        return userPosition;
-    }
-
-    public void setUserPosition(String userPosition) {
-        this.userPosition = userPosition;
-    }
-
-    public String getUserCityId() {
-        if (userCityId == null) {
-            return "";
-        } else if (userCityId.equals("null")) {
-            return "";
-        }
-        return userCityId;
-    }
-
-    public void setUserCityId(String userCityId) {
-        this.userCityId = userCityId;
-    }
-
-    public String getUserCity() {
-        if (userCity == null) {
-            return "";
-        } else if (userCity.equals("null")) {
-            return "";
-        }
-        return userCity;
-    }
-
-    public void setUserCity(String userCity) {
-        this.userCity = userCity;
     }
 
     public static long getSerialversionuid() {
@@ -222,40 +165,6 @@ public class UserInfo implements Serializable {
 
     public void setUserPassword(String userPassword) {
         this.userPassword = userPassword;
-    }
-
-    public String getUserImg() {
-        if (userImg == null) {
-            return "";
-        } else if (userImg.equals("null")) {
-            return "";
-        }
-        return userImg;
-    }
-
-    public void setUserImg(String userImg) {
-        this.userImg = userImg;
-    }
-
-    public String getUserEase() {
-        if (userEase == null) {
-            return "";
-        } else if (userEase.equals("null")) {
-            return "";
-        }
-        return userEase;
-    }
-
-    public void setUserEase(String userEase) {
-        this.userEase = userEase;
-    }
-
-    public String getUserEasePassword() {
-        return "1234567890";
-    }
-
-    public void setUserEasePassword(String userEasePassword) {
-        this.userEasePassword = "1234567890";
     }
 
     public ArrayList<TagInfo> getUserTags() {
@@ -311,25 +220,11 @@ public class UserInfo implements Serializable {
     }
 
 
-    public String getIsKa() {
-        if (isKa == null) {
-            return "";
-        } else if (isKa.equals("null")) {
-            return "";
-        }
-        return isKa;
-    }
-
-    public void setIsKa(String isKa) {
-        this.isKa = isKa;
-    }
-
     @Override
     public String toString() {
-        return "UserInfo [userId=" + userId + ", userIdTemp=" + userIdTemp + ", userPassword=" + userPassword + ", userImg=" + userImg + ", userPhone=" + userPhone + ", userCode=" + userCode
-                + ", userName=" + userName + ", userGender=" + userGender + ", userCompany=" + userCompany + ", userPosition=" + userPosition + ", userCityId=" + userCityId + ", userCity=" + userCity
-                + ", userEase=" + userEase + ", userEasePassword=" + userEasePassword + ", userTags=" + userTags + ", userCategoryTags=" + userCategoryTags + ", userSkillsTags=" + userSkillsTags
-                + ", userPersonalTags=" + userPersonalTags + ", isKa=" + isKa + "]";
+        return "UserInfo [userId=" + userId +", userName=" + userName +", userAge=" + userAge +", userSex=" + userSex + ", userPassword=" + userPassword +", userPhone=" + userPhone +
+                ", userTags=" + userTags + ", userCategoryTags=" + userCategoryTags + ", userSkillsTags=" + userSkillsTags
+                + ", userPersonalTags=" + userPersonalTags + "]";
     }
 
 }

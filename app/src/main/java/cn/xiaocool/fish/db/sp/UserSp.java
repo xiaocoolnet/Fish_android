@@ -8,10 +8,6 @@ import java.util.ArrayList;
 import cn.xiaocool.fish.bean.TagInfo;
 import cn.xiaocool.fish.bean.UserInfo;
 
-/**
- * Created by mac on 16/1/23.
- */
-
 public class UserSp extends BaseSp<UserInfo> {
 
     public UserSp(Context context) {
@@ -27,44 +23,20 @@ public class UserSp extends BaseSp<UserInfo> {
         if (getSP().contains("userId")) {
             user.setUserId(getSP().getString("userId", ""));
         }
-        if (getSP().contains("userIdTemp")) {
-            user.setUserIdTemp(getSP().getString("userIdTemp", ""));
+        if (getSP().contains("userAge")) {
+            user.setUserId(getSP().getString("userAge", ""));
         }
-        if (getSP().contains("userPhone")) {
-            user.setUserPhone(getSP().getString("userPhone", ""));
-        }
-        if (getSP().contains("userCode")) {
-            user.setUserCode(getSP().getString("userCode", ""));
+        if (getSP().contains("userSex")) {
+            user.setUserId(getSP().getString("userSex", ""));
         }
         if (getSP().contains("userName")) {
             user.setUserName(getSP().getString("userName", ""));
         }
+        if (getSP().contains("userPhone")) {
+            user.setUserPhone(getSP().getString("userPhone", ""));
+        }
         if (getSP().contains("userPassword")) {
             user.setUserPassword(getSP().getString("userPassword", ""));
-        }
-        if (getSP().contains("userGender")) {
-            user.setUserGender(getSP().getString("userGender", ""));
-        }
-        if (getSP().contains("userCityId")) {
-            user.setUserCityId(getSP().getString("userCityId", ""));
-        }
-        if (getSP().contains("userCity")) {
-            user.setUserCity(getSP().getString("userCity", ""));
-        }
-        if (getSP().contains("userCompany")) {
-            user.setUserCompany(getSP().getString("userCompany", ""));
-        }
-        if (getSP().contains("userPosition")) {
-            user.setUserPosition(getSP().getString("userPosition", ""));
-        }
-        if (getSP().contains("userImg")) {
-            user.setUserImg(getSP().getString("userImg", ""));
-        }
-        if (getSP().contains("userEase")) {
-            user.setUserEase(getSP().getString("userEase", ""));
-        }
-        if (getSP().contains("isKa")) {
-            user.setIsKa(getSP().getString("isKa", ""));
         }
         if (getSP().contains("userTag_size")) {
             ArrayList<TagInfo> tags = new ArrayList<TagInfo>();
@@ -130,44 +102,20 @@ public class UserSp extends BaseSp<UserInfo> {
         if (!user.getUserId().equals("")) {
             editor.putString("userId", user.getUserId());
         }
-        if (!user.getUserIdTemp().equals("")) {
-            editor.putString("userIdTemp", user.getUserIdTemp());
+        if (!user.getUserId().equals("")) {
+            editor.putString("userAge", user.getUserAge());
         }
-        if (!user.getUserPhone().equals("")) {
-            editor.putString("userPhone", user.getUserPhone());
-        }
-        if (!user.getUserPhone().equals("")) {
-            editor.putString("userCode", user.getUserCode());
+        if (!user.getUserName().equals("")) {
+            editor.putString("userSex", user.getUserSex());
         }
         if (!user.getUserName().equals("")) {
             editor.putString("userName", user.getUserName());
         }
+        if (!user.getUserPhone().equals("")) {
+            editor.putString("userPhone", user.getUserPhone());
+        }
         if (!user.getUserPassword().equals("")) {
             editor.putString("userPassword", user.getUserPassword());
-        }
-        if (!user.getUserGender().equals("")) {
-            editor.putString("userGender", user.getUserGender());
-        }
-        if (!user.getUserCityId().equals("")) {
-            editor.putString("userCityId", user.getUserCityId());
-        }
-        if (!user.getUserCity().equals("")) {
-            editor.putString("userCity", user.getUserCity());
-        }
-        if (!user.getUserCompany().equals("")) {
-            editor.putString("userCompany", user.getUserCompany());
-        }
-        if (!user.getUserPosition().equals("")) {
-            editor.putString("userPosition", user.getUserPosition());
-        }
-        if (!user.getUserImg().equals("")) {
-            editor.putString("userImg", user.getUserImg());
-        }
-        if (!user.getUserEase().equals("")) {
-            editor.putString("userEase", user.getUserEase());
-        }
-        if (!user.getIsKa().equals("")) {
-            editor.putString("isKa", user.getIsKa());
         }
         if (user.getUserTags().size() > 0) {
             editor.putInt("userTag_size", user.getUserTags().size());

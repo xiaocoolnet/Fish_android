@@ -45,7 +45,7 @@
             android:value="f0e7996abf955b600715964786d9e9f2" />
 
         <activity
-            android:name=".main.LoginActivity"
+            android:name=".main.SplashActivity"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -53,7 +53,7 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".main.SplashActivity"/>
+        <activity android:name=".main.LoginActivity"/>
 
         <activity
             android:name=".main.WeatherActivity"
@@ -73,6 +73,8 @@
         <activity android:name=".main.BoatFishActivity"/>
         <activity android:name=".main.LocationActivity"/>
         <activity android:name=".main.HomeNoticeActivity"/>
+        <activity android:name=".main.UserActivity"/>
+        <activity android:name=".main.UserSetInfoActivity"/>
 
         <meta-data
             android:name="com.baidu.lbsapi.API_KEY"

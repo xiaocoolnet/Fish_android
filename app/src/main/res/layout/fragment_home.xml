@@ -141,7 +141,8 @@
             android:orientation="vertical"
             android:layout_marginBottom="@dimen/fragmet_home_logo_size_5"
             android:layout_marginLeft="@dimen/fragmet_home_logo_size_5"
-            android:layout_marginRight="@dimen/fragmet_home_logo_size_5">
+            android:layout_marginRight="@dimen/fragmet_home_logo_size_5"
+            android:background="@color/white">
 
             <TextView
                 android:gravity="center"

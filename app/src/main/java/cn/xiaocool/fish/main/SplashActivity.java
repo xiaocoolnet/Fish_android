@@ -2,6 +2,7 @@ package cn.xiaocool.fish.main;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
@@ -13,22 +14,22 @@ import android.view.animation.AlphaAnimation;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
 import cn.xiaocool.fish.R;
 import cn.xiaocool.fish.adapter.ViewPagerAdapter;
 import cn.xiaocool.fish.bean.AppInfo;
-import cn.xiaocool.fish.bean.UserInfo;
 import cn.xiaocool.fish.utils.IntentUtils;
-import cn.xiaocool.fish.view.FishApplication;
 
 public class SplashActivity extends Activity implements View.OnClickListener,ViewPager.OnPageChangeListener {
     private   int UID ;
+    private SharedPreferences sharedPreferences;
     private Context mContext;
     private TextView tv_login;
     // 引导图片资源
-    private static final int[] pics = { R.drawable.we_1, R.drawable.we_1,R.drawable.we_1,R.drawable.we_1};
+    private static final int[] pics = { R.drawable.login_background, R.drawable.login_background,R.drawable.login_background,R.drawable.login_background};
     // 定义ViewPager对象
     private ViewPager viewPager;
     // 定义ViewPager适配器
@@ -56,13 +57,24 @@ public class SplashActivity extends Activity implements View.OnClickListener,Vie
             AlphaAnimation animation = new AlphaAnimation(0.3f, 1.0f);
             animation.setDuration(1500);
             view.startAnimation(animation);
-            LoginToWxt();
+//            LoginToFish();
         }
     }
     /**
      * 初始化组件
      */
     private void initView() {
+        sharedPreferences = getSharedPreferences("user_id", Activity.MODE_PRIVATE);
+        String user_id = sharedPreferences.getString("user_id", "");
+        if (user_id != ""){ //登录过
+            Toast.makeText(SplashActivity.this,"已经登录过了",0).show();
+            IntentUtils.getIntent(SplashActivity.this, MainActivity.class);
+        }else{
+            Toast.makeText(SplashActivity.this,"第一次登录",0).show();
+            IntentUtils.getIntent(SplashActivity.this, LoginActivity.class);
+        }
+
+
         // 实例化ArrayList对象
         views = new ArrayList<View>();
         // 实例化ViewPager
@@ -138,14 +150,14 @@ public class SplashActivity extends Activity implements View.OnClickListener,Vie
                     String currentVersion = "" + pi.versionCode;
                     appInfo.setLastVersionCode(currentVersion);
                     appInfo.writeData(mContext);
-                    UserInfo user = new UserInfo();
-                    user.readData(mContext);
-                    if (user.isLogined()) { // 已登录
-                        LoginToWxt();
-                    } else { // 未登录
-                        IntentUtils.getIntent(SplashActivity.this, LoginActivity.class);
-                        finish();
-                    }
+//                    UserInfo user = new UserInfo();
+//                    user.readData(mContext);
+//                    if (user.isLogined()) {// 已登录
+//                        LoginToFish();
+//                    } else {// 未登录
+//                        IntentUtils.getIntent(SplashActivity.this, LoginActivity.class);
+//                        finish();
+//                    }
 
                 }catch (Exception e){
 
@@ -217,27 +229,23 @@ public class SplashActivity extends Activity implements View.OnClickListener,Vie
         setCurDot(arg0);
 
     }
-    private void LoginToWxt() {
-        UserInfo user = new UserInfo();
-        user.readData(mContext);
-        UID = FishApplication.UID;
-        Log.e("login", String.valueOf(UID));
-            if (user.isLogined()) { // 曾经登录过
-                IntentUtils.getIntent(SplashActivity.this, MainActivity.class);
-                finish();
-            }else{
-                IntentUtils.getIntent(SplashActivity.this, LoginActivity.class);
-                finish();
-            }
-//        }else{//已经登陆
+//    private void LoginToFish() {
+//        UserInfo user = new UserInfo();
+//        user.readData(mContext);
+//        UID = FishApplication.UID;
+//        Log.e("login", String.valueOf(UID));
+//        if (user.isLogined()) {// 曾经登录过
 //            IntentUtils.getIntent(SplashActivity.this, MainActivity.class);
 //            finish();
+//        }else{
+//            IntentUtils.getIntent(SplashActivity.this, LoginActivity.class);
+//            finish();
 //        }
-
-    }
+//    }
 
     @Override
     public void onPageScrollStateChanged(int i) {
 
     }
+
 }
