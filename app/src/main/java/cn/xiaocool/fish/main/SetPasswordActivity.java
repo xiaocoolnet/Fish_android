@@ -128,7 +128,6 @@ public class SetPasswordActivity extends Activity implements View.OnClickListene
                         String setPassword = edit_password1.getText().toString();
                         code = yzcode.getText().toString();
                         deviceState =1;
-                        Toast.makeText(SetPasswordActivity.this,phoneNum,0).show();
                         result_data = HttpTool.UserRegister(phoneNum,setPassword,code,deviceState, NetBaseConstant.Token);
                         handler.sendEmptyMessage(0);
                     }

@@ -87,6 +87,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         mContext = getActivity();
+        ImageNotice();
         initView(); // 初始化界面
         initEvent(); // 初始化事件
     }
@@ -98,7 +99,6 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
         rl_logo_fishing_point.setOnClickListener(this);
         rl_logo_fishing_boat.setOnClickListener(this);
         getLocation.setOnClickListener(this);
-        ImageNotice();
     }
 
     private void initView() {
@@ -124,8 +124,10 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
                 break;
             case R.id.getLocation :
                 //IntentUtils.getIntent(mContext, LocationActivity.class);
+                break;
             case R.id.iv_slidingmunu_btn :
                 IntentUtils.getIntent(mContext, UserActivity.class);
+                break;
             default:
                 break;
         }

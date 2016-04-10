@@ -111,7 +111,7 @@ public class UserActivity extends Activity implements View.OnClickListener {
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btn_exit:
-                finish();
+                IntentUtils.getIntent(UserActivity.this, MainActivity.class);
                 break;
             case R.id.btn_setuserinfo:
                 IntentUtils.getIntent(UserActivity.this, UserSetInfoActivity.class); // 跳转到编辑用户资料

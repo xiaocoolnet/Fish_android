@@ -46,7 +46,7 @@
             <TextView
                 android:id="@+id/tv_study_logo"
                 android:gravity="center_vertical"
-                android:layout_width="80dp"
+                android:layout_width="60dp"
                 android:layout_height="match_parent"
                 android:text="@string/tv_user_name"
                 android:layout_margin="@dimen/tv_margin_top_6.5"/>
@@ -76,7 +76,7 @@
             <TextView
                 android:id="@+id/tv_friend_logo"
                 android:gravity="center_vertical"
-                android:layout_width="80dp"
+                android:layout_width="60dp"
                 android:layout_height="match_parent"
                 android:text="@string/tv_user_age"
                 android:layout_margin="@dimen/tv_margin_top_6.5"/>
@@ -108,7 +108,7 @@
             <TextView
                 android:id="@+id/quit"
                 android:gravity="center_vertical"
-                android:layout_width="80dp"
+                android:layout_width="60dp"
                 android:layout_height="match_parent"
                 android:text="@string/tv_user_sex"
                 android:layout_margin="@dimen/tv_margin_top_6.5"/>
@@ -141,7 +141,7 @@
             <TextView
                 android:id="@+id/city"
                 android:gravity="center_vertical"
-                android:layout_width="80dp"
+                android:layout_width="60dp"
                 android:layout_height="match_parent"
                 android:text="@string/tv_user_city"
                 android:layout_margin="@dimen/tv_margin_top_6.5"/>

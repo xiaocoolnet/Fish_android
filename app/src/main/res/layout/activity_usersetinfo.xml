@@ -46,15 +46,16 @@
             <TextView
                 android:id="@+id/tv_study_logo"
                 android:gravity="center_vertical"
-                android:layout_width="80dp"
+                android:layout_width="60dp"
                 android:layout_height="match_parent"
                 android:text="@string/tv_user_name"
                 android:layout_margin="@dimen/tv_margin_top_6.5"/>
-            <TextView
-                android:id="@+id/tv_get_user_name"
+            <EditText
+                android:id="@+id/et_get_user_name"
                 android:layout_toRightOf="@id/tv_study_logo"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:hint="@string/et_user_name"
                 android:gravity="center_vertical"
                 android:layout_marginLeft="@dimen/fragmet_home_logo_size_8"
                 android:textSize="@dimen/fragmet_home_logo_size_15" />
@@ -76,16 +77,17 @@
             <TextView
                 android:id="@+id/tv_friend_logo"
                 android:gravity="center_vertical"
-                android:layout_width="80dp"
+                android:layout_width="60dp"
                 android:layout_height="match_parent"
                 android:text="@string/tv_user_age"
                 android:layout_margin="@dimen/tv_margin_top_6.5"/>
-            <TextView
-                android:id="@+id/tv_get_user_age"
+            <EditText
+                android:id="@+id/et_get_user_age"
                 android:layout_toRightOf="@id/tv_friend_logo"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:gravity="center_vertical"
+                android:hint="@string/et_user_age"
                 android:layout_marginLeft="@dimen/fragmet_home_logo_size_8"
                 android:textColor="@color/bg_black"
                 android:textSize="@dimen/fragmet_home_logo_size_15" />
@@ -108,16 +110,17 @@
             <TextView
                 android:id="@+id/quit"
                 android:gravity="center_vertical"
-                android:layout_width="80dp"
+                android:layout_width="60dp"
                 android:layout_height="match_parent"
                 android:text="@string/tv_user_sex"
                 android:layout_margin="@dimen/tv_margin_top_6.5"/>
-            <TextView
-                android:id="@+id/tv_get_user_sex"
+            <EditText
+                android:id="@+id/et_get_user_sex"
                 android:layout_toRightOf="@id/quit"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:gravity="center_vertical"
+                android:hint="@string/et_user_sex"
                 android:layout_marginLeft="@dimen/fragmet_home_logo_size_8"
                 android:textColor="@color/bg_black"
                 android:textSize="@dimen/fragmet_home_logo_size_15" />
@@ -141,20 +144,33 @@
             <TextView
                 android:id="@+id/city"
                 android:gravity="center_vertical"
-                android:layout_width="80dp"
+                android:layout_width="60dp"
                 android:layout_height="match_parent"
                 android:text="@string/tv_user_city"
                 android:layout_margin="@dimen/tv_margin_top_6.5"/>
-            <TextView
-                android:id="@+id/tv_get_user_city"
+            <EditText
+                android:id="@+id/et_get_user_city"
                 android:layout_toRightOf="@id/city"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:gravity="center_vertical"
+                android:hint="@string/et_user_city"
                 android:layout_marginLeft="@dimen/fragmet_home_logo_size_8"
                 android:textColor="@color/bg_black"
                 android:textSize="@dimen/fragmet_home_logo_size_15" />
         </RelativeLayout>
     </LinearLayout>
+
+    <Button
+        android:id="@+id/btn_setuserinfofinish"
+        android:layout_marginLeft="@dimen/fragmet_home_logo_size_5"
+        android:layout_marginTop="@dimen/login_btn_margin_24"
+        android:layout_marginRight="@dimen/fragmet_home_logo_size_5"
+        android:background="@drawable/login_button"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/login_tv_user_bg_height"
+        android:text="@string/tv_user_setinfofinish"
+        android:textSize="@dimen/tv_size_20"
+        android:textColor="@color/tv_color" />
 
 </LinearLayout>

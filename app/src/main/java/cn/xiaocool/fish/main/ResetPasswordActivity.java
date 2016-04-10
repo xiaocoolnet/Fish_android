@@ -128,7 +128,7 @@ public class ResetPasswordActivity extends Activity implements View.OnClickListe
                         phoneNum = ed_get_phone_number.getText().toString(); // 获取用户输入的手机号
                         String setPassword = edit_password1.getText().toString();
                         code = yzcode.getText().toString();
-                        Toast.makeText(ResetPasswordActivity.this,phoneNum,0).show();
+//                        Toast.makeText(ResetPasswordActivity.this,phoneNum,0).show();
                         result_data = HttpTool.ResetPassword(code, setPassword, phoneNum,NetBaseConstant.Token);
                         handler.sendEmptyMessage(0);
                     }
