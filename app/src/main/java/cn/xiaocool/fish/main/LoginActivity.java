@@ -137,6 +137,8 @@ public class LoginActivity extends Activity implements View.OnClickListener {
         requestWindowFeature(Window.FEATURE_NO_TITLE); // 去掉标题栏
         setContentView(R.layout.activity_login); // 登录界面
         mContext = this;
+        isLogin();
+
         // 控件实例化
         tx_phonenumber = (EditText) findViewById(R.id.login_phonenum);
         tx_vertifycode = (EditText) findViewById(R.id.login_Password);
@@ -146,6 +148,16 @@ public class LoginActivity extends Activity implements View.OnClickListener {
         tv_register = (TextView) findViewById(R.id.tv_login_register);
         cb_showPass = (CheckBox) findViewById(R.id.cb_showPass);
         cb_remember= (CheckBox) findViewById(R.id.cb_remember);
+    }
+
+    public void isLogin(){
+        sharedPreferences = getSharedPreferences("user_id", Activity.MODE_PRIVATE);
+        String user_id = sharedPreferences.getString("user_id", "");
+        if (user_id != ""){ // 登录过
+//          Toast.makeText(LoginActivity.this,"已经登录过了",0).show();
+            IntentUtils.getIntent(LoginActivity.this, MainActivity.class);
+        }
+
     }
 
     @Override
@@ -212,61 +224,6 @@ public class LoginActivity extends Activity implements View.OnClickListener {
                 }
             }
         }.start();
-
-//                    String phonenum = tx_phonenumber.getText().toString();
-//                    //2、获取收入的密码
-//                    String vertifycode = tx_vertifycode.getText().toString();
-//                    //------逻辑判断
-//                    if(phonenum.length()==11) {
-//                        if (HttpTool.isConnnected(mContext)) {
-//                            result_data = HttpTool.Login(phonenum, vertifycode);
-//
-//                        } else {
-//                            handler.sendEmptyMessage(2);
-//                        }
-//                        //--调用服务器登录函数
-//                        handler.sendEmptyMessage(3);
-//                        Log.e("wzh","enter");
-//                    }
-//                    else{
-//                        handler.sendEmptyMessage(1);
-//                    }
-
-
-//        if(TextUtils.isEmpty(phonenumber)&&TextUtils.isEmpty(password)){
-//            Toast.makeText(this, "请输入用户名和密码 ", Toast.LENGTH_SHORT).show();
-//            return;
-//        }else if(TextUtils.isEmpty(phonenumber)){
-//            Toast.makeText(this, "请输入用户名", Toast.LENGTH_SHORT).show();
-//            return;
-//        }else if(TextUtils.isEmpty(password)){
-//            Toast.makeText(this, "请输入密码", Toast.LENGTH_SHORT).show();
-//            return;
-//        }else{
-//
-//            // 将用户名和密码保存到sava.txt文件中
-////            boolean isChecked = cb_remember.isChecked();
-////            if(isChecked){
-////                try {
-////                    File file = new File(this.getFilesDir(),"sava.txt");
-////                    OutputStream out = new FileOutputStream(file);
-////                    String value = phonenumber+"#XLCD#"+password;
-////                    out.write(value.getBytes());
-////                    out.close();
-////                    //Toast.makeText(this, "勾选了, 保存成功", Toast.LENGTH_SHORT).show();
-////                } catch (Exception e) {
-////                    e.printStackTrace();
-////                    //Toast.makeText(this, "勾选了, 没保存成功", Toast.LENGTH_SHORT).show();
-////                }
-////
-////            }else{
-////                //Toast.makeText(this, "没勾选了", Toast.LENGTH_SHORT).show();
-////            }
-//
-//            // 将用户名保存到user.xml文件中
-//
-
-//        }
 
     }
 

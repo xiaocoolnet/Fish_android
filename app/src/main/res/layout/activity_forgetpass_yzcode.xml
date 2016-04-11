@@ -72,7 +72,8 @@
             android:textColor="@color/tv_bar_color"
             android:layout_alignBottom="@+id/phone_number"
             android:layout_marginLeft="@dimen/tv_margin_left_85"
-            android:inputType="number"/>
+            android:inputType="number"
+            android:singleLine="true"/>
 
         <TextView
             android:id="@+id/tv_code"
@@ -129,7 +130,8 @@
             android:textColorHint="@color/tv_bar_color_hint"
             android:textColor="@color/tv_bar_color"
             android:layout_marginLeft="@dimen/tv_margin_top_5"
-            android:inputType="number"/>
+            android:inputType="number"
+            android:singleLine="true"/>
 
         <!--获取验证码按钮-->
         <Button

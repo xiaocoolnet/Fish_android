@@ -50,6 +50,7 @@
                 android:layout_height="match_parent"
                 android:text="@string/tv_user_name"
                 android:layout_margin="@dimen/tv_margin_top_6.5"/>
+
             <EditText
                 android:id="@+id/et_get_user_name"
                 android:layout_toRightOf="@id/tv_study_logo"
@@ -58,7 +59,8 @@
                 android:hint="@string/et_user_name"
                 android:gravity="center_vertical"
                 android:layout_marginLeft="@dimen/fragmet_home_logo_size_8"
-                android:textSize="@dimen/fragmet_home_logo_size_15" />
+                android:textSize="@dimen/fragmet_home_logo_size_15"
+                android:singleLine="true"/>
 
         </RelativeLayout>
     </LinearLayout>
@@ -90,7 +92,8 @@
                 android:hint="@string/et_user_age"
                 android:layout_marginLeft="@dimen/fragmet_home_logo_size_8"
                 android:textColor="@color/bg_black"
-                android:textSize="@dimen/fragmet_home_logo_size_15" />
+                android:textSize="@dimen/fragmet_home_logo_size_15"
+                android:singleLine="true"/>
         </RelativeLayout>
     </LinearLayout>
 
@@ -115,15 +118,23 @@
                 android:text="@string/tv_user_sex"
                 android:layout_margin="@dimen/tv_margin_top_6.5"/>
             <EditText
+                android:enabled="false"
                 android:id="@+id/et_get_user_sex"
                 android:layout_toRightOf="@id/quit"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="80dp"
                 android:gravity="center_vertical"
-                android:hint="@string/et_user_sex"
                 android:layout_marginLeft="@dimen/fragmet_home_logo_size_8"
                 android:textColor="@color/bg_black"
-                android:textSize="@dimen/fragmet_home_logo_size_15" />
+                android:textSize="@dimen/fragmet_home_logo_size_15"
+                android:singleLine="true"/>
+            <CheckBox
+                android:id="@+id/select_sex"
+                android:layout_alignParentRight="true"
+                android:layout_centerInParent="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="@dimen/fragmet_home_logo_size_5"/>
         </RelativeLayout>
     </LinearLayout>
 
@@ -157,7 +168,8 @@
                 android:hint="@string/et_user_city"
                 android:layout_marginLeft="@dimen/fragmet_home_logo_size_8"
                 android:textColor="@color/bg_black"
-                android:textSize="@dimen/fragmet_home_logo_size_15" />
+                android:textSize="@dimen/fragmet_home_logo_size_15"
+                android:singleLine="true"/>
         </RelativeLayout>
     </LinearLayout>
 

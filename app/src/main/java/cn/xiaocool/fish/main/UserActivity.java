@@ -32,7 +32,6 @@ public class UserActivity extends Activity implements View.OnClickListener {
     private TextView tv_get_user_age;
     private TextView tv_get_user_city;
     private Button btn_setuserinfo;
-    private static String UID;
     private SharedPreferences sharedPreferences;
     private String result_data;
     private String userName;
@@ -111,7 +110,7 @@ public class UserActivity extends Activity implements View.OnClickListener {
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btn_exit:
-                IntentUtils.getIntent(UserActivity.this, MainActivity.class);
+                finish();
                 break;
             case R.id.btn_setuserinfo:
                 IntentUtils.getIntent(UserActivity.this, UserSetInfoActivity.class); // 跳转到编辑用户资料

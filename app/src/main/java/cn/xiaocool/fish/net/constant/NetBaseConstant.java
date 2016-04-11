@@ -8,7 +8,6 @@ public interface NetBaseConstant {
     /**
     *API接口地址
     */
-    //public final static String NET_API_HOST = "http://www.xiaocool.cn:8016/index.php?g=apps&m=index&";
     public final static String Token = "hellofish";
     public final static String NET_API_HOST = "http://www.xiaocool.net/index.php?g=apps&m=index&";
 

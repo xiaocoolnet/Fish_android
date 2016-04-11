@@ -16,7 +16,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.RelativeLayout;
-import android.widget.TextView;
 
 import cn.xiaocool.fish.R;
 import cn.xiaocool.fish.main.LoginActivity;
@@ -24,8 +23,8 @@ import cn.xiaocool.fish.utils.IntentUtils;
 
 public class FisherFragment extends Fragment implements View.OnClickListener {
     private FragmentActivity mContext;
-    private TextView tv_get_user_name;
     private RelativeLayout fisher_quit;
+    private SharedPreferences sharedPreferences;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -44,12 +43,8 @@ public class FisherFragment extends Fragment implements View.OnClickListener {
     }
 
     private void initView() {
-        tv_get_user_name = (TextView) getView().findViewById(R.id.tv_get_user_name);
         fisher_quit = (RelativeLayout)getView().findViewById(R.id.fisher_quit);
-
     }
-
-
 
 
     /**
@@ -80,19 +75,11 @@ public class FisherFragment extends Fragment implements View.OnClickListener {
         btnOK.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-               IntentUtils.getIntent(mContext, LoginActivity.class);
-////				user.clearData(mContext);
-//                user.clearDataExceptPhone(mContext);
-//                SharedPreferences.Editor e = sp.edit();
-//                LogUtils.e("删除前", e.toString());
-//                e.clear();
-//                e.commit();
-//                WxtApplication.UID = 0;
-//                LogUtils.e("删除后", e.toString());
-//                IntentUtils
-//                        .getIntent(mContext, LoginActivity.class);
-//                mContext.finish();
-//                ExitApplication.getInstance().exit();
+                sharedPreferences = mContext.getSharedPreferences("user_id", mContext.MODE_PRIVATE);
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                editor.remove("user_id");
+                editor.commit();// 提交修改
+                IntentUtils.getIntent(mContext, LoginActivity.class);
             }
         });
     }
@@ -105,7 +92,7 @@ public class FisherFragment extends Fragment implements View.OnClickListener {
                 break;
             default:
                 break;
-
         }
     }
+
 }

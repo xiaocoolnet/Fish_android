@@ -10,10 +10,10 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
-import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
@@ -26,7 +26,6 @@ import cn.xiaocool.fish.bean.UserInfo;
 import cn.xiaocool.fish.net.HttpTool;
 import cn.xiaocool.fish.net.constant.NetBaseConstant;
 import cn.xiaocool.fish.utils.IntentUtils;
-import cn.xiaocool.fish.utils.ToastUtils;
 
 public class UserSetInfoActivity extends Activity implements View.OnClickListener {
 
@@ -35,11 +34,13 @@ public class UserSetInfoActivity extends Activity implements View.OnClickListene
     private EditText et_get_user_age;
     private EditText et_get_user_sex;
     private EditText et_get_user_city;
+    private CheckBox select_sex;
     private Button btn_setuserinfofinish;
     private Context mContext;
     private String result_data;
     private UserInfo user;
-    private String user_id,user_name,user_age,user_sex,user_city;
+    private String user_id,user_name,user_age,user_city;
+    private int user_sex;
     private SharedPreferences sharedPreferences;
     private Handler handler = new Handler() {
         public void handleMessage(android.os.Message msg) {
@@ -49,10 +50,10 @@ public class UserSetInfoActivity extends Activity implements View.OnClickListene
                         JSONObject jsonObject = new JSONObject(result_data);
                         String status = jsonObject.getString("status");
                         if (status.equals("success")) {
+                            IntentUtils.getIntent(UserSetInfoActivity.this, MainActivity.class); // 跳转到编辑用户资料
                             Toast.makeText(UserSetInfoActivity.this,"修改资料成功", Toast.LENGTH_SHORT).show();
-                            IntentUtils.getIntent(UserSetInfoActivity.this, UserActivity.class);
                         } else {
-                            Toast.makeText(UserSetInfoActivity.this,"----", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(UserSetInfoActivity.this,"修改资料失败", Toast.LENGTH_SHORT).show();
                         }
                     } catch (JSONException e) {
                         e.printStackTrace();
@@ -87,6 +88,7 @@ public class UserSetInfoActivity extends Activity implements View.OnClickListene
         et_get_user_sex = (EditText) findViewById(R.id.et_get_user_sex);
         et_get_user_city = (EditText) findViewById(R.id.et_get_user_city);
         btn_setuserinfofinish = (Button) findViewById(R.id.btn_setuserinfofinish);
+        select_sex = (CheckBox) findViewById(R.id.select_sex);
     }
 
     @Override
@@ -108,14 +110,20 @@ public class UserSetInfoActivity extends Activity implements View.OnClickListene
         user_id = sharedPreferences.getString("user_id", "");
         user_name = et_get_user_name.getText().toString();
         user_age = et_get_user_age.getText().toString();
-        user_sex = et_get_user_sex.getText().toString();
         user_city = et_get_user_city.getText().toString();
+        if (select_sex.isChecked()) {
+            et_get_user_sex.setText("男");
+            user_sex=2;
+        }else {
+            et_get_user_sex.setText("女");
+            user_sex=3;
+        }
         //线程
         new Thread() {
             public void run() {
-                        result_data = HttpTool.EditUserInfo(user_id, user_name,user_sex,user_age,user_city, NetBaseConstant.Token);
-                        handler.sendEmptyMessage(1); // 调用服务器登录函数
-                }
+                result_data = HttpTool.EditUserInfo(user_id, user_name,user_sex,user_age,user_city, NetBaseConstant.Token);
+                handler.sendEmptyMessage(1); // 调用服务器登录函数
+            }
         }.start();
 
     }
