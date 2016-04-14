@@ -140,11 +140,9 @@ public class ForgetPasswordActivity extends Activity implements View.OnClickList
             }.start();
         }
         else
-
         {
             Toast.makeText(ForgetPasswordActivity.this, "请输入正确的手机号码！", Toast.LENGTH_SHORT).show();
         }
-
     }
 
     //手机验证成功(下一步)操作

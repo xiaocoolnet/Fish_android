@@ -30,6 +30,31 @@
         </RelativeLayout>
     </RelativeLayout>
 
+
+    <!--头像-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginTop="@dimen/fragmet_home_logo_size_5"
+        android:layout_marginLeft="@dimen/fragmet_home_logo_size_5"
+        android:layout_marginRight="@dimen/fragmet_home_logo_size_5">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <cn.xiaocool.fish.ui.RoundImageView
+                android:id="@+id/iv_user_info_image"
+                android:layout_centerHorizontal="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/home_logo_weather"
+                android:layout_margin="@dimen/tv_margin_top_6.5"
+                android:scrollbars="none"/>
+
+        </RelativeLayout>
+    </LinearLayout>
+
     <!--用户名-->
     <LinearLayout
         android:layout_width="match_parent"

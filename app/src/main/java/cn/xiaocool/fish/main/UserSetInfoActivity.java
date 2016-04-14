@@ -39,8 +39,7 @@ public class UserSetInfoActivity extends Activity implements View.OnClickListene
     private Context mContext;
     private String result_data;
     private UserInfo user;
-    private String user_id,user_name,user_age,user_city;
-    private int user_sex;
+    private String user_id,user_name,user_sex,user_age,user_city;
     private SharedPreferences sharedPreferences;
     private Handler handler = new Handler() {
         public void handleMessage(android.os.Message msg) {
@@ -112,11 +111,13 @@ public class UserSetInfoActivity extends Activity implements View.OnClickListene
         user_age = et_get_user_age.getText().toString();
         user_city = et_get_user_city.getText().toString();
         if (select_sex.isChecked()) {
-            et_get_user_sex.setText("男");
-            user_sex=2;
-        }else {
             et_get_user_sex.setText("女");
-            user_sex=3;
+            select_sex.setText("女");
+            user_sex="1";
+        }else {
+            et_get_user_sex.setText("男");
+            select_sex.setText("男");
+            user_sex="0";
         }
         //线程
         new Thread() {

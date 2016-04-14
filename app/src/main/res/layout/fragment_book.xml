@@ -20,6 +20,69 @@
 
     </RelativeLayout>
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_margin="@dimen/fragmet_home_logo_size_5">
+
+        <!--群组-->
+        <RelativeLayout
+            android:id="@+id/rl_logo_group"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/fragmet_home_logo_height_size_100"
+            android:background="@color/white"
+            android:layout_weight="1">
+
+            <ImageView
+                android:id="@+id/iv_logo_weather"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/home_logo_weather"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="@dimen/fragmet_home_logo_size_10" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:text="@string/tv_title_group"
+                android:layout_below="@+id/iv_logo_weather"
+                android:layout_marginTop="@dimen/fragmet_home_logo_size_8"
+                android:layout_marginBottom="@dimen/fragmet_home_logo_size_10"
+                android:textSize="@dimen/fragmet_home_logo_size_15" />
+
+        </RelativeLayout>
+
+        <!--添加好友-->
+
+        <RelativeLayout
+            android:id="@+id/rl_logo_add_you"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/fragmet_home_logo_height_size_100"
+            android:background="@color/white"
+            android:layout_weight="1">
+            <ImageView
+                android:id="@+id/iv_logo_fishing_point"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/home_logo_weather"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="@dimen/fragmet_home_logo_size_10" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:text="@string/tv_title_add_you"
+                android:layout_below="@+id/iv_logo_fishing_point"
+                android:layout_marginTop="@dimen/fragmet_home_logo_size_8"
+                android:layout_marginBottom="@dimen/fragmet_home_logo_size_10"
+                android:textSize="@dimen/fragmet_home_logo_size_15" />
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
     <cn.xiaocool.fish.ui.RefreshableView
         android:id="@+id/refreshable_view"
         android:layout_width="match_parent"
@@ -33,6 +96,5 @@
         </ListView>
 
     </cn.xiaocool.fish.ui.RefreshableView>
-
 
 </LinearLayout>

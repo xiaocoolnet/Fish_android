@@ -15,9 +15,9 @@ public class UserInfo implements Serializable {
     private String userName; // 姓名
     private String userAge; // 用户年龄
     private String userSex; // 用户性别
+    private String userImg; // 用户头像
     private String userIdTemp;
     private String userPassword; // 用户密码
-    private String userImg; // 用户头像
     private String userPhone; // 用户手机号
     private String userCode; // 验证码
     private String userGender; // 性别
@@ -137,6 +137,21 @@ public class UserInfo implements Serializable {
         return userSex;
     }
 
+
+    public String getUserImg() {
+        if (userImg == null) {
+            return "";
+        } else if (userImg.equals("null")) {
+            return "";
+        }
+        return userImg;
+    }
+
+    public void setUserImg(String userImg) {
+        this.userImg = userImg;
+    }
+
+
     public String getUserPhone() {
         if (userPhone == null) {
             return "";
@@ -222,7 +237,7 @@ public class UserInfo implements Serializable {
 
     @Override
     public String toString() {
-        return "UserInfo [userId=" + userId +", userName=" + userName +", userAge=" + userAge +", userSex=" + userSex + ", userPassword=" + userPassword +", userPhone=" + userPhone +
+        return "UserInfo [userId=" + userId +", userName=" + userName +", userImg=" + userImg +", userAge=" + userAge +", userSex=" + userSex + ", userPassword=" + userPassword +", userPhone=" + userPhone +
                 ", userTags=" + userTags + ", userCategoryTags=" + userCategoryTags + ", userSkillsTags=" + userSkillsTags
                 + ", userPersonalTags=" + userPersonalTags + "]";
     }

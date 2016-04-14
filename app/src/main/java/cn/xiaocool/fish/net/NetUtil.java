@@ -34,8 +34,7 @@ public class NetUtil {
         }
         return false;
     }
-    /**
-     *
+    /***
      * @param is
      * @return
      * @throws IOException
@@ -44,7 +43,6 @@ public class NetUtil {
             throws IOException {
 
         ByteArrayOutputStream os = new ByteArrayOutputStream();
-        // 模板代碼 必須熟練
         byte[] buffer = new byte[1024];
         int len = -1;
         // 一定要寫len=is.read(buffer)
@@ -61,35 +59,35 @@ public class NetUtil {
         String result = "";
         HttpURLConnection conn = null;
         try{
-            // 創建一個url對象
+            // 创建一个url对象
 
             URL mURL = new URL(url);
-            // 調用URL的openConnection()方法,獲得HttpURLConnection對象
+            // 调用URL的openConnection()方法,获得HttpURLConnection对象
             conn = (HttpURLConnection) mURL.openConnection();
 
-            conn.setRequestMethod("POST");       // 設置請求方法post
-            conn.setReadTimeout(5000);           // 設置讀取超時
+            conn.setRequestMethod("POST");       // 设置请求方法post
+            conn.setReadTimeout(5000);           // 设置获取超时
             conn.setConnectTimeout(10000);       // 設置網路連結超時
-            conn.setDoInput(true);               // 開啟輸入流
-            conn.setDoOutput(true);              // 開啟輸出流
-            conn.setUseCaches(false);            // 使用Post方式不能使用暫存
+            conn.setDoInput(true);               // 开启输入流
+            conn.setDoOutput(true);              // 开启输出流
+            conn.setUseCaches(false);            // 使用Post方式不能使用暂存
 
-            // post請求參數
+            // post请求参数
 
-            // 獲得一個輸出流
+            // 获得一個输出流
             OutputStream out = conn.getOutputStream();
             out.write(data.getBytes());
             out.flush();
             out.close();
 
-            int responseCode = conn.getResponseCode();// 調用此方法就不必再使用conn.connect()方法
+            int responseCode = conn.getResponseCode();// 调用此方法就不必再使用conn.connect()方法
             if (responseCode == 200) {
                 InputStream is = conn.getInputStream();
                 result = getStringFromInputStream(is);
                 return result;
             } else {
                 // Log.i(TAG, "訪問失敗" + responseCode);
-                return result = "请求失败，请检查网络";
+                return result = "请调求失败，请检查网络";
             }
         }catch (Exception e){
             return result = "请求失败，请检查网络"+e.getMessage().toString();

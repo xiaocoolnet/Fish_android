@@ -8,7 +8,6 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="50dip" >
-
         <TextView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -16,7 +15,7 @@
             android:gravity="center"
             android:text="@string/fisher_menu_title"
             android:textColor="@color/tv_bar_color"
-            android:textSize="20sp" />
+            android:textSize="20sp"/>
     </RelativeLayout>
 
 
@@ -54,7 +53,6 @@
                     android:layout_below="@+id/iv_logo_weather"
                     android:layout_marginTop="@dimen/fragmet_home_logo_size_8"
                     android:textSize="@dimen/fragmet_home_logo_size_15" />
-
             </RelativeLayout>
 
             <!--鱼记-->
@@ -93,7 +91,7 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/fragmet_home_logo_size_50"
-                android:background="@color/white">
+                android:background="@drawable/btn_click">
 
                 <ImageView
                     android:id="@+id/tv_study_logo"
@@ -124,7 +122,7 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/fragmet_home_logo_size_50"
-                android:background="@color/white">
+                android:background="@drawable/btn_click">
                 <ImageView
                     android:id="@+id/tv_friend_logo"
                     android:layout_width="wrap_content"
@@ -149,13 +147,14 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:layout_margin="@dimen/fragmet_home_logo_size_5">
+            android:layout_marginLeft="@dimen/fragmet_home_logo_size_5"
+            android:layout_marginRight="@dimen/fragmet_home_logo_size_5">
 
             <RelativeLayout
                 android:id="@+id/fisher_quit"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/fragmet_home_logo_size_50"
-                android:background="@color/white">
+                android:background="@drawable/btn_click">
                 <ImageView
                     android:id="@+id/quit"
                     android:layout_width="wrap_content"

@@ -6,11 +6,9 @@
 package cn.xiaocool.fish.main;
 
 import android.app.Activity;
-import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
-import android.view.WindowManager;
 import android.widget.ImageView;
 
 import cn.xiaocool.fish.R;
@@ -36,7 +34,6 @@ public class BoatFishActivity extends Activity implements View.OnClickListener {
         setContentView(R.layout.activity_boatfish); // 登录界面
         // 控件实例化
         btn_exit = (ImageView) findViewById(R.id.btn_exit);
-
     }
 
     @Override

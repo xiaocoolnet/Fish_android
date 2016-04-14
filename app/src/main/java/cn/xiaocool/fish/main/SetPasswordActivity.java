@@ -57,7 +57,7 @@ public class SetPasswordActivity extends Activity implements View.OnClickListene
                         String data = json.getString("data");
                         if (status.equals("success")) {
                             Toast.makeText(SetPasswordActivity.this,"注册成功",0).show();
-                            IntentUtils.getIntent(SetPasswordActivity.this, MainActivity.class);
+                            IntentUtils.getIntent(SetPasswordActivity.this, LoginActivity.class);
                         } else {
                             Toast.makeText(SetPasswordActivity.this,"注册失败，重新注册",0).show();
                             IntentUtils.getIntent(SetPasswordActivity.this, LoginActivity.class);

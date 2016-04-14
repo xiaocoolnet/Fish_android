@@ -6,6 +6,7 @@
 package cn.xiaocool.fish.main;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
@@ -22,11 +23,13 @@ import org.json.JSONObject;
 import cn.xiaocool.fish.R;
 import cn.xiaocool.fish.net.HttpTool;
 import cn.xiaocool.fish.net.constant.NetBaseConstant;
+import cn.xiaocool.fish.ui.RoundImageView;
 import cn.xiaocool.fish.utils.IntentUtils;
 
 public class UserActivity extends Activity implements View.OnClickListener {
 
     private ImageView btn_exit; // 返回上一页
+    private RoundImageView iv_user_info_image;
     private TextView tv_get_user_name;
     private TextView tv_get_user_sex;
     private TextView tv_get_user_age;
@@ -51,6 +54,11 @@ public class UserActivity extends Activity implements View.OnClickListener {
                             userName = object.getString("user_nicename");
                             userAge = object.getString("age");
                             userSex = object.getString("sex");
+                            if(userSex.equals("0")){
+                                userSex="男";
+                            }else{
+                                userSex="女";
+                            }
                             userCity = object.getString("city");
                             tv_get_user_name.setText(userName.toString());
                             tv_get_user_sex.setText(userSex.toString());
@@ -60,6 +68,9 @@ public class UserActivity extends Activity implements View.OnClickListener {
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
+                    break;
+                case 1:
+
                     break;
                 default:
                     break;
@@ -78,6 +89,7 @@ public class UserActivity extends Activity implements View.OnClickListener {
         // 添加点击事件
         btn_exit.setOnClickListener(this);
         btn_setuserinfo.setOnClickListener(this);
+        iv_user_info_image.setOnClickListener(this);
         User();
     }
 
@@ -103,7 +115,7 @@ public class UserActivity extends Activity implements View.OnClickListener {
         tv_get_user_age = (TextView) findViewById(R.id.tv_get_user_age);
         tv_get_user_city = (TextView) findViewById(R.id.tv_get_user_city);
         btn_setuserinfo = (Button) findViewById(R.id.btn_setuserinfo);
-
+        iv_user_info_image = (RoundImageView) findViewById(R.id.iv_user_info_image);
     }
 
     @Override
@@ -114,6 +126,11 @@ public class UserActivity extends Activity implements View.OnClickListener {
                 break;
             case R.id.btn_setuserinfo:
                 IntentUtils.getIntent(UserActivity.this, UserSetInfoActivity.class); // 跳转到编辑用户资料
+                break;
+            case R.id.iv_user_info_image:
+                Intent intentCamera = new Intent(); // 跳转到系统拍照界面
+                intentCamera.setAction("android.media.action.STILL_IMAGE_CAMERA");
+                startActivity(intentCamera);
                 break;
             default:
                 break;

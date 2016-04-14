@@ -57,6 +57,8 @@
 
     <!-- 通讯录Fragment -->
     <string name="book_menu_title">通讯录</string>
+    <string name="tv_title_group">群组</string>
+    <string name="tv_title_add_you">添加好友</string>
 
     <!--鱼圈Fragment-->
     <string name="fisher_menu_title">鱼圈</string>
@@ -74,22 +76,5 @@
     <string name="updated_at">上次更新于%1$s前</string>
     <string name="updated_just_now">刚刚更新</string>
     <string name="time_error">时间有问题</string>
-
-    <string name="sure">确定</string>
-    <string name="cancel">取消</string>
-    <string name="share">分享</string>
-    <string name="about">关于</string>
-    <string name="temp">%s°</string>
-    <string name="tempC">%s℃</string>
-    <string name="now_max_temp">↑&#160;%s°</string>
-    <string name="now_min_temp">↓&#160;%s°</string>
-    <string name="hourly_forecast_hum">%s%%</string>
-    <string name="hourly_forecast_wind">%s级</string>
-    <string name="daily_forecast_temp">%1$s~%2$s°</string>
-    <string name="daily_forecast_detail">%1$s，湿度%2$s%%，%3$s%4$s级，降水几率%5$s%%。</string>
-    <string name="select_city">选择城市</string>
-    <string name="network_error">网络异常，请检查网络设置</string>
-    <string name="locate_fail">自动定位失败，请稍后再试</string>
-    <string name="update_tips">已更新至最新天气</string>
 
 </resources>

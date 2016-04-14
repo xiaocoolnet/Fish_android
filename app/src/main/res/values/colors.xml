@@ -19,4 +19,10 @@
     <color name="black">@android:color/black</color>
     <color name="grey">#9E9E9E</color>
 
+    <color name="text_gray">#eee</color>
+    <color name="secondary_text">#727272</color>
+    <color name="primary_text">#212121</color>
+    <color name="alpha_zcool">#55ffd100</color>
+
+
 </resources>

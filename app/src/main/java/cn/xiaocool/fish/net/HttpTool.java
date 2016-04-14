@@ -144,9 +144,18 @@ public class HttpTool {
     }
 
     //编辑用户信息http://www.xiaocool.net/index.php?g=apps&m=index&a=savepersonalinfo&userid=2&nicename=cool&sex=1&age=19&city=烟台市&token=xiaocool
-    public static String EditUserInfo(String userid,String nicename,int sex,String age,String city,String token){
+    public static String EditUserInfo(String userid,String nicename,String sex,String age,String city,String token){
         String url = NetBaseConstant.NET_API_HOST + "a=savepersonalinfo&";
         String data = "userid="+userid+"&nicename="+nicename+"&sex="+sex+"&age="+age+"&city="+city+"&token="+token;
+        String result = "";
+        result = getResponse(url,data);
+        return result;
+    }
+
+    //编辑用户信息http://www.xiaocool.net/index.php?g=apps&m=index&a=savepersonalinfo&userid=2&nicename=cool&sex=1&age=19&city=烟台市&token=xiaocool
+    public static String PostHeadImage(String userid,String file,String token){
+        String url = NetBaseConstant.NET_API_HOST + "a=changeavatar&";
+        String data = "userid="+userid+"&file="+file+"&token="+token;
         String result = "";
         result = getResponse(url,data);
         return result;
