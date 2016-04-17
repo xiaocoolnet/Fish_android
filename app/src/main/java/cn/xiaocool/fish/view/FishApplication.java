@@ -108,7 +108,7 @@ public class FishApplication extends Application {
         // 创建配置ImageLoader(所有的选项都是可选的,只使用那些你真的想定制)，这个可以设定在APPLACATION里面，设置为全局的配置参数
         ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(context).memoryCacheExtraOptions(480, 800)
                 // max width,max height，即保存的每个缓存文件的最大长宽default=device screen dimensions
-                        // Can slow ImageLoader, use it carefully (Better don't use
+                        // Can slow BoatImageLoader, use it carefully (Better don't use
                         // it)设置缓存的详细信息，最好不要设置这个
                 .threadPoolSize(5)// 线程池内加载的数量
                 .threadPriority(Thread.NORM_PRIORITY - 1).tasksProcessingOrder(QueueProcessingType.FIFO) // default

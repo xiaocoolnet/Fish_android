@@ -51,9 +51,9 @@
         <activity android:name=".main.ForgetPasswordActivity"/>
         <activity android:name=".main.ResetPasswordActivity"/>
         <activity android:name=".main.SetPasswordActivity"/>
-
         <activity android:name=".main.FishPointActivity"/>
         <activity android:name=".main.BoatFishActivity"/>
+        <activity android:name=".main.BoatFishSingleContentActivity"/>
         <activity android:name=".main.LocationActivity"/>
         <activity android:name=".main.HomeNoticeActivity"/>
         <activity android:name=".main.UserActivity"/>

@@ -134,10 +134,19 @@ public class HttpTool {
 
     }
 
-    //获取用户信息http://www.xiaocool.net/index.php?g=apps&m=index&a=getuserinfo&userid=34&token=xiaocool
+    //获取用户信息http://www.xiaocool.net/index.php?g=apps&m=index&a=getuserinfo&userid=34&token=hellofish
     public static String GetUser(String userid,String token){
         String url = NetBaseConstant.NET_API_HOST + "a=getuserinfo&";
         String data = "userid="+userid+"&token="+token;
+        String result = "";
+        result = getResponse(url,data);
+        return result;
+    }
+
+    //上传个人头像http://www.xiaocool.net/index.php?g=apps&m=index&a=uploadavatar&upfile=34&token=hellofish
+    public static String GetHeaderImage(int upfile,String token){
+        String url = NetBaseConstant.NET_API_HOST + "a=uploadavatar&";
+        String data = "upfile="+upfile+"&token="+token;
         String result = "";
         result = getResponse(url,data);
         return result;
@@ -156,6 +165,24 @@ public class HttpTool {
     public static String PostHeadImage(String userid,String file,String token){
         String url = NetBaseConstant.NET_API_HOST + "a=changeavatar&";
         String data = "userid="+userid+"&file="+file+"&token="+token;
+        String result = "";
+        result = getResponse(url,data);
+        return result;
+    }
+
+    //获取个人项目列表http://www.xiaocool.net/index.php?g=apps&m=project&a=getprojectlist&userid=34&token=hellofish
+    public static String GetMySelfList(String userid,String token){
+        String url = NetBaseConstant.NET_API_List + "a=getprojectlist&";
+        String data = "userid="+userid+"&token="+token;
+        String result = "";
+        result = getResponse(url,data);
+        return result;
+    }
+
+    //调用和风天气API https://api.heweather.com/x3/weather?cityid=CN101010100&key=1058a995f42145d7b9b7208dafe23720
+    public static String WeatherAPI(String city,String key){
+        String url = NetBaseConstant.WEATHER_API + "?";
+        String data = "city="+city+"&key="+key;
         String result = "";
         result = getResponse(url,data);
         return result;

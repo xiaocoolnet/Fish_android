@@ -58,7 +58,7 @@ public class LocationActivity extends Activity implements View.OnClickListener {
 
     private void initView() {
         requestWindowFeature(Window.FEATURE_NO_TITLE); // 去掉标题栏
-        setContentView(R.layout.activity_location); // 登录界面
+        setContentView(R.layout.activity_location); // 当前位置界面
         // 控件实例化
         btn_exit = (ImageView) findViewById(R.id.btn_exit);
 

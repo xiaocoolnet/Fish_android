@@ -31,7 +31,7 @@ public class HomeNoticeActivity extends Activity implements View.OnClickListener
 
     private void initView() {
         requestWindowFeature(Window.FEATURE_NO_TITLE); // 去掉标题栏
-        setContentView(R.layout.activity_notice); // 登录界面
+        setContentView(R.layout.activity_notice); // 主页公告界面
         // 控件实例化
         btn_exit = (ImageView) findViewById(R.id.btn_exit);
     }

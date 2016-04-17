@@ -6,16 +6,20 @@
 package cn.xiaocool.fish.main;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -36,11 +40,12 @@ public class UserActivity extends Activity implements View.OnClickListener {
     private TextView tv_get_user_city;
     private Button btn_setuserinfo;
     private SharedPreferences sharedPreferences;
-    private String result_data;
+    private String result_data,result_upfile;
     private String userName;
     private String userSex;
     private String userCity;
     private String userAge;
+    private int upfile;
     private Handler handler = new Handler() {
         public void handleMessage(Message msg) {
             switch (msg.what) {
@@ -60,6 +65,15 @@ public class UserActivity extends Activity implements View.OnClickListener {
                                 userSex="女";
                             }
                             userCity = object.getString("city");
+
+                            sharedPreferences = getSharedPreferences("user_info", Context.MODE_PRIVATE);
+                            SharedPreferences.Editor editor = sharedPreferences.edit();
+                            editor.putString("userName", userName);
+                            editor.putString("userAge", userAge);
+                            editor.putString("userSex", userSex);
+                            editor.putString("userCity", userCity);
+                            editor.commit();// 提交修改
+
                             tv_get_user_name.setText(userName.toString());
                             tv_get_user_sex.setText(userSex.toString());
                             tv_get_user_age.setText(userAge.toString());
@@ -70,7 +84,14 @@ public class UserActivity extends Activity implements View.OnClickListener {
                     }
                     break;
                 case 1:
-
+                    try {
+                        JSONObject jsonObject = new JSONObject(result_upfile);
+                        String status = jsonObject.getString("status");
+                        Toast.makeText(UserActivity.this,upfile,0).show();
+                        Log.i("status2", status);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
                     break;
                 default:
                     break;
@@ -82,7 +103,20 @@ public class UserActivity extends Activity implements View.OnClickListener {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         initView(); // 初始化界面
+        getUserInfo();
         initEvent(); // 初始化事件
+    }
+
+    private void getUserInfo() {
+        sharedPreferences = getSharedPreferences("user_info", Activity.MODE_PRIVATE);
+        String userName = sharedPreferences.getString("userName", "");
+        String userAge = sharedPreferences.getString("userAge", "");
+        String userSex = sharedPreferences.getString("userSex", "");
+        String userCity = sharedPreferences.getString("userCity", "");
+        tv_get_user_name.setText(userName.toString());
+        tv_get_user_sex.setText(userSex.toString());
+        tv_get_user_age.setText(userAge.toString());
+        tv_get_user_city.setText(userCity.toString());
     }
 
     private void initEvent() {
@@ -128,13 +162,25 @@ public class UserActivity extends Activity implements View.OnClickListener {
                 IntentUtils.getIntent(UserActivity.this, UserSetInfoActivity.class); // 跳转到编辑用户资料
                 break;
             case R.id.iv_user_info_image:
-                Intent intentCamera = new Intent(); // 跳转到系统拍照界面
-                intentCamera.setAction("android.media.action.STILL_IMAGE_CAMERA");
-                startActivity(intentCamera);
+                GetHeaderImage();
                 break;
             default:
                 break;
         }
+    }
+
+    private void GetHeaderImage() {
+//        //线程
+//        new Thread() {
+//            public void run() {
+//                upfile = R.drawable.logo;
+//                result_upfile = HttpTool.GetHeaderImage(upfile, NetBaseConstant.Token);
+//                handler.sendEmptyMessage(1);
+//            }
+//        }.start();
+        Intent intentCamera = new Intent(); // 跳转到系统拍照界面
+        intentCamera.setAction("android.media.action.STILL_IMAGE_CAMERA");
+        startActivity(intentCamera);
     }
 
 }

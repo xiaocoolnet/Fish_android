@@ -37,6 +37,7 @@ import cn.xiaocool.fish.service.LocationService;
 import cn.xiaocool.fish.utils.IntentUtils;
 import cn.xiaocool.fish.utils.ToastUtils;
 import cn.xiaocool.fish.view.HomeGalleryView;
+import cn.xiaocool.fish.view.LoadingDialog;
 
 public class HomeFragment extends Fragment implements View.OnClickListener{
 
