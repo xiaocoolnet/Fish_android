@@ -71,6 +71,9 @@ public class MainActivity extends BaseActivity {
     }
 
     private void initView() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+        }
         requestWindowFeature(Window.FEATURE_NO_TITLE); // 去掉标题栏
         setContentView(R.layout.activity_home);
         mTabs = new Button[4];

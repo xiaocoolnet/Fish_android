@@ -8,10 +8,12 @@ package cn.xiaocool.fish.main;
 import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
 import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
@@ -32,11 +34,9 @@ public class UserSetInfoActivity extends Activity implements View.OnClickListene
     private ImageView btn_exit; // 返回上一页
     private EditText et_get_user_name;
     private EditText et_get_user_age;
-    private EditText et_get_user_sex;
     private EditText et_get_user_city;
     private CheckBox select_sex;
     private Button btn_setuserinfofinish;
-    private Context mContext;
     private String result_data;
     private UserInfo user;
     private String user_id,user_name,user_sex,user_age,user_city;
@@ -44,13 +44,17 @@ public class UserSetInfoActivity extends Activity implements View.OnClickListene
     private Handler handler = new Handler() {
         public void handleMessage(android.os.Message msg) {
             switch (msg.what) {
+                case 2:
+                    Toast.makeText(UserSetInfoActivity.this,"网络问题，请稍后重试！",0).show();
+                    break;
                 case 1:
                     try {
                         JSONObject jsonObject = new JSONObject(result_data);
                         String status = jsonObject.getString("status");
                         if (status.equals("success")) {
-                            IntentUtils.getIntent(UserSetInfoActivity.this, MainActivity.class); // 跳转到编辑用户资料
                             Toast.makeText(UserSetInfoActivity.this,"修改资料成功", Toast.LENGTH_SHORT).show();
+                            Delay(1000);
+                            IntentUtils.getIntent(UserSetInfoActivity.this, UserActivity.class); // 跳转到编辑用户资料
                         } else {
                             Toast.makeText(UserSetInfoActivity.this,"修改资料失败", Toast.LENGTH_SHORT).show();
                         }
@@ -79,15 +83,23 @@ public class UserSetInfoActivity extends Activity implements View.OnClickListene
     }
 
     private void initView() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+        }
         requestWindowFeature(Window.FEATURE_NO_TITLE); // 去掉标题栏
         setContentView(R.layout.activity_usersetinfo); // 控件实例化
         btn_exit = (ImageView) findViewById(R.id.btn_exit);
         et_get_user_name = (EditText) findViewById(R.id.et_get_user_name);
         et_get_user_age = (EditText) findViewById(R.id.et_get_user_age);
-        et_get_user_sex = (EditText) findViewById(R.id.et_get_user_sex);
         et_get_user_city = (EditText) findViewById(R.id.et_get_user_city);
         btn_setuserinfofinish = (Button) findViewById(R.id.btn_setuserinfofinish);
         select_sex = (CheckBox) findViewById(R.id.select_sex);
+    }
+
+    @Override
+    protected void onResume() {
+
+        super.onResume();
     }
 
     @Override
@@ -111,22 +123,33 @@ public class UserSetInfoActivity extends Activity implements View.OnClickListene
         user_age = et_get_user_age.getText().toString();
         user_city = et_get_user_city.getText().toString();
         if (select_sex.isChecked()) {
-            et_get_user_sex.setText("女");
             select_sex.setText("女");
             user_sex="1";
         }else {
-            et_get_user_sex.setText("男");
             select_sex.setText("男");
             user_sex="0";
         }
         //线程
         new Thread() {
             public void run() {
+                if (HttpTool.isConnnected(UserSetInfoActivity.this)){
                 result_data = HttpTool.EditUserInfo(user_id, user_name,user_sex,user_age,user_city, NetBaseConstant.Token);
                 handler.sendEmptyMessage(1); // 调用服务器登录函数
+                }else {
+                    handler.sendEmptyMessage(2); // 输出：网络连接有问题！
+                }
             }
         }.start();
 
+    }
+
+    private void Delay(int ms){
+        try {
+            Thread.currentThread();
+            Thread.sleep(ms);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 
 }

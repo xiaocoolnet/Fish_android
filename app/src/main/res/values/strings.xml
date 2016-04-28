@@ -42,7 +42,7 @@
     <!-- 个人资料 -->
     <string name="tv_user_bar">用户资料</string>
     <string name="tv_user_setinfo">编辑资料</string>
-    <string name="tv_user_setinfofinish">提交</string>
+    <string name="tv_user_setinfofinish">保存</string>
     <string name="tv_user_name">用户名</string>
     <string name="et_user_name">请输入用户名</string>
     <string name="tv_user_sex">性别</string>
@@ -54,6 +54,8 @@
 
     <!-- 消息Fragment -->
     <string name="new_menu_title">消息</string>
+    <string name="new_menu_system_notice">系统消息</string>
+    <string name="new_menu_system_notice_title">公告</string>
 
     <!-- 通讯录Fragment -->
     <string name="book_menu_title">通讯录</string>
@@ -67,6 +69,11 @@
     <string name="fisher_menu_fisher_study">知鱼</string>
     <string name="fisher_menu_fisher_friend">附近的钓友</string>
     <string name="fisher_menu_fisher_quit">退出APP</string>
+    <string name="fisher_menu_fisher_bbs">意见反馈</string>
+    <string name="fisher_menu_fisher_clear">清除缓存</string>
+    <string name="fisher_menu_fisher_setPass">修改密码</string>
+    <string name="fisher_menu_fisher_feedback">留言板</string>
+    <string name="fisher_menu_fisher_setting">设置</string>
 
     <!-- 下拉刷新和上拉加载更多的文本 -->
     <string name="pull_to_refresh">下拉可以刷新</string>

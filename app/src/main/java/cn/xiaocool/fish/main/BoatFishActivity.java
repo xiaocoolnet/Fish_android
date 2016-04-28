@@ -6,12 +6,12 @@
 package cn.xiaocool.fish.main;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.Handler;
-import android.util.Log;
 import android.view.View;
 import android.view.Window;
+import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -33,44 +33,50 @@ import java.util.List;
 import cn.xiaocool.fish.R;
 import cn.xiaocool.fish.adapter.boat.BoatListAdapter;
 import cn.xiaocool.fish.adapter.boat.BoatListBean;
-import cn.xiaocool.fish.view.LoadingDialog;
+import cn.xiaocool.fish.net.HttpTool;
 
 public class BoatFishActivity extends Activity implements View.OnClickListener {
 
     private ImageView btn_exit; // 返回上一页
     private ListView mListView;
     private static String jsonURL = "http://www.imooc.com/api/teacher?type=4&num=30"; // json数据网址
-    private Handler handler = new Handler() {
-        public void handleMessage(android.os.Message msg) {
-            switch (msg.what) {
-                case 0:
-                    break;
-                default:
-                    break;
-            }
-        }
-
-    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         initView(); // 初始化界面
         initEvent(); // 初始化事件
-        mListView = (ListView) findViewById(R.id.lv_main);
         new NewsAsyncTask().execute(jsonURL);
     }
 
     private void initEvent() {
         // 添加点击事件
         btn_exit.setOnClickListener(this);
+        mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent intent = new Intent(BoatFishActivity.this, BoatFishSingleContentActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
     private void initView() {
         requestWindowFeature(Window.FEATURE_NO_TITLE); // 去掉标题栏
         setContentView(R.layout.activity_boatfish); // 船钓列表界面
+
+        IfHttpSussess();
         // 控件实例化
         btn_exit = (ImageView) findViewById(R.id.btn_exit);
+        mListView = (ListView) findViewById(R.id.lv_main);
+    }
+
+    private void IfHttpSussess() {
+        if (HttpTool.isConnnected(BoatFishActivity.this)) {
+
+        }else {
+            Toast.makeText(BoatFishActivity.this,"网络问题，请稍后重试！",0).show();
+        }
     }
 
     /** * 将URL网址上的json数据转化为我们所需的newsbean对象 */

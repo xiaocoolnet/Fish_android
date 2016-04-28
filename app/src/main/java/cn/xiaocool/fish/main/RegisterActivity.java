@@ -57,8 +57,23 @@ public class RegisterActivity extends Activity implements View.OnClickListener {
                         startActivity(intent);
                     }else {
                         Toast.makeText(RegisterActivity.this, "验证码输入错误", 0).show();
-                        return;
                     }
+//                    try {
+//                        JSONObject json = new JSONObject(result_data);
+//                        String status = json.getString("status");
+//                        String data = json.getString("data");
+//                        if (status.equals("success")) {
+//                            JSONObject item = new JSONObject(data);
+//                            FishApplication.UID = Integer.parseInt(item.getString("id")); // 实力化缓存类
+//                            IntentUtils.getIntent(RegisterActivity.this, SetPasswordActivity.class);
+//                        } else {
+//                            Toast.makeText(RegisterActivity.this, "验证码"+data,0).show();
+//
+//                        }
+//                    } catch (JSONException e) {
+//                        // TODO Auto-generated catch block
+//                        e.printStackTrace();
+//                    }
                     break;
                 default:
                     break;

@@ -3,20 +3,22 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/main_ground_color"
-    android:orientation="vertical">
+    android:background="@drawable/weather_bg"
+    android:orientation="vertical"
+    android:clipToPadding="true"
+    android:fitsSystemWindows="true">
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="@dimen/title_bar_height_50"
-        android:background="@color/white">
+        android:layout_height="@dimen/title_bar_height_50">
         <TextView
+            android:id="@+id/tv_weather_title"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center"
             android:text="@string/tv_logo_weather"
-            android:textColor="@color/tv_bar_color"
-            android:textSize="@dimen/tv_size_20" />
+            android:textColor="@color/title_bar_color"
+            android:textSize="18sp" />
         <RelativeLayout
             android:layout_width="@dimen/title_bar_height_50"
             android:layout_height="fill_parent"
@@ -26,20 +28,90 @@
                 android:layout_width="@dimen/left_arrow"
                 android:layout_height="@dimen/left_arrow"
                 android:contentDescription="@string/app_name"
-                android:src="@drawable/login_left_arrow" />
+                android:src="@drawable/left_arrow_white" />
         </RelativeLayout>
     </RelativeLayout>
-    <TextView
-        android:id="@+id/weather_api"
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/vPager"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
-    <TextView
-        android:id="@+id/weather_api2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
-    <TextView
-        android:id="@+id/weather_api3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="0dp"
+        android:layout_gravity="center"
+        android:layout_weight="1.0"
+        android:flipInterval="30"
+        android:persistentDrawingCache="animation" />
+
+
+
+    <LinearLayout
+        android:id="@+id/linearLayout1"
+        android:layout_width="fill_parent"
+        android:layout_height="0dp" >
+
+        <TextView
+            android:visibility="gone"
+            android:id="@+id/tab_1"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:textSize="18dp" />
+
+        <View
+            android:layout_width="1px"
+            android:layout_height="27dp"
+            android:layout_gravity="center_vertical"
+            android:background="@color/tab_middle_line_color" />
+
+        <TextView
+            android:visibility="gone"
+            android:id="@+id/tab_2"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:textSize="18dp" />
+
+        <View
+            android:layout_width="1px"
+            android:layout_height="27dp"
+            android:layout_gravity="center_vertical"
+            android:background="@color/tab_middle_line_color" />
+
+        <TextView
+            android:visibility="gone"
+            android:id="@+id/tab_3"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:textSize="18dp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="4dp"
+        android:orientation="horizontal" >
+
+        <ImageView
+            android:id="@+id/cursor"
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:background="@drawable/tab_selected_bg" />
+
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:src="@drawable/tab_selected_bg"
+            android:visibility="invisible" />
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="1px"
+        android:background="#CFCFCF" />
 
 </LinearLayout>

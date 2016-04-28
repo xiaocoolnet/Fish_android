@@ -3,20 +3,21 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/main_ground_color"
-    android:orientation="vertical">
+    android:background="@drawable/ll_user_bg"
+    android:orientation="vertical"
+    android:clipToPadding="true"
+    android:fitsSystemWindows="true">
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="@dimen/title_bar_height_50"
-        android:background="@color/white">
+        android:layout_height="@dimen/title_bar_height_50">
         <TextView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center"
             android:text="@string/tv_user_setinfo"
-            android:textColor="@color/tv_bar_color"
-            android:textSize="@dimen/tv_size_20" />
+            android:textColor="@color/title_bar_color"
+            android:textSize="18sp" />
         <RelativeLayout
             android:layout_width="@dimen/title_bar_height_50"
             android:layout_height="fill_parent"
@@ -26,164 +27,206 @@
                 android:layout_width="@dimen/left_arrow"
                 android:layout_height="@dimen/left_arrow"
                 android:contentDescription="@string/app_name"
-                android:src="@drawable/login_left_arrow" />
+                android:src="@drawable/left_arrow" />
         </RelativeLayout>
     </RelativeLayout>
 
-    <!--用户名-->
+    <!--头像-->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:layout_marginTop="@dimen/fragmet_home_logo_size_5"
+        android:layout_marginTop="65dp"
         android:layout_marginLeft="@dimen/fragmet_home_logo_size_5"
         android:layout_marginRight="@dimen/fragmet_home_logo_size_5">
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="@dimen/fragmet_home_logo_size_50"
-            android:background="@color/white">
-
-            <TextView
-                android:id="@+id/tv_study_logo"
-                android:gravity="center_vertical"
-                android:layout_width="60dp"
-                android:layout_height="match_parent"
-                android:text="@string/tv_user_name"
-                android:layout_margin="@dimen/tv_margin_top_6.5"/>
-
-            <EditText
-                android:id="@+id/et_get_user_name"
-                android:layout_toRightOf="@id/tv_study_logo"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:hint="@string/et_user_name"
-                android:gravity="center_vertical"
-                android:layout_marginLeft="@dimen/fragmet_home_logo_size_8"
-                android:textSize="@dimen/fragmet_home_logo_size_15"
-                android:singleLine="true"/>
+            android:layout_height="wrap_content">
 
         </RelativeLayout>
     </LinearLayout>
 
-    <!--年龄-->
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_margin="@dimen/fragmet_home_logo_size_5">
+        android:layout_height="match_parent"
+        android:gravity="center">
 
-        <RelativeLayout
+        <ImageView
+            android:layout_centerHorizontal="true"
+            android:id="@+id/get_phone_number"
+            android:layout_width="@dimen/login_tv_user_bg_width"
+            android:layout_height="40dp" />
+
+        <EditText
+            android:id="@+id/et_get_user_name"
+            android:layout_alignLeft="@id/phone_number"
+            android:layout_width="@dimen/register_ed_width_210"
+            android:layout_height="@dimen/register_iv_bg_height_56"
+            android:textSize="@dimen/tv_size_16"
+            android:background="@drawable/user_line"
+            android:textColorHint="#60ffff"
+            android:maxLength="6"
+            android:textColor="@color/tv_bar_color_hint2"
+            android:layout_alignBottom="@+id/get_phone_number"
+            android:layout_marginLeft="85dp"
+            android:singleLine="true"/>
+
+        <TextView
+            android:layout_centerHorizontal="true"
+            android:id="@+id/tv_get_phone"
+            android:layout_alignLeft="@id/phone_number"
+            android:layout_width="@dimen/tv_75"
+            android:layout_height="wrap_content"
+            android:text="@string/tv_user_name"
+            android:textSize="@dimen/tv_size_16"
+            android:textColor="@color/tv_bar_color_hint2"
+            android:layout_marginTop="@dimen/tv_size_18"
+            android:layout_marginLeft="@dimen/tv_margin_top_5" />
+
+        <ImageView
+            android:id="@+id/line"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/fragmet_home_logo_size_50"
-            android:background="@color/white">
-            <TextView
-                android:id="@+id/tv_friend_logo"
-                android:gravity="center_vertical"
-                android:layout_width="60dp"
-                android:layout_height="match_parent"
-                android:text="@string/tv_user_age"
-                android:layout_margin="@dimen/tv_margin_top_6.5"/>
-            <EditText
-                android:id="@+id/et_get_user_age"
-                android:layout_toRightOf="@id/tv_friend_logo"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="center_vertical"
-                android:hint="@string/et_user_age"
-                android:layout_marginLeft="@dimen/fragmet_home_logo_size_8"
-                android:textColor="@color/bg_black"
-                android:textSize="@dimen/fragmet_home_logo_size_15"
-                android:singleLine="true"/>
-        </RelativeLayout>
-    </LinearLayout>
+            android:layout_height="@dimen/line_height_10"
+            android:layout_below="@+id/get_phone_number"/>
 
-    <!--性别-->
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_marginLeft="@dimen/fragmet_home_logo_size_5"
-        android:layout_marginRight="@dimen/fragmet_home_logo_size_5">
+        <ImageView
+            android:layout_centerHorizontal="true"
+            android:id="@+id/phone_number"
+            android:layout_width="@dimen/login_tv_user_bg_width"
+            android:layout_height="40dp"
+            android:layout_below="@id/line"/>
 
-        <RelativeLayout
-            android:id="@+id/fisher_quit"
+        <EditText
+            android:id="@+id/et_get_user_age"
+            android:layout_alignRight="@id/et_get_user_name"
+            android:layout_width="@dimen/register_ed_width_210"
+            android:layout_height="@dimen/register_iv_bg_height_56"
+            android:background="@drawable/user_line"
+            android:textSize="@dimen/tv_size_16"
+            android:maxLength="3"
+            android:phoneNumber="true"
+            android:textColorHint="#60ffff"
+            android:textColor="@color/tv_bar_color_hint2"
+            android:layout_alignBottom="@+id/phone_number"
+            android:layout_below="@id/line"
+            android:singleLine="true"/>
+
+        <TextView
+            android:id="@+id/tv_yz_password"
+            android:layout_alignLeft="@id/phone_number"
+            android:layout_width="@dimen/tv_75"
+            android:layout_height="wrap_content"
+            android:text="@string/tv_user_age"
+            android:textSize="@dimen/tv_size_16"
+            android:textColor="@color/tv_bar_color_hint2"
+            android:layout_marginTop="@dimen/tv_size_18"
+            android:layout_marginLeft="@dimen/tv_margin_top_5"
+            android:layout_below="@id/line"/>
+
+        <ImageView
+            android:id="@+id/zhongjianhengxian"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/fragmet_home_logo_size_50"
-            android:background="@color/white">
-            <TextView
-                android:id="@+id/quit"
-                android:gravity="center_vertical"
-                android:layout_width="60dp"
-                android:layout_height="match_parent"
-                android:text="@string/tv_user_sex"
-                android:layout_margin="@dimen/tv_margin_top_6.5"/>
-            <EditText
-                android:enabled="false"
-                android:id="@+id/et_get_user_sex"
-                android:layout_toRightOf="@id/quit"
-                android:layout_width="match_parent"
-                android:layout_height="80dp"
-                android:gravity="center_vertical"
-                android:layout_marginLeft="@dimen/fragmet_home_logo_size_8"
-                android:textColor="@color/bg_black"
-                android:textSize="@dimen/fragmet_home_logo_size_15"
-                android:singleLine="true"/>
-            <CheckBox
-                android:id="@+id/select_sex"
-                android:layout_alignParentRight="true"
-                android:layout_centerInParent="true"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="女"
-                android:layout_marginRight="@dimen/fragmet_home_logo_size_5"/>
-        </RelativeLayout>
-    </LinearLayout>
+            android:layout_height="@dimen/tv_margin_left_10"
+            android:layout_below="@+id/phone_number" />
 
-    <!--性别-->
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_marginTop="@dimen/fragmet_home_logo_size_5"
-        android:layout_marginLeft="@dimen/fragmet_home_logo_size_5"
-        android:layout_marginRight="@dimen/fragmet_home_logo_size_5">
-
-        <RelativeLayout
-            android:id="@+id/user"
+        <ImageView
+            android:id="@+id/zhongjianhengxian2"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/fragmet_home_logo_size_50"
-            android:background="@color/white">
-            <TextView
-                android:id="@+id/city"
-                android:gravity="center_vertical"
-                android:layout_width="60dp"
-                android:layout_height="match_parent"
-                android:text="@string/tv_user_city"
-                android:layout_margin="@dimen/tv_margin_top_6.5"/>
-            <EditText
-                android:id="@+id/et_get_user_city"
-                android:layout_toRightOf="@id/city"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="center_vertical"
-                android:hint="@string/et_user_city"
-                android:layout_marginLeft="@dimen/fragmet_home_logo_size_8"
-                android:textColor="@color/bg_black"
-                android:textSize="@dimen/fragmet_home_logo_size_15"
-                android:singleLine="true"/>
-        </RelativeLayout>
-    </LinearLayout>
+            android:layout_height="@dimen/tv_margin_left_10"
+            android:layout_below="@+id/phone_number" />
 
-    <Button
-        android:id="@+id/btn_setuserinfofinish"
-        android:layout_marginLeft="@dimen/fragmet_home_logo_size_5"
-        android:layout_marginTop="@dimen/login_btn_margin_24"
-        android:layout_marginRight="@dimen/fragmet_home_logo_size_5"
-        android:background="@drawable/login_button"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/login_tv_user_bg_height"
-        android:text="@string/tv_user_setinfofinish"
-        android:textSize="@dimen/tv_size_20"
-        android:textColor="@color/tv_color" />
+        <ImageView
+            android:layout_centerHorizontal="true"
+            android:id="@+id/huoquyanzhengma"
+            android:layout_width="@dimen/login_tv_user_bg_width"
+            android:layout_height="@dimen/register_iv_bg_height_56"
+            android:layout_below="@+id/zhongjianhengxian" />
+
+        <CheckBox
+            android:id="@+id/select_sex"
+            android:layout_alignRight="@id/et_get_user_name"
+            android:layout_width="@dimen/register_ed_width_210"
+            android:layout_height="40dp"
+            android:background="@null"
+            android:layout_alignBottom="@+id/huoquyanzhengma"
+            android:textSize="@dimen/tv_size_16"
+            android:text="女"
+            android:textColorHint="@color/tv_bar_color_hint"
+            android:textColor="@color/tv_bar_color_hint2"
+            android:maxLength="10"
+            android:singleLine="true"/>
+
+        <TextView
+            android:id="@+id/tv_yz_password2"
+            android:layout_alignLeft="@id/phone_number"
+            android:layout_width="@dimen/tv_75"
+            android:layout_height="wrap_content"
+            android:text="@string/tv_user_sex"
+            android:textSize="@dimen/tv_size_16"
+            android:maxLength="16"
+            android:textColor="@color/tv_bar_color_hint2"
+            android:layout_below="@+id/zhongjianhengxian"
+            android:layout_marginTop="@dimen/tv_size_18"
+            android:layout_marginLeft="@dimen/fragmet_home_logo_size_5" />
+
+        <ImageView
+            android:id="@+id/zhongjianhengxian3"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/tv_margin_left_10"
+            android:layout_below="@+id/huoquyanzhengma" />
+
+        <ImageView
+            android:layout_centerHorizontal="true"
+            android:id="@+id/huoquyanzhengma3"
+            android:layout_width="@dimen/login_tv_user_bg_width"
+            android:layout_height="40dp"
+            android:layout_below="@+id/zhongjianhengxian3" />
+
+        <EditText
+            android:id="@+id/et_get_user_city"
+            android:layout_alignRight="@id/et_get_user_name"
+            android:layout_width="@dimen/register_ed_width_210"
+            android:layout_height="@dimen/register_iv_bg_height_56"
+            android:background="@drawable/user_line"
+            android:layout_alignBottom="@+id/huoquyanzhengma3"
+            android:textSize="@dimen/tv_size_16"
+            android:textColorHint="#60ffff"
+            android:textColor="@color/tv_bar_color_hint2"
+            android:maxLength="10"
+            android:singleLine="true"/>
+
+        <TextView
+            android:id="@+id/tv_yz_password3"
+            android:layout_alignLeft="@id/phone_number"
+            android:layout_width="@dimen/tv_75"
+            android:layout_height="wrap_content"
+            android:text="@string/tv_user_city"
+            android:textSize="@dimen/tv_size_16"
+            android:maxLength="16"
+            android:textColor="@color/tv_bar_color_hint2"
+            android:layout_below="@+id/zhongjianhengxian3"
+            android:layout_marginTop="@dimen/tv_size_18"
+            android:layout_marginLeft="@dimen/fragmet_home_logo_size_5" />
+
+        <TextView
+            android:id="@+id/code"
+            android:visibility="gone"
+            android:layout_width="@dimen/tv_75"
+            android:layout_height="wrap_content" />
+
+        <Button
+            android:id="@+id/btn_setuserinfofinish"
+            android:layout_width="200dp"
+            android:layout_height="40dp"
+            android:background="@drawable/button_onclick_seclect"
+            android:text="@string/tv_user_setinfofinish"
+            android:textSize="@dimen/tv_size_18"
+            android:textColor="@color/tv_color"
+            android:layout_below="@+id/huoquyanzhengma3"
+            android:layout_marginBottom="@dimen/next_margin_32"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="50dp"/>
+
+    </RelativeLayout>
 
 </LinearLayout>

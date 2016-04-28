@@ -88,7 +88,7 @@
 
     <Button
         android:id="@+id/btn_login"
-        android:background="@drawable/login_button"
+        android:background="@drawable/button_onclick_seclect"
         android:layout_width="@dimen/login_tv_user_bg_width"
         android:layout_height="@dimen/login_tv_user_bg_height"
         android:layout_below="@+id/edit_view2"

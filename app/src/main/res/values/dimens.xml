@@ -17,8 +17,8 @@
 
     <!--注册手机验证-设置密码-忘记密码-->
     <dimen name="title_bar_height_50">50dp</dimen>
-    <dimen name="tv_size_16">16sp</dimen>
-    <dimen name="tv_size_18">18sp</dimen>
+    <dimen name="tv_size_16">16dp</dimen>
+    <dimen name="tv_size_18">18dp</dimen>
     <dimen name="tv_size_20">20dp</dimen>
     <dimen name="tv_size_22">22dp</dimen>
     <dimen name="left_arrow">26dp</dimen>

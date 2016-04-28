@@ -7,7 +7,7 @@ package cn.xiaocool.fish.fragment;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.os.Build;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
@@ -15,8 +15,6 @@ import android.support.v4.app.FragmentActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.Window;
-import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -37,7 +35,6 @@ import cn.xiaocool.fish.service.LocationService;
 import cn.xiaocool.fish.utils.IntentUtils;
 import cn.xiaocool.fish.utils.ToastUtils;
 import cn.xiaocool.fish.view.HomeGalleryView;
-import cn.xiaocool.fish.view.LoadingDialog;
 
 public class HomeFragment extends Fragment implements View.OnClickListener{
 
@@ -107,14 +104,18 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
         rl_logo_fishing_point = (RelativeLayout) getView().findViewById(R.id.rl_logo_fishing_point);
         rl_logo_fishing_boat = (RelativeLayout) getView().findViewById(R.id.rl_logo_fishing_boat);
         iv_slidingmunu_btn = (ImageView) getView().findViewById(R.id.iv_slidingmunu_btn);
+        tvTitle = (TextView) getView().findViewById(R.id.tvTitle);
 
         getLocation = (TextView) getView().findViewById(R.id.getLocation);
+        Typeface typeFace = Typeface.createFromAsset(mContext.getAssets(), "fonts/st.TTF");
+        tvTitle.setTypeface(typeFace);
     }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.rl_logo_weather :
+                //IntentUtils.getIntent(mContext, WeatherActivity.class);
                 IntentUtils.getIntent(mContext, WeatherActivity.class);
                 break;
             case R.id.rl_logo_fishing_point :

@@ -5,60 +5,83 @@
  */
 package cn.xiaocool.fish.fragment;
 
-import android.content.Context;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
-import android.widget.ListView;
-import android.widget.TextView;
+import android.widget.RelativeLayout;
 
 import cn.xiaocool.fish.R;
+import cn.xiaocool.fish.main.NewNoticeActivity;
+import cn.xiaocool.fish.net.HttpTool;
+import cn.xiaocool.fish.utils.IntentUtils;
 
-public class NewFragment extends Fragment {
+public class NewFragment extends Fragment implements View.OnClickListener {
+    private FragmentActivity mContext;
+    private RelativeLayout rl_new_notice;
+    private RelativeLayout rl_new_isnet;
+    private Handler handler = new Handler() {
+        public void handleMessage(android.os.Message msg) {
+            switch (msg.what) {
+                case 2:
+                    rl_new_isnet.setVisibility(View.VISIBLE);
+                    break;
+                case 1:
+                    rl_new_isnet.setVisibility(View.GONE);
+                    break;
+                default:
+                    break;
+            }
+        }
 
-    private Context mContext;
-    private ListView lv;
+    };
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view= inflater.inflate(R.layout.fragment_new , container, false);
-        lv= (ListView) view.findViewById(R.id.lv);
-        lv.setAdapter(new MyAdapter());
-        return view;
+        return inflater.inflate(R.layout.fragment_new, container, false);
+    }
+
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        mContext = getActivity();
+        initView(); // 初始化界面
+        initEvent(); // 初始化事件
+    }
+
+    private void initEvent() {
+        rl_new_notice.setOnClickListener(this);
+    }
+
+    private void initView() {
+        rl_new_notice = (RelativeLayout)getView().findViewById(R.id.rl_new_notice);
+        rl_new_isnet = (RelativeLayout)getView().findViewById(R.id.rl_new_isnet);
+        isNet();
+    }
+
+    private void isNet() {
+        //线程
+        new Thread() {
+            public void run() {
+                if (HttpTool.isConnnected(mContext)){
+                    handler.sendEmptyMessage(1);
+                }else {
+                    handler.sendEmptyMessage(2);
+                }
+            }
+        }.start();
     }
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        // TODO Auto-generated method stub
-        super.onCreate(savedInstanceState);
-        mContext = getActivity();
-    }
-
-    class MyAdapter extends BaseAdapter {
-
-        @Override
-        public int getCount() {
-            return 10;
-        }
-
-        @Override
-        public View getView(int position, View convertView, ViewGroup parent) {
-            TextView tv=new TextView(mContext);
-            tv.setText("我是"+(position+1)+"list");
-            return tv;
-        }
-
-        @Override
-        public Object getItem(int position) {
-            return null;
-        }
-
-        @Override
-        public long getItemId(int position) {
-            return 0;
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.rl_new_notice:
+                IntentUtils.getIntent(mContext, NewNoticeActivity.class);
+                break;
+            default:
+                break;
         }
     }
 

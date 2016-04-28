@@ -3,14 +3,16 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/mainLayout"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@drawable/home_bg"
+    android:clipToPadding="true"
+    android:fitsSystemWindows="true">
 
     <LinearLayout
         android:id="@+id/main_bottom"
         android:layout_width="match_parent"
         android:layout_height="52dp"
         android:layout_alignParentBottom="true"
-        android:background="@color/bottom_bar_normal_bg"
         android:gravity="center_vertical"
         android:baselineAligned="false"
         android:orientation="horizontal" >
@@ -26,13 +28,13 @@
                 style="@style/MainTabButton"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:background="@android:color/transparent"
                 android:drawableTop="@drawable/btn_bar_home_seclect"
                 android:onClick="onTabClicked"
                 android:paddingBottom="2dip"
                 android:paddingTop="7dip"
                 android:scaleType="matrix"
                 android:text="@string/home_menu_title"
-                android:textColor="@color/title_bg_color"
                 android:textSize="12sp" />
 
             <TextView
@@ -42,7 +44,6 @@
                 android:layout_marginTop="5dip"
                 android:layout_marginRight="15dp"
                 android:layout_alignParentRight="true"
-                android:background="@drawable/home_image_index_c"
                 android:gravity="center"
                 android:textColor="@android:color/white"
                 android:textSize="12sp"
@@ -58,15 +59,15 @@
             <Button
                 android:id="@+id/btn_new"
                 style="@style/MainTabButton"
+                android:background="@android:color/transparent"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:drawableTop="@drawable/btn_bar_home_seclect"
+                android:drawableTop="@drawable/btn_bar_new_seclect"
                 android:onClick="onTabClicked"
                 android:paddingBottom="2dip"
                 android:paddingTop="7dip"
                 android:scaleType="matrix"
                 android:text="@string/new_menu_title"
-                android:textColor="@color/title_bg_color"
                 android:textSize="12sp" />
 
             <TextView
@@ -76,7 +77,6 @@
                 android:layout_marginTop="5dip"
                 android:layout_marginRight="15dp"
                 android:layout_alignParentRight="true"
-                android:background="@drawable/home_image_index_c"
                 android:visibility="invisible" />
         </RelativeLayout>
 
@@ -91,13 +91,13 @@
                 style="@style/MainTabButton"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:drawableTop="@drawable/btn_bar_home_seclect"
+                android:background="@android:color/transparent"
+                android:drawableTop="@drawable/btn_bar_book_seclect"
                 android:onClick="onTabClicked"
                 android:paddingBottom="2dip"
                 android:paddingTop="7dip"
                 android:scaleType="matrix"
                 android:text="@string/book_menu_title"
-                android:textColor="@color/title_bg_color"
                 android:textSize="12sp" />
 
             <TextView
@@ -107,7 +107,6 @@
                 android:layout_alignParentRight="true"
                 android:layout_marginTop="5dp"
                 android:layout_marginRight="15dp"
-                android:background="@drawable/home_image_index_c"
                 android:visibility="invisible" />
         </RelativeLayout>
 
@@ -122,13 +121,13 @@
                 style="@style/MainTabButton"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:drawableTop="@drawable/btn_bar_home_seclect"
+                android:background="@android:color/transparent"
+                android:drawableTop="@drawable/btn_bar_fisher_seclect"
                 android:onClick="onTabClicked"
                 android:paddingBottom="2dip"
                 android:paddingTop="7dip"
                 android:scaleType="matrix"
                 android:text="@string/fisher_menu_title"
-                android:textColor="@color/title_bg_color"
                 android:textSize="12sp" />
 
             <TextView
@@ -138,7 +137,6 @@
                 android:layout_alignParentRight="true"
                 android:layout_marginTop="5dp"
                 android:layout_marginRight="15dp"
-                android:background="@drawable/home_image_index_c"
                 android:visibility="invisible" />
         </RelativeLayout>
 

@@ -98,6 +98,7 @@ public class HttpTool {
         result = getResponse(url,data);
         return  result;
     }
+
     //注册
     public static String UserRegister(String phone,String password,String code,int devicestate,String token){
         String url = NetBaseConstant.NET_API_HOST + "a=AppRegister&";
@@ -179,10 +180,46 @@ public class HttpTool {
         return result;
     }
 
+    //获取系统公告列表 http://www.xiaocool.net/index.php?g=apps&m=index&a=getsystemmessage&userid=1&token=xiaocool
+    public static String NewSystemNotice(String userid,String token){
+        String url = NetBaseConstant.NET_API_HOST + "a=getsystemmessage&";
+        String data = "userid="+userid+"&token="+token;
+        String result = "";
+        result = getResponse(url,data);
+        return result;
+    }
+
+    //添加系统留言／反馈 http://www.xiaocool.net/index.php?g=apps&m=index&a=addfeedback&userid=1&content=我有意见反馈&token=hellofish
+    public static String AddFeedBack(String userid,String content,String token){
+        String url = NetBaseConstant.NET_API_HOST + "a=addfeedback&";
+        String data = "userid="+userid+"&content="+content+"&token="+token;
+        String result = "";
+        result = getResponse(url,data);
+        return result;
+    }
+
     //调用和风天气API https://api.heweather.com/x3/weather?cityid=CN101010100&key=1058a995f42145d7b9b7208dafe23720
     public static String WeatherAPI(String city,String key){
         String url = NetBaseConstant.WEATHER_API + "?";
         String data = "city="+city+"&key="+key;
+        String result = "";
+        result = getResponse(url,data);
+        return result;
+    }
+
+    //调用和风天气API https://api.heweather.com/x3/weather?cityid=CN101010100&key=1058a995f42145d7b9b7208dafe23720
+    public static String WeatherCX(){
+        String url = "http://www.jiaodong.net/weather/";
+        String data = "";
+        String result = "";
+        result = getResponse(url,data);
+        return result;
+    }
+
+    //调用中国气象局天气API http://open.weather.com.cn/data/?areaid=101010100&type=forecast_f&date=201604201518&appid=b08fef&key=a87TajXJaKrm98WxY8dO6xooCvc%3D
+    public static String WeatherWEA(String areaid,String type,String date,String appid,String key){
+        String url = NetBaseConstant.WEATHER_API + "?";
+        String data = "areaid="+areaid+"&type="+type+"&date="+date+"&appid="+appid+"&key="+key;
         String result = "";
         result = getResponse(url,data);
         return result;

@@ -6,7 +6,6 @@
 package cn.xiaocool.fish.main;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
@@ -25,7 +24,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import cn.xiaocool.fish.R;
-import cn.xiaocool.fish.bean.UserInfo;
 import cn.xiaocool.fish.net.HttpTool;
 import cn.xiaocool.fish.net.constant.NetBaseConstant;
 import cn.xiaocool.fish.utils.IntentUtils;
@@ -44,8 +42,6 @@ public class SetPasswordActivity extends Activity implements View.OnClickListene
     private String reSetPassword;
     private int deviceState;
     private String result_data;
-    private UserInfo user;
-    private Context mContext;
     private Handler handler = new Handler() {
         public void handleMessage(Message msg){
             switch (msg.what){
@@ -56,8 +52,11 @@ public class SetPasswordActivity extends Activity implements View.OnClickListene
                         String status = json.getString("status");
                         String data = json.getString("data");
                         if (status.equals("success")) {
+                            //实力化缓存类
+//                            JSONObject item = new JSONObject(data);
+//                            FishApplication.UID = Integer.parseInt(item.getString("id"));
+                            IntentUtils.getIntent(SetPasswordActivity.this, MainActivity.class);
                             Toast.makeText(SetPasswordActivity.this,"注册成功",0).show();
-                            IntentUtils.getIntent(SetPasswordActivity.this, LoginActivity.class);
                         } else {
                             Toast.makeText(SetPasswordActivity.this,"注册失败，重新注册",0).show();
                             IntentUtils.getIntent(SetPasswordActivity.this, LoginActivity.class);
@@ -128,6 +127,7 @@ public class SetPasswordActivity extends Activity implements View.OnClickListene
                         String setPassword = edit_password1.getText().toString();
                         code = yzcode.getText().toString();
                         deviceState =1;
+                        Toast.makeText(SetPasswordActivity.this,phoneNum,0).show();
                         result_data = HttpTool.UserRegister(phoneNum,setPassword,code,deviceState, NetBaseConstant.Token);
                         handler.sendEmptyMessage(0);
                     }

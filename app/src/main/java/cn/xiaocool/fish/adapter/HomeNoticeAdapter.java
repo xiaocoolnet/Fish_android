@@ -36,8 +36,8 @@ public class HomeNoticeAdapter extends BaseAdapter
 
 	JSONObject json = new JSONObject();
 
-	public Integer[] imgs = { R.drawable.home_inage, R.drawable.home_inage, R.drawable.home_inage,
-			R.drawable.home_inage};
+	public Integer[] imgs = { R.drawable.home_inage, R.drawable.home_inage2, R.drawable.home_inage3,
+			R.drawable.home_inage4};
 	public String[] titles = { "厦门男子对猫毛过敏 嫌治疗太麻烦选择换女友", "房东称老人自杀房成凶宅 向租户索赔12.9万(图)"
 			, "深夜环卫工爷孙仍在扫马路 画面感动无数网友", "老人执意将房产留给孙女 临终吐露：她是我女儿"};
 

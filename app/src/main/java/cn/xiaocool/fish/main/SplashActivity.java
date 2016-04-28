@@ -7,7 +7,9 @@
 package cn.xiaocool.fish.main;
 
 import android.app.Activity;
+import android.os.Build;
 import android.os.Bundle;
+import android.view.WindowManager;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
 import android.view.animation.AnimationSet;
@@ -79,13 +81,13 @@ public class SplashActivity extends Activity {
 //        as.addAnimation(ra); // 添加到动画集
 
         AlphaAnimation aa=new AlphaAnimation(0,1);
-        aa.setDuration(1000);
+        aa.setDuration(800);
         aa.setFillAfter(true);
         as.addAnimation(aa);
 
         ScaleAnimation sa=new ScaleAnimation(0,1,0,1,
                 Animation.RELATIVE_TO_SELF,0.5f,Animation.RELATIVE_TO_SELF,0.5f);
-        sa.setDuration(1000);
+        sa.setDuration(800);
         sa.setFillAfter(true);
         as.addAnimation(sa);
 

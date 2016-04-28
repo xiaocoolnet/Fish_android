@@ -31,7 +31,7 @@
             android:id="@+id/rl_logo_group"
             android:layout_width="match_parent"
             android:layout_height="@dimen/fragmet_home_logo_height_size_100"
-            android:background="@color/white"
+            android:background="@drawable/btn_click"
             android:layout_weight="1">
 
             <ImageView
@@ -60,7 +60,7 @@
             android:id="@+id/rl_logo_add_you"
             android:layout_width="match_parent"
             android:layout_height="@dimen/fragmet_home_logo_height_size_100"
-            android:background="@color/white"
+            android:background="@drawable/btn_click"
             android:layout_weight="1">
             <ImageView
                 android:id="@+id/iv_logo_fishing_point"

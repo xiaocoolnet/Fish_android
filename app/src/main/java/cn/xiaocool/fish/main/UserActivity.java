@@ -7,16 +7,17 @@ package cn.xiaocool.fish.main;
 
 import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
 
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.Window;
-import android.widget.Button;
+import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -38,7 +39,7 @@ public class UserActivity extends Activity implements View.OnClickListener {
     private TextView tv_get_user_sex;
     private TextView tv_get_user_age;
     private TextView tv_get_user_city;
-    private Button btn_setuserinfo;
+    private TextView btn_setuserinfo;
     private SharedPreferences sharedPreferences;
     private String result_data,result_upfile;
     private String userName;
@@ -57,7 +58,7 @@ public class UserActivity extends Activity implements View.OnClickListener {
                             String data = jsonObject.getString("data");
                             JSONObject object = new JSONObject(data);
                             userName = object.getString("user_nicename");
-                            userAge = object.getString("age");
+                            userAge = object.getString("age")+"岁";
                             userSex = object.getString("sex");
                             if(userSex.equals("0")){
                                 userSex="男";
@@ -103,6 +104,7 @@ public class UserActivity extends Activity implements View.OnClickListener {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         initView(); // 初始化界面
+        User();
         getUserInfo();
         initEvent(); // 初始化事件
     }
@@ -124,7 +126,10 @@ public class UserActivity extends Activity implements View.OnClickListener {
         btn_exit.setOnClickListener(this);
         btn_setuserinfo.setOnClickListener(this);
         iv_user_info_image.setOnClickListener(this);
-        User();
+    }
+
+    private void refresh() {
+
     }
 
     private void User() {
@@ -140,6 +145,9 @@ public class UserActivity extends Activity implements View.OnClickListener {
     }
 
     private void initView() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+        }
         requestWindowFeature(Window.FEATURE_NO_TITLE); // 去掉标题栏
         setContentView(R.layout.activity_user); // 登录界面
         // 控件实例化
@@ -148,7 +156,7 @@ public class UserActivity extends Activity implements View.OnClickListener {
         tv_get_user_sex = (TextView) findViewById(R.id.tv_get_user_sex);
         tv_get_user_age = (TextView) findViewById(R.id.tv_get_user_age);
         tv_get_user_city = (TextView) findViewById(R.id.tv_get_user_city);
-        btn_setuserinfo = (Button) findViewById(R.id.btn_setuserinfo);
+        btn_setuserinfo = (TextView) findViewById(R.id.btn_setuserinfo);
         iv_user_info_image = (RoundImageView) findViewById(R.id.iv_user_info_image);
     }
 
@@ -156,7 +164,7 @@ public class UserActivity extends Activity implements View.OnClickListener {
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btn_exit:
-                finish();
+                IntentUtils.getIntent(UserActivity.this, MainActivity.class);
                 break;
             case R.id.btn_setuserinfo:
                 IntentUtils.getIntent(UserActivity.this, UserSetInfoActivity.class); // 跳转到编辑用户资料
@@ -178,9 +186,19 @@ public class UserActivity extends Activity implements View.OnClickListener {
 //                handler.sendEmptyMessage(1);
 //            }
 //        }.start();
-        Intent intentCamera = new Intent(); // 跳转到系统拍照界面
-        intentCamera.setAction("android.media.action.STILL_IMAGE_CAMERA");
-        startActivity(intentCamera);
+//        Intent intentCamera = new Intent(); // 跳转到系统拍照界面
+//        intentCamera.setAction("android.media.action.STILL_IMAGE_CAMERA");
+//        startActivity(intentCamera);
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        // TODO Auto-generated method stub
+        if(keyCode == KeyEvent.KEYCODE_BACK){
+            IntentUtils.getIntent(UserActivity.this, MainActivity.class);
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
     }
 
 }

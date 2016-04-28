@@ -9,8 +9,11 @@
     <color name="line">#EFF2F7</color>
     <color name="main_ground_color">#eff2f7</color> <!--注册界面背景-->
     <color name="bottom_bar_normal_bg">#2D2F31</color>
+    <color name="title_bar_color">#e3fafc</color>
+
     <color name="tv_bar_color">#60b8eb</color>
     <color name="tv_bar_color_hint">#60b9bc</color>
+    <color name="tv_bar_color_hint2">#cdedf5</color>
     <color name="bg_black">#000000</color>
 
     <color name="colorPrimary">#106c99</color>
@@ -24,5 +27,8 @@
     <color name="primary_text">#212121</color>
     <color name="alpha_zcool">#55ffd100</color>
 
+    <color name="tab_title_normal_color">#262726</color>
+    <color name="tab_title_pressed_color">#16982b</color>
+    <color name="tab_middle_line_color">#5c882c</color>
 
 </resources>

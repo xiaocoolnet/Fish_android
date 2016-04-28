@@ -3,20 +3,21 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/main_ground_color"
     android:orientation="vertical">
 
     <RelativeLayout
+        android:id="@+id/rl_title"
         android:layout_width="match_parent"
-        android:layout_height="50dip"
-        android:background="@color/white">
+        android:layout_height="50dip">
+
 
         <ImageView
             android:id="@+id/iv_slidingmunu_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:src="@drawable/home_logo_weather"
+            android:layout_alignParentRight="true"
+            android:src="@drawable/home_logo_image"
             android:layout_margin="@dimen/fragmet_home_logo_size_8"/>
 
         <TextView
@@ -26,16 +27,17 @@
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
             android:text="@string/home_menu_title"
-            android:textColor="@color/tv_bar_color"
-            android:textSize="20sp" />
+            android:textColor="@color/title_bar_color"
+            android:textSize="18sp" />
 
         <TextView
             android:id="@+id/getLocation"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_alignParentRight="true"
-            android:gravity="center"
-            android:layout_margin="@dimen/fragmet_home_logo_size_8"/>
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@id/tv_home_tilte"
+            android:textColor="@color/title_bar_color"
+            android:layout_marginLeft="12dp"/>
+
 
     </RelativeLayout>
 
@@ -54,7 +56,6 @@
                 android:id="@+id/rl_logo_weather"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/fragmet_home_logo_height_size_100"
-                android:background="@color/white"
                 android:layout_weight="1">
 
                 <ImageView
@@ -70,6 +71,7 @@
                     android:layout_height="wrap_content"
                     android:layout_centerHorizontal="true"
                     android:text="@string/tv_logo_weather"
+                    android:textColor="@color/tv_bar_color"
                     android:layout_below="@+id/iv_logo_weather"
                     android:layout_marginTop="@dimen/fragmet_home_logo_size_8"
                     android:layout_marginBottom="@dimen/fragmet_home_logo_size_10"
@@ -83,13 +85,12 @@
                 android:id="@+id/rl_logo_fishing_point"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/fragmet_home_logo_height_size_100"
-                android:background="@color/white"
                 android:layout_weight="1">
                 <ImageView
                     android:id="@+id/iv_logo_fishing_point"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/home_logo_weather"
+                    android:background="@drawable/home_logo_point"
                     android:layout_centerHorizontal="true"
                     android:layout_marginTop="@dimen/fragmet_home_logo_size_10" />
                 <TextView
@@ -97,6 +98,7 @@
                     android:layout_height="wrap_content"
                     android:layout_centerHorizontal="true"
                     android:text="@string/tv_logo_fishing_point"
+                    android:textColor="@color/tv_bar_color"
                     android:layout_below="@+id/iv_logo_fishing_point"
                     android:layout_marginTop="@dimen/fragmet_home_logo_size_8"
                     android:layout_marginBottom="@dimen/fragmet_home_logo_size_10"
@@ -110,14 +112,13 @@
                 android:id="@+id/rl_logo_fishing_boat"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/fragmet_home_logo_height_size_100"
-                android:background="@color/white"
                 android:layout_weight="1">
 
                 <ImageView
                     android:id="@+id/iv_logo_fishing_boat"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/home_logo_weather"
+                    android:background="@drawable/home_logo_boat"
                     android:layout_centerHorizontal="true"
                     android:layout_marginTop="@dimen/fragmet_home_logo_size_10" />
 
@@ -126,6 +127,7 @@
                     android:layout_height="wrap_content"
                     android:layout_centerHorizontal="true"
                     android:text="@string/tv_logo_fishing_boat"
+                    android:textColor="@color/tv_bar_color"
                     android:layout_below="@+id/iv_logo_fishing_boat"
                     android:layout_marginTop="@dimen/fragmet_home_logo_size_8"
                     android:layout_marginBottom="@dimen/fragmet_home_logo_size_10"
@@ -141,30 +143,30 @@
             android:orientation="vertical"
             android:layout_marginBottom="@dimen/fragmet_home_logo_size_5"
             android:layout_marginLeft="@dimen/fragmet_home_logo_size_5"
-            android:layout_marginRight="@dimen/fragmet_home_logo_size_5"
-            android:background="@color/white">
+            android:layout_marginRight="@dimen/fragmet_home_logo_size_5">
+
+            <cn.xiaocool.fish.view.HomeGalleryView
+                android:id="@+id/mygallery"
+                android:spacing="20dp"
+                android:layout_width="match_parent"
+                android:layout_weight="4"
+                android:layout_height="0dp"
+                android:unselectedAlpha="128" />
 
             <TextView
                 android:gravity="center"
                 android:id="@+id/tvTitle"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textSize="16sp"
-                android:layout_marginLeft="30dp"
-                android:layout_marginRight="30dp"
-                android:layout_marginTop="@dimen/tv_margin_top_16" />
-
-            <cn.xiaocool.fish.view.HomeGalleryView
-                android:id="@+id/mygallery"
-                android:spacing="20dp"
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent"
-                android:unselectedAlpha="128" />
+                android:layout_weight="1"
+                android:layout_height="0dp"
+                android:textSize="14sp"
+                android:textColor="#c8dade"
+                android:typeface="sans"
+                android:layout_marginLeft="60dp"
+                android:layout_marginRight="60dp"
+                android:layout_marginBottom="30dp"/>
 
         </LinearLayout>
-
     </LinearLayout>
-
-
 
 </LinearLayout>

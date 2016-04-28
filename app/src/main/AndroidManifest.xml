@@ -37,7 +37,7 @@
         android:theme="@style/FishTheme">
 
         <activity
-            android:name=".main.LoginActivity"
+            android:name=".main.SplashActivity"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -58,8 +58,15 @@
         <activity android:name=".main.HomeNoticeActivity"/>
         <activity android:name=".main.UserActivity"/>
         <activity android:name=".main.UserSetInfoActivity"/>
+        <activity android:name=".main.NewNoticeActivity"/>
+        <activity android:name=".main.SettingActivity"/>
+        <activity android:name=".main.FeedBackActivity"/>
         <activity android:name=".main.GuideActivity"/>
-        <activity android:name=".main.SplashActivity"/>
+        <activity android:name=".main.LoginActivity"/>
+        <activity android:name=".main.AddFisherActivity"/>
+        <activity android:name=".main.GroupActivity"/>
+        <activity android:name=".main.WeatherBaseOneActivity"/>
+
 
         <meta-data
             android:name="com.baidu.lbsapi.API_KEY"
