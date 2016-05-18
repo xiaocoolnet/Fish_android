@@ -45,7 +45,7 @@ public class FeedBackActivity extends Activity implements View.OnClickListener {
                         JSONObject jsonObject = new JSONObject(result_data);
                         String status = jsonObject.getString("status");
                         if (status.equals("success")){
-                            Toast.makeText(FeedBackActivity.this,"提交成功",0).show();
+                            Toast.makeText(FeedBackActivity.this,"感谢您的建议与反馈",0).show();
                         }
                         else {
                             Toast.makeText(FeedBackActivity.this,"提交失败",0).show();

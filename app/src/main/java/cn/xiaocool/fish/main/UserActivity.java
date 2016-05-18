@@ -26,10 +26,12 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import cn.xiaocool.fish.R;
+import cn.xiaocool.fish.bean.UserInfo;
 import cn.xiaocool.fish.net.HttpTool;
 import cn.xiaocool.fish.net.constant.NetBaseConstant;
 import cn.xiaocool.fish.ui.RoundImageView;
 import cn.xiaocool.fish.utils.IntentUtils;
+import cn.xiaocool.fish.view.FishApplication;
 
 public class UserActivity extends Activity implements View.OnClickListener {
 
@@ -47,6 +49,9 @@ public class UserActivity extends Activity implements View.OnClickListener {
     private String userCity;
     private String userAge;
     private int upfile;
+    private UserInfo user;
+    private Context mContext;
+    private String currentUsername,currentPassword;
     private Handler handler = new Handler() {
         public void handleMessage(Message msg) {
             switch (msg.what) {
@@ -109,6 +114,7 @@ public class UserActivity extends Activity implements View.OnClickListener {
         initEvent(); // 初始化事件
     }
 
+
     private void getUserInfo() {
         sharedPreferences = getSharedPreferences("user_info", Activity.MODE_PRIVATE);
         String userName = sharedPreferences.getString("userName", "");
@@ -145,9 +151,6 @@ public class UserActivity extends Activity implements View.OnClickListener {
     }
 
     private void initView() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-        }
         requestWindowFeature(Window.FEATURE_NO_TITLE); // 去掉标题栏
         setContentView(R.layout.activity_user); // 登录界面
         // 控件实例化
@@ -164,7 +167,7 @@ public class UserActivity extends Activity implements View.OnClickListener {
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btn_exit:
-                IntentUtils.getIntent(UserActivity.this, MainActivity.class);
+                IntentUtils.getIntent(UserActivity.this, com.easemob.chat.activity.MainActivity.class);
                 break;
             case R.id.btn_setuserinfo:
                 IntentUtils.getIntent(UserActivity.this, UserSetInfoActivity.class); // 跳转到编辑用户资料
@@ -195,7 +198,7 @@ public class UserActivity extends Activity implements View.OnClickListener {
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         // TODO Auto-generated method stub
         if(keyCode == KeyEvent.KEYCODE_BACK){
-            IntentUtils.getIntent(UserActivity.this, MainActivity.class);
+            IntentUtils.getIntent(UserActivity.this, com.easemob.chat.activity.MainActivity.class);
             return true;
         }
         return super.onKeyDown(keyCode, event);

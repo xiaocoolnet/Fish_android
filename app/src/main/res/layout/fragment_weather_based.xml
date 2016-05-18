@@ -4,6 +4,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
     <LinearLayout
+        android:id="@+id/ll_weather_base"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
@@ -44,7 +45,7 @@
                         android:id="@+id/tv_base_qw"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textSize="40dp"
+                        android:textSize="30dp"
                         android:textColor="@color/white"/>
                 </LinearLayout>
 
@@ -52,20 +53,38 @@
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
                     android:layout_weight="1"
-                    android:orientation="vertical"
+                    android:orientation="horizontal"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
                     android:gravity="center">
 
                     <TextView
-                        android:id="@+id/tv_base_qwh"
+                        android:id="@+id/tv_base_qwh_max"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textSize="14dp"
-                        android:textColor="@color/white"/>
+                        android:textSize="24dp"
+                        android:textColor="@color/title_bar_color"
+                        android:layout_marginBottom="10dp"/>
+                    <ImageView
+                        android:id="@+id/iv_line"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                    <TextView
+                        android:id="@+id/tv_base_qwh_min"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="18dp"
+                        android:textColor="@color/title_bar_color"
+                        android:layout_marginTop="10dp"/>
+
                 </LinearLayout>
 
             </LinearLayout>
 
+
+
             <LinearLayout
+                android:id="@+id/ll_weather_two"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:background="@drawable/weather_mk_bg"
@@ -89,20 +108,23 @@
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
                     android:layout_weight="1"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
                     android:orientation="vertical"
                     android:gravity="center">
                     <TextView
                         android:id="@+id/tv_base_fx"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textSize="20dp"
-                        android:textColor="@color/white"/>
+                        android:textSize="18dp"
+                        android:textColor="@color/title_bar_color"/>
                     <TextView
                         android:id="@+id/tv_base_j"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textSize="14dp"
-                        android:textColor="@color/white"/>
+                        android:layout_marginTop="13dp"
+                        android:textColor="@color/title_bar_color"/>
                 </LinearLayout>
 
             </LinearLayout>
@@ -139,6 +161,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
                     android:layout_weight="1"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
                     android:orientation="vertical"
                     android:gravity="center">
                     <TextView
@@ -146,8 +170,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textSize="20dp"
-                        android:textColor="@color/white"/>
-
+                        android:textColor="@color/title_bar_color"/>
                 </LinearLayout>
 
             </LinearLayout>
@@ -175,17 +198,21 @@
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
                     android:layout_weight="1"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
                     android:orientation="vertical"
                     android:gravity="center">
                     <TextView
                         android:id="@+id/tv_base_jy"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:gravity="center"
                         android:textSize="15dp"
-                        android:textColor="@color/white"/>
+                        android:layout_marginLeft="15dp"
+                        android:layout_marginRight="15dp"
+                        android:textColor="@color/title_bar_color"/>
 
                 </LinearLayout>
-
             </LinearLayout>
 
         </LinearLayout>

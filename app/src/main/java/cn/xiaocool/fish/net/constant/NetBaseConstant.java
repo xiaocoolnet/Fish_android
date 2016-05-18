@@ -12,7 +12,6 @@ public interface NetBaseConstant {
     public final static String Private_Key = "274b25_SmartWeatherAPI_9236094";
     public final static String SYSTEM_DATA = SystemData.getStringDate();
     public final static String NET_API_HOST = "http://www.xiaocool.net/index.php?g=apps&m=index&";
-
     public final static String NET_API_List = "http://www.xiaocool.net/index.php?g=apps&m=project&";
     /** * 头像图片地址 * */
     public final static String NET_AVATAR_HOST = "http://www.xiaocool.net/uploads/avatar/";

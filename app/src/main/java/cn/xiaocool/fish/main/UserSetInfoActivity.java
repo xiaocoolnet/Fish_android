@@ -83,9 +83,6 @@ public class UserSetInfoActivity extends Activity implements View.OnClickListene
     }
 
     private void initView() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-        }
         requestWindowFeature(Window.FEATURE_NO_TITLE); // 去掉标题栏
         setContentView(R.layout.activity_usersetinfo); // 控件实例化
         btn_exit = (ImageView) findViewById(R.id.btn_exit);

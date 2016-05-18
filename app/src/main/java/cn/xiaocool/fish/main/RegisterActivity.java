@@ -11,6 +11,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -46,13 +47,15 @@ public class RegisterActivity extends Activity implements View.OnClickListener {
                     btn_sendVerifyCode.setClickable(true); // 设置按钮的状态可用
                     break;
                 case 2:
-                    Toast.makeText(RegisterActivity.this, "获取验证码成功", 0).show();
+                    Toast.makeText(RegisterActivity.this, "获取验证码成功"+yzCode, 0).show();
+                    edit_verifycode.setText(verifyCode);
                     break;
                 case 3:
                     if(yzCode.equals(verifyCode)){
                         Intent intent=new Intent();
                         intent.putExtra("phone", phone);
                         intent.putExtra("yzCode", yzCode);
+                        Log.i("yzCode",yzCode);
                         intent.setClass(RegisterActivity.this, SetPasswordActivity.class);
                         startActivity(intent);
                     }else {

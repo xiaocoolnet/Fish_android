@@ -3,20 +3,19 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/main_ground_color"
+    android:background="@drawable/fisher_bg"
     android:orientation="vertical">
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="@dimen/title_bar_height_50"
-        android:background="@color/white">
+        android:layout_height="@dimen/title_bar_height_50">
         <TextView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center"
             android:text="@string/fisher_menu_fisher_feedback"
-            android:textColor="@color/tv_bar_color"
-            android:textSize="@dimen/tv_size_20" />
+            android:textColor="@color/title_bar_color"
+            android:textSize="18sp"/>
         <RelativeLayout
             android:layout_width="@dimen/title_bar_height_50"
             android:layout_height="fill_parent"
@@ -26,7 +25,7 @@
                 android:layout_width="@dimen/left_arrow"
                 android:layout_height="@dimen/left_arrow"
                 android:contentDescription="@string/app_name"
-                android:src="@drawable/login_left_arrow" />
+                android:src="@drawable/left_arrow" />
         </RelativeLayout>
     </RelativeLayout>
 
@@ -54,7 +53,8 @@
                 android:layout_toRightOf="@id/iv_feedback_logo"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:text="闲来垂钓"
+                android:textColor="#7cc8ea"
+                android:text="相关意见建议，请反馈给我们，谢谢"
                 android:gravity="center_vertical"
                 android:layout_marginLeft="@dimen/fragmet_home_logo_size_8"
                 android:textSize="@dimen/fragmet_home_logo_size_15" />
@@ -72,7 +72,7 @@
         android:layout_marginRight="@dimen/fragmet_home_logo_size_5">
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="60dp"
+            android:layout_height="240dp"
             android:background="@drawable/btn_click">
 
             <ImageView
@@ -86,7 +86,7 @@
                 android:layout_toRightOf="@id/iv_feedback_content_logo"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:gravity="center_vertical"
+                android:background="@null"
                 android:layout_marginLeft="@dimen/fragmet_home_logo_size_8"
                 android:textSize="@dimen/fragmet_home_logo_size_15" />
 

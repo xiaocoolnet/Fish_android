@@ -6,11 +6,13 @@
 package cn.xiaocool.fish.main;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.text.TextUtils;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -19,6 +21,11 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.easemob.EMError;
+import com.easemob.chat.DemoApplication;
+import com.easemob.chat.EMChatManager;
+import com.easemob.exceptions.EaseMobException;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -55,7 +62,7 @@ public class SetPasswordActivity extends Activity implements View.OnClickListene
                             //实力化缓存类
 //                            JSONObject item = new JSONObject(data);
 //                            FishApplication.UID = Integer.parseInt(item.getString("id"));
-                            IntentUtils.getIntent(SetPasswordActivity.this, MainActivity.class);
+                            IntentUtils.getIntent(SetPasswordActivity.this, LoginActivity.class);
                             Toast.makeText(SetPasswordActivity.this,"注册成功",0).show();
                         } else {
                             Toast.makeText(SetPasswordActivity.this,"注册失败，重新注册",0).show();
@@ -77,6 +84,11 @@ public class SetPasswordActivity extends Activity implements View.OnClickListene
         super.onCreate(savedInstanceState);
         initView(); // 初始化界面
         initEvent(); // 初始化事件
+    }
+
+
+    public void back(View view) {
+        finish();
     }
 
     private void initEvent() {
@@ -139,6 +151,59 @@ public class SetPasswordActivity extends Activity implements View.OnClickListene
         }else {
             Toast.makeText(SetPasswordActivity.this,"输入的密码不一致",0).show();
         }
+
+        final String username = ed_get_phone_number.getText().toString().trim();
+        final String pwd = edit_password1.getText().toString().trim();
+        String confirm_pwd = edit_password2.getText().toString().trim();
+        if (TextUtils.isEmpty(username)) {
+            Toast.makeText(this, getResources().getString(R.string.User_name_cannot_be_empty), Toast.LENGTH_SHORT).show();
+            ed_get_phone_number.requestFocus();
+            return;
+        } else if (TextUtils.isEmpty(pwd)) {
+            Toast.makeText(this, getResources().getString(R.string.Password_cannot_be_empty), Toast.LENGTH_SHORT).show();
+            edit_password1.requestFocus();
+            return;
+        } else if (TextUtils.isEmpty(confirm_pwd)) {
+            Toast.makeText(this, getResources().getString(R.string.Confirm_password_cannot_be_empty), Toast.LENGTH_SHORT).show();
+            edit_password2.requestFocus();
+            return;
+        } else if (!pwd.equals(confirm_pwd)) {
+            Toast.makeText(this, getResources().getString(R.string.Two_input_password), Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        if (!TextUtils.isEmpty(username) && !TextUtils.isEmpty(pwd)) {
+            final ProgressDialog pd = new ProgressDialog(this);
+            pd.setMessage(getResources().getString(R.string.Is_the_registered));
+            pd.show();
+
+            new Thread(new Runnable() {
+                public void run() {
+                    try {
+                        // 调用sdk注册方法
+                        EMChatManager.getInstance().createAccountOnServer(username, pwd);
+                        runOnUiThread(new Runnable() {
+                            public void run() {
+                                if (!SetPasswordActivity.this.isFinishing())
+                                    pd.dismiss();
+                                // 保存用户名
+                                DemoApplication.getInstance().setUserName(username);
+                                finish();
+                            }
+                        });
+                    } catch (final EaseMobException e) {
+                        runOnUiThread(new Runnable() {
+                            public void run() {
+                                if (!SetPasswordActivity.this.isFinishing())
+                                    pd.dismiss();
+                            }
+                        });
+                    }
+                }
+            }).start();
+
+        }
+
     }
 
     private void getPhoneNum() {

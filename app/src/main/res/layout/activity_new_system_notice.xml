@@ -2,21 +2,20 @@
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
-    android:background="@color/main_ground_color"
+    android:background="@drawable/new_bg"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="@dimen/title_bar_height_50"
-        android:background="@color/white">
+        android:layout_height="@dimen/title_bar_height_50">
         <TextView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center"
             android:text="@string/new_menu_system_notice_title"
-            android:textColor="@color/tv_bar_color"
-            android:textSize="@dimen/tv_size_20" />
+            android:textColor="@color/title_bar_color"
+            android:textSize="18sp" />
         <RelativeLayout
             android:layout_width="@dimen/title_bar_height_50"
             android:layout_height="fill_parent"
@@ -26,7 +25,7 @@
                 android:layout_width="@dimen/left_arrow"
                 android:layout_height="@dimen/left_arrow"
                 android:contentDescription="@string/app_name"
-                android:src="@drawable/login_left_arrow" />
+                android:src="@drawable/left_arrow" />
         </RelativeLayout>
     </RelativeLayout>
 
@@ -43,16 +42,9 @@
             android:id="@+id/rl_new_notice_title"
             android:layout_width="match_parent"
             android:layout_height="60dp"
-            android:background="@drawable/btn_click">
-            <ImageView
-                android:id="@+id/iv_new_notice_title_logo"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/home_logo_weather"
-                android:layout_margin="@dimen/tv_margin_top_6.5"/>
+            android:background="@drawable/new_notice_bar_bg">
             <TextView
                 android:id="@+id/tv_new_notice_title"
-                android:layout_toRightOf="@id/iv_new_notice_title_logo"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:gravity="center_vertical"
@@ -76,16 +68,9 @@
             android:id="@+id/rl_new_notice_time"
             android:layout_width="match_parent"
             android:layout_height="60dp"
-            android:background="@drawable/btn_click">
-            <ImageView
-                android:id="@+id/iv_new_notice_time"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/home_logo_weather"
-                android:layout_margin="@dimen/tv_margin_top_6.5"/>
+            android:background="@drawable/new_notice_bar_bg">
             <TextView
                 android:id="@+id/tv_new_notice_time"
-                android:layout_toRightOf="@id/iv_new_notice_time"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:gravity="center_vertical"
@@ -109,16 +94,9 @@
             android:id="@+id/rl_new_notice_content"
             android:layout_width="match_parent"
             android:layout_height="60dp"
-            android:background="@drawable/btn_click">
-            <ImageView
-                android:id="@+id/iv_new_notice_content"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/home_logo_weather"
-                android:layout_margin="@dimen/tv_margin_top_6.5"/>
+            android:background="@drawable/new_notice_bar_bg">
             <TextView
                 android:id="@+id/tv_new_notice_content"
-                android:layout_toRightOf="@id/iv_new_notice_content"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:gravity="center_vertical"

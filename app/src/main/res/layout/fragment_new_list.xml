@@ -3,21 +3,19 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_marginTop="@dimen/fragmet_home_logo_size_5"
-    android:layout_marginLeft="@dimen/fragmet_home_logo_size_5"
-    android:layout_marginRight="@dimen/fragmet_home_logo_size_5">
+    android:layout_marginTop="10dp">
 
 
     <LinearLayout
         android:id="@+id/new_ll"
         android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:background="@color/white"
+        android:layout_height="wrap_content"
+        android:background="@drawable/btn_new_t_bg_selector"
         android:orientation="horizontal">
 
         <!--左边-->
         <LinearLayout
-            android:layout_width="30dp"
+            android:layout_width="50dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:layout_gravity="center">
@@ -26,19 +24,8 @@
                 android:id="@+id/new_logo"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:src="@drawable/home_logo_weather"
-                />
+                android:src="@drawable/home_logo_image" />
 
-        </LinearLayout>
-
-        <!--分割线-->
-        <LinearLayout
-            android:layout_width="2dp"
-            android:layout_height="match_parent">
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@color/line" />
         </LinearLayout>
 
 
@@ -50,11 +37,12 @@
             android:orientation="vertical">
             <TextView
                 android:id="@+id/new_name"
-                android:gravity="center_vertical"
+                android:gravity="bottom"
                 android:layout_weight="1"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_marginLeft="@dimen/fragmet_home_logo_size_10"
+                android:textSize="18dp"
                 android:text="闲来垂钓"/>
             <TextView
                 android:id="@+id/new_content"
@@ -62,34 +50,26 @@
                 android:layout_weight="1"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
+                android:textColor="#54536d"
                 android:layout_marginLeft="@dimen/fragmet_home_logo_size_10"
                 android:text="天气不错，一起约吧"/>
 
         </LinearLayout>
 
-        <!--分割线-->
-        <LinearLayout
-            android:layout_width="2dp"
-            android:layout_height="match_parent">
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@color/line" />
-        </LinearLayout>
-
         <!--右边-->
         <LinearLayout
-            android:layout_width="30dp"
+            android:layout_width="50dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:orientation="vertical">
 
             <TextView
                 android:id="@+id/new_time"
-                android:gravity="center_horizontal|center_vertical"
+                android:gravity="center_horizontal|bottom"
                 android:layout_weight="1"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
+                android:textColor="#505776"
                 android:text="8:00"/>
 
             <TextView

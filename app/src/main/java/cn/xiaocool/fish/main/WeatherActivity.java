@@ -3,6 +3,7 @@ package cn.xiaocool.fish.main;
 import java.util.ArrayList;
 import java.util.List;
 
+import android.content.SharedPreferences;
 import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
 import android.os.Build;
@@ -23,7 +24,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import cn.xiaocool.fish.R;
-import cn.xiaocool.fish.fragment.WeatherMoreFragment;
 import cn.xiaocool.fish.fragment.WeatherBasedFragmnet;
 import cn.xiaocool.fish.fragment.WeatherSystemNoticeFragmnet;
 
@@ -72,7 +72,6 @@ public class WeatherActivity extends FragmentActivity implements View.OnClickLis
         fragments = new ArrayList<Fragment>();
         fragments.add(new WeatherBasedFragmnet());
         fragments.add(new WeatherSystemNoticeFragmnet());
-//        fragments.add(new WeatherMoreFragment());
         viewPager.setAdapter(new myPagerAdapter(getSupportFragmentManager(),
                 fragments));
         viewPager.setCurrentItem(0);
@@ -85,6 +84,7 @@ public class WeatherActivity extends FragmentActivity implements View.OnClickLis
      */
     private void InitTextView() {
         voiceAnswer = (TextView) findViewById(R.id.tab_1);
+        tv_weather_title = (TextView) findViewById(R.id.tv_weather_title);
         healthPedia = (TextView) findViewById(R.id.tab_2);
         pDected = (TextView) findViewById(R.id.tab_3);
 
@@ -95,6 +95,13 @@ public class WeatherActivity extends FragmentActivity implements View.OnClickLis
         voiceAnswer.setOnClickListener(new MyOnClickListener(0));
         healthPedia.setOnClickListener(new MyOnClickListener(1));
         pDected.setOnClickListener(new MyOnClickListener(2));
+        getLocation();
+    }
+
+    private void getLocation() {
+        SharedPreferences locate = getSharedPreferences("locate", MODE_PRIVATE);
+        String getlocate = locate.getString("userLocate", "");
+        tv_weather_title.setText(getlocate);
     }
 
     /**

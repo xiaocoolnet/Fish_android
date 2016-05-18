@@ -2,103 +2,40 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/main_ground_color"
+    android:background="@drawable/new_bg"
     android:orientation="vertical" >
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="50dip" >
+        android:layout_height="@dimen/height_top_bar"
+        android:gravity="center_vertical" >
 
         <TextView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@color/white"
-            android:gravity="center"
+            android:id="@+id/message_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
             android:text="@string/new_menu_title"
-            android:textColor="@color/tv_bar_color"
-            android:textSize="20sp" />
+            android:textColor="@color/title_bar_color"
+            android:textSize="18sp" />
+
     </RelativeLayout>
+    <include layout="@layout/ease_search_bar" />
 
-    <!--系统公告-->
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_marginTop="@dimen/fragmet_home_logo_size_5"
-        android:layout_marginLeft="@dimen/fragmet_home_logo_size_5"
-        android:layout_marginRight="@dimen/fragmet_home_logo_size_5">
+    <include
+        android:id="@+id/rl_error_item"
+        layout="@layout/ease_chat_neterror_item"
+        android:visibility="gone" />
 
-        <RelativeLayout
-            android:id="@+id/rl_new_notice"
-            android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:background="@drawable/btn_click">
-            <ImageView
-                android:id="@+id/iv_new_notice_logo"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/home_logo_weather"
-                android:layout_margin="@dimen/tv_margin_top_6.5"/>
-            <TextView
-                android:id="@+id/new_notice_title"
-                android:layout_toRightOf="@id/iv_new_notice_logo"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:text="@string/new_menu_system_notice"
-                android:gravity="center_vertical"
-                android:layout_marginLeft="@dimen/fragmet_home_logo_size_8"
-                android:textColor="@color/bg_black"
-                android:textSize="@dimen/fragmet_home_logo_size_15" />
-        </RelativeLayout>
-
-    </LinearLayout>
-
-
-
-    <cn.xiaocool.fish.ui.ReboundScrollView
+    <ListView
+        android:cacheColorHint="#00000000"
+        android:id="@+id/list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:scrollbars="none">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
-
-            <RelativeLayout
-                android:visibility="gone"
-                android:id="@+id/rl_new_isnet"
-                android:layout_width="match_parent"
-                android:layout_height="60dp"
-                android:background="@drawable/btn_click"
-                android:layout_marginTop="@dimen/fragmet_home_logo_size_5"
-                android:layout_marginLeft="@dimen/fragmet_home_logo_size_5"
-                android:layout_marginRight="@dimen/fragmet_home_logo_size_5">
-
-                <ImageView
-                    android:id="@+id/iv_new_isnet_logo"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/home_logo_weather"
-                    android:layout_margin="@dimen/tv_margin_top_6.5"/>
-
-                <TextView
-                    android:id="@+id/new_isnet_title"
-                    android:layout_toRightOf="@id/iv_new_isnet_logo"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:text="遥远的距离就是没网。检查网络"
-                 android:gravity="center_vertical"
-                    android:layout_marginLeft="@dimen/fragmet_home_logo_size_8"
-                    android:textColor="@color/bg_black"
-                    android:textSize="@dimen/fragmet_home_logo_size_15" />
-            </RelativeLayout>
-
-            <!--放列表消息的布局-->
-            <include layout="@layout/fragment_new_list"></include>
-            <include layout="@layout/fragment_new_list"></include>
-
-        </LinearLayout>
-    </cn.xiaocool.fish.ui.ReboundScrollView>
+        android:background="@android:color/transparent"
+        android:descendantFocusability="afterDescendants"
+        android:divider="@android:color/transparent"
+        android:dividerHeight="6px"
+        android:fastScrollEnabled="false"  />
 
 </LinearLayout>

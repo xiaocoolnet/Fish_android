@@ -1,6 +1,7 @@
 package cn.xiaocool.fish.adapter;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.Bitmap.Config;
 import android.graphics.BitmapFactory;
@@ -17,6 +18,9 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.ImageView.ScaleType;
 
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
+import com.nostra13.universalimageloader.core.ImageLoader;
+
 import org.json.JSONObject;
 
 import java.util.ArrayList;
@@ -29,17 +33,15 @@ import cn.xiaocool.fish.view.HomeGalleryView;
 
 public class HomeNoticeAdapter extends BaseAdapter
 {
+	private final DisplayImageOptions option;
 	private ImageView[] mImages;		// 保存倒影图片的数组
 
 	private Context mContext;
 	public List<Map<String, Object>> list;
 
 	JSONObject json = new JSONObject();
-
 	public Integer[] imgs = { R.drawable.home_inage, R.drawable.home_inage2, R.drawable.home_inage3,
 			R.drawable.home_inage4};
-	public String[] titles = { "厦门男子对猫毛过敏 嫌治疗太麻烦选择换女友", "房东称老人自杀房成凶宅 向租户索赔12.9万(图)"
-			, "深夜环卫工爷孙仍在扫马路 画面感动无数网友", "老人执意将房产留给孙女 临终吐露：她是我女儿"};
 
 	public HomeNoticeAdapter(Context c)
 	{
@@ -50,6 +52,10 @@ public class HomeNoticeAdapter extends BaseAdapter
 			map.put("image", imgs[i]);
 			list.add(map);
 		}
+		option = new DisplayImageOptions.Builder()
+				.showImageOnLoading(R.drawable.ic_launcher)
+				.showImageOnFail(R.drawable.ic_launcher).cacheInMemory(true)
+				.cacheOnDisc(true).build();
 		mImages = new ImageView[list.size()];
 	}
 
@@ -94,7 +100,7 @@ public class HomeNoticeAdapter extends BaseAdapter
 			paint.setShader(shader); // 线性渐变效果
 			paint.setXfermode(new PorterDuffXfermode(Mode.DST_IN));	// 倒影遮罩效果
 			canvas.drawRect(0, mheight, mwidth, bitmapWithReflection.getHeight() + reflectionGap, paint);		// 绘制倒影的阴影效果
-
+//			ImageLoader.getInstance().displayImage("",option,);
 			ImageView imageView = new ImageView(mContext);
 			imageView.setImageBitmap(bitmapWithReflection);	// 设置倒影图片
 			imageView.setLayoutParams(new HomeGalleryView.LayoutParams((int)(width * scale),

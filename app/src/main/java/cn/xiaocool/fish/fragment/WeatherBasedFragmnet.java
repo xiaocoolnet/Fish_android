@@ -1,6 +1,7 @@
 package cn.xiaocool.fish.fragment;
 
 import android.content.SharedPreferences;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
@@ -23,27 +24,26 @@ import java.util.Calendar;
 
 import cn.xiaocool.fish.R;
 import cn.xiaocool.fish.adapter.DataLunar;
-import cn.xiaocool.fish.main.LoginActivity;
 import cn.xiaocool.fish.main.WeatherBaseOneActivity;
+import cn.xiaocool.fish.main.WeatherBaseTwoActivity;
 import cn.xiaocool.fish.net.HttpTool;
 import cn.xiaocool.fish.utils.IntentUtils;
 import cn.xiaocool.fish.view.LoadingDialog;
 
 public class WeatherBasedFragmnet extends Fragment implements View.OnClickListener {
 
-	final static String chineseNumber[] = {"一", "二", "三", "四", "五", "六", "七", "八", "九", "十", "十一", "十二"};
-	static SimpleDateFormat chineseDateFormat = new SimpleDateFormat("yyyy-MM-dd");
 	private FragmentActivity mContext;
-	private LinearLayout ll_weather_one;
+	private LinearLayout ll_weather_one,ll_weather_two;
+	private LinearLayout ll_weather_base;
 	private ImageView iv_base_fx;
 	private ImageView iv_base_jy;
-	private ImageView iv_base_cx;
+	private ImageView iv_line;
 	private TextView tv_base_qw;
-	private TextView tv_base_qwh;
+	private TextView tv_base_qwh_max;
+	private TextView tv_base_qwh_min;
 	private TextView tv_base_fx;
 	private TextView tv_base_j;
 	private TextView tv_base_jy;
-	private TextView tv_base_cx;
 	private String key;
 	private String result_data,result;
 	private Handler handler = new Handler() {
@@ -51,14 +51,6 @@ public class WeatherBasedFragmnet extends Fragment implements View.OnClickListen
 		switch (msg.what) {
 			case 2:
 				Toast.makeText(mContext, "网络问题，请稍后重试！", 0).show();
-				break;
-			case 4:
-				try {
-					JSONObject jsonObject = new JSONObject(result);
-				} catch (JSONException e) {
-					e.printStackTrace();
-				}
-
 				break;
 			case 0:
 				Toast.makeText(mContext, "请打开定位权限", 0).show();
@@ -75,7 +67,6 @@ public class WeatherBasedFragmnet extends Fragment implements View.OnClickListen
 					String nowOb = ojArrayOne.getString("now");
 					JSONObject ob2 = new JSONObject(nowOb);
 					String cond = ob2.getString("cond");
-					String hum = ob2.getString("hum");
 					String fl = ob2.getString("fl");
 					JSONObject condob = new JSONObject(cond);
 					String txt = condob.getString("txt");
@@ -89,42 +80,39 @@ public class WeatherBasedFragmnet extends Fragment implements View.OnClickListen
 					String daily_forecast = ojArrayOne.getString("daily_forecast");
 					JSONArray daily = new JSONArray(daily_forecast);
 					JSONObject one_daily = daily.getJSONObject(0);
-					String one_date = one_daily.getString("date");
 					String astro = one_daily.getString("astro");
 					JSONObject astroob = new JSONObject(astro);
-					String sr = astroob.getString("sr");
-					String ss = astroob.getString("ss");
-//					Calendar today = Calendar.getInstance();
-//					try {
-//						today.setTime(chineseDateFormat.parse(one_date));
-//					} catch (ParseException e) {
-//						e.printStackTrace();
-//					}
-//					DataLunar lunar = new DataLunar( today );
-//                        System.out.println("北京时间："+chineseDateFormat.format(today.getTime())+"农历" + lunar);
-//					tv_date_1.setText("北京时间："+chineseDateFormat.format(today.getTime()));
-//					tv_date_2.setText("农历：" +lunar);
-//					tv_weather.setText("天气情况："+txt);
-//					tv_wendu.setText("温度："+fl+"℃");
-//					tv_wind.setText("风力风向："+dir+" "+sc);
-//					tv_shidu.setText("湿度："+hum+"%");
-//					tv_rise.setText("日落日出："+sr+"/"+ss);
+
+					String tmp = one_daily.getString("tmp");
+					JSONObject tep1 = new JSONObject(tmp);
+					String max = tep1.getString("max");
+					String min = tep1.getString("min");
+
+					ll_weather_base.setVisibility(View.VISIBLE);
 					tv_base_qw.setText(txt);
-					tv_base_qwh.setText(fl+"℃");
+					tv_base_qwh_max.setText(max+"℃");
+					tv_base_qwh_min.setText(min+"℃");
+					Typeface typeFace = Typeface.createFromAsset(mContext.getAssets(), "fonts/st.TTF");
+					tv_base_qwh_max.setTypeface(typeFace);
+					tv_base_qwh_min.setTypeface(typeFace);
+					iv_line.setImageResource(R.drawable.weather_line);
 					int jy = Integer.parseInt(fl);
 					tv_base_fx.setText(dir);
-					tv_base_j.setText(sc+"级"+"  "+spd+"Kmph");
+					tv_base_j.setText(sc+"级"+"  "+spd+" Km/h");
+					tv_base_fx.setTypeface(typeFace);
+					tv_base_j.setTypeface(typeFace);
 
 					if (jy>=13 && jy<=20){
-//						iv_base_fx.setImageResource(R.drawable.weather_mk_fxtb_db);
-						tv_base_jy.setText("适合钓鱼！");
+						iv_base_jy.setImageResource(R.drawable.jy);
+						tv_base_jy.setText("口很好，不钓鱼可惜了");
 					}else if(jy>=30 && jy<=5){
-//						iv_base_fx.setImageResource(R.drawable.weather_mk_fxtb_d);
-						tv_base_jy.setText("不适合钓鱼！");
+						iv_base_jy.setImageResource(R.drawable.jy);
+						tv_base_jy.setText("没口，不建议钓鱼");
 					} else {
-//						iv_base_fx.setImageResource(R.drawable.weather_mk_fxtb_db);
-						tv_base_jy.setText("可以选择去或不去！");
+						iv_base_jy.setImageResource(R.drawable.jy);
+						tv_base_jy.setText("有口，适合钓鱼");
 					}
+					tv_base_jy.setTypeface(typeFace);
 
 					if (dir.equals("东北风")){
 						iv_base_fx.setImageResource(R.drawable.weather_mk_fxtb_db);
@@ -173,35 +161,24 @@ public class WeatherBasedFragmnet extends Fragment implements View.OnClickListen
 	private void initEvent() {
 		// 添加点击事件
 		ll_weather_one.setOnClickListener(this);
+		ll_weather_two.setOnClickListener(this);
 	}
 
 
 	private void initView() {
 		ll_weather_one = (LinearLayout) getView().findViewById(R.id.ll_weather_one);
+		ll_weather_two = (LinearLayout) getView().findViewById(R.id.ll_weather_two);
+		ll_weather_base = (LinearLayout) getView().findViewById(R.id.ll_weather_base);
 		tv_base_qw = (TextView) getView().findViewById(R.id.tv_base_qw);
-		tv_base_qwh = (TextView) getView().findViewById(R.id.tv_base_qwh);
+		tv_base_qwh_max = (TextView) getView().findViewById(R.id.tv_base_qwh_max);
+		tv_base_qwh_min = (TextView) getView().findViewById(R.id.tv_base_qwh_min);
 		tv_base_fx = (TextView) getView().findViewById(R.id.tv_base_fx);
 		tv_base_j = (TextView) getView().findViewById(R.id.tv_base_j);
 		tv_base_jy = (TextView) getView().findViewById(R.id.tv_base_jy);
-		tv_base_cx = (TextView) getView().findViewById(R.id.tv_base_cx);
 		iv_base_fx = (ImageView) getView().findViewById(R.id.iv_base_fx);
 		iv_base_jy = (ImageView) getView().findViewById(R.id.iv_base_jy);
-		iv_base_cx = (ImageView) getView().findViewById(R.id.iv_base_cx);
+		iv_line = (ImageView) getView().findViewById(R.id.iv_line);
 		getWeatherBase();
-		getCX();
-	}
-
-	private void getCX() {
-		new Thread() {
-			public void run() {
-				if (HttpTool.isConnnected(mContext)){
-					result = HttpTool.WeatherCX();
-					handler.sendEmptyMessage(4);// 调用服务器登录函数
-				}else {
-					handler.sendEmptyMessage(2); // 输出：网络连接有问题！
-				}
-			}
-		}.start();
 	}
 
 	private void getWeatherBase() {
@@ -229,6 +206,9 @@ public class WeatherBasedFragmnet extends Fragment implements View.OnClickListen
 		switch (v.getId()){
 			case R.id.ll_weather_one :
 				IntentUtils.getIntent(mContext, WeatherBaseOneActivity.class);
+				break;
+			case R.id.ll_weather_two :
+				IntentUtils.getIntent(mContext, WeatherBaseTwoActivity.class);
 				break;
 			default:
 				break;

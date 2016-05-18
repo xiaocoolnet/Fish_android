@@ -8,6 +8,8 @@ package cn.xiaocool.fish.main;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.app.ProgressDialog;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -17,6 +19,11 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
+
+import com.easemob.EMCallBack;
+import com.easemob.chat.DemoHXSDKHelper;
+import com.easemob.chat.activity.*;
+import com.easemob.chat.activity.LoginActivity;
 
 import cn.xiaocool.fish.R;
 import cn.xiaocool.fish.dao.DataCleanManager;
@@ -28,6 +35,7 @@ public class SettingActivity extends Activity implements View.OnClickListener {
     private RelativeLayout fisher_quit;
     private RelativeLayout rl_fisher_bbs;
     private RelativeLayout rl_fisher_clear;
+    private RelativeLayout rl_fisher_newts;
     private SharedPreferences sharedPreferences;
 
     @Override
@@ -42,17 +50,19 @@ public class SettingActivity extends Activity implements View.OnClickListener {
         fisher_quit.setOnClickListener(this);
         rl_fisher_bbs.setOnClickListener(this);
         rl_fisher_clear.setOnClickListener(this);
+        rl_fisher_newts.setOnClickListener(this);
         btn_exit.setOnClickListener(this);
     }
 
     private void initView() {
         requestWindowFeature(Window.FEATURE_NO_TITLE); // 去掉标题栏
-        setContentView(R.layout.activity_fisher_setting); // 钓点界面
+        setContentView(R.layout.activity_fisher_setting);
         // 控件实例化
         btn_exit = (ImageView) findViewById(R.id.btn_exit);
         fisher_quit = (RelativeLayout)findViewById(R.id.fisher_quit);
         rl_fisher_clear = (RelativeLayout)findViewById(R.id.rl_fisher_clear);
         rl_fisher_bbs = (RelativeLayout)findViewById(R.id.rl_fisher_bbs);
+        rl_fisher_newts = (RelativeLayout)findViewById(R.id.rl_fisher_newts);
     }
 
     /**
@@ -87,6 +97,7 @@ public class SettingActivity extends Activity implements View.OnClickListener {
                 SharedPreferences.Editor editor = sharedPreferences.edit();
                 editor.remove("user_id");
                 editor.commit();// 提交修改
+                logout();
                 IntentUtils.getIntent(SettingActivity.this, LoginActivity.class);
             }
         });
@@ -110,6 +121,9 @@ public class SettingActivity extends Activity implements View.OnClickListener {
             case R.id.rl_fisher_bbs:
                 IntentUtils.getIntent(SettingActivity.this, FeedBackActivity.class);
                 break;
+            case R.id.rl_fisher_newts:
+                IntentUtils.getIntent(SettingActivity.this, NewTestActivity.class);
+                break;
             default:
                 break;
         }
@@ -122,6 +136,42 @@ public class SettingActivity extends Activity implements View.OnClickListener {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
+    }
+
+    void logout() {
+        final ProgressDialog pd = new ProgressDialog(SettingActivity.this);
+        String st = getResources().getString(R.string.Are_logged_out);
+        pd.setMessage(st);
+        pd.setCanceledOnTouchOutside(false);
+        pd.show();
+        DemoHXSDKHelper.getInstance().logout(true,new EMCallBack() {
+
+            @Override
+            public void onSuccess() {
+                SettingActivity.this.runOnUiThread(new Runnable() {
+                    public void run() {
+                        pd.dismiss();
+                    }
+                });
+            }
+
+            @Override
+            public void onProgress(int progress, String status) {
+
+            }
+
+            @Override
+            public void onError(int code, String message) {
+                SettingActivity.this.runOnUiThread(new Runnable() {
+
+                    @Override
+                    public void run() {
+                        // TODO Auto-generated method stub
+                        pd.dismiss();
+                    }
+                });
+            }
+        });
     }
 
 }

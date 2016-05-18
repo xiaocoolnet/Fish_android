@@ -206,20 +206,11 @@ public class HttpTool {
         result = getResponse(url,data);
         return result;
     }
-
-    //调用和风天气API https://api.heweather.com/x3/weather?cityid=CN101010100&key=1058a995f42145d7b9b7208dafe23720
-    public static String WeatherCX(){
-        String url = "http://www.jiaodong.net/weather/";
-        String data = "";
-        String result = "";
-        result = getResponse(url,data);
-        return result;
-    }
-
-    //调用中国气象局天气API http://open.weather.com.cn/data/?areaid=101010100&type=forecast_f&date=201604201518&appid=b08fef&key=a87TajXJaKrm98WxY8dO6xooCvc%3D
-    public static String WeatherWEA(String areaid,String type,String date,String appid,String key){
-        String url = NetBaseConstant.WEATHER_API + "?";
-        String data = "areaid="+areaid+"&type="+type+"&date="+date+"&appid="+appid+"&key="+key;
+    //首页公告 http://www.xiaocool.net/index.php?g=apps&m=fish&a=getnoticelist&token=xiaocoolself
+    //http://www.xiaocool.net/data/product_img/4.JPG
+    public static String HomeNotice(String token){
+        String url = "http://www.xiaocool.net/index.php?g=apps&m=fish&a=getnoticelist&";
+        String data = "token="+token;
         String result = "";
         result = getResponse(url,data);
         return result;

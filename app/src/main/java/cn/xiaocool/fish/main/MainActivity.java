@@ -8,7 +8,6 @@ package cn.xiaocool.fish.main;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
@@ -21,18 +20,24 @@ import cn.xiaocool.fish.fragment.FisherFragment;
 import cn.xiaocool.fish.fragment.NewFragment;
 import cn.xiaocool.fish.fragment.BookFragment;
 import cn.xiaocool.fish.fragment.HomeFragment;
+import cn.xiaocool.fish.net.HttpTool;
+import cn.xiaocool.fish.net.constant.NetBaseConstant;
 import cn.xiaocool.fish.utils.IntentUtils;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.view.View;
-import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.Toast;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 public class MainActivity extends BaseActivity {
     private boolean isAppExit; // 退出app标志位
     private Button[] mTabs;
+    private SharedPreferences sharedPreferences;
     private Fragment[] fragments; // 定义Fragment数组
     private int index; // 索引空间(4)
     private HomeFragment homeFragment;
@@ -40,16 +45,61 @@ public class MainActivity extends BaseActivity {
     private BookFragment bookFragment;
     private FisherFragment fisherFragment;
     private int currentTabIndex; // 当前Fragment的索引
+    private String result_data;
+    private String notice_title_1,notice_content_1;
+    private String notice_title_2,notice_content_2;
+    private String notice_title_3,notice_content_3;
+    private String notice_title_4,notice_content_4;
+
 
     Handler handler = new Handler() {
 
         public void handleMessage(android.os.Message msg) {
 
             switch (msg.what) {
+                case 2:
+                    break;
+                case 0:
+                    try {
+                        JSONObject jsonObject = new JSONObject(result_data);
+                        String data = jsonObject.getString("data");
+                        JSONArray notice_data = new JSONArray(data);
+
+                        JSONObject notice_data_1 = notice_data.getJSONObject(0);
+                        notice_title_1 = notice_data_1.getString("title");
+                        notice_content_1 = notice_data_1.getString("content");
+
+                        JSONObject notice_data_2 = notice_data.getJSONObject(1);
+                        notice_title_2 = notice_data_2.getString("title");
+                        notice_content_2 = notice_data_2.getString("content");
+
+                        JSONObject notice_data_3 = notice_data.getJSONObject(2);
+                        notice_title_3 = notice_data_3.getString("title");
+                        notice_content_3 = notice_data_3.getString("content");
+
+                        JSONObject notice_data_4 = notice_data.getJSONObject(3);
+                        notice_title_4 = notice_data_4.getString("title");
+                        notice_content_4 = notice_data_4.getString("content");
+
+                        sharedPreferences = getSharedPreferences("home_notice", Context.MODE_PRIVATE);
+                        SharedPreferences.Editor editor = sharedPreferences.edit();
+                        editor.putString("notice_title_1", notice_title_1);
+                        editor.putString("notice_title_2", notice_title_2);
+                        editor.putString("notice_title_3", notice_title_3);
+                        editor.putString("notice_title_4", notice_title_4);
+                        editor.putString("notice_content_1", notice_content_1);
+                        editor.putString("notice_content_2", notice_content_2);
+                        editor.putString("notice_content_3", notice_content_3);
+                        editor.putString("notice_content_4", notice_content_4);
+                        editor.commit();// 提交修改
+
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                    break;
                 case 1:
                     isAppExit = false;
                     break;
-
                 default:
                     break;
             }
@@ -63,6 +113,7 @@ public class MainActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         initView(); // 初始化界面
         initEvent(); // 初始化事件
+        SaveData();
     }
 
     private void initEvent() {
@@ -70,10 +121,11 @@ public class MainActivity extends BaseActivity {
         isShowFragment(); // 显示哪个Fragment
     }
 
+    private void SaveData() {
+
+    }
+
     private void initView() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-        }
         requestWindowFeature(Window.FEATURE_NO_TITLE); // 去掉标题栏
         setContentView(R.layout.activity_home);
         mTabs = new Button[4];
@@ -86,7 +138,25 @@ public class MainActivity extends BaseActivity {
         newFragment = new NewFragment();
         bookFragment = new BookFragment();
         fisherFragment = new FisherFragment();
+
+        getNotice();
     }
+
+
+
+    private void getNotice() {
+        new Thread() {
+            public void run() {
+                if (HttpTool.isConnnected(MainActivity.this)){
+                    result_data = HttpTool.HomeNotice(NetBaseConstant.Token);
+                    handler.sendEmptyMessage(0); // 调用服务器登录函数
+                }else {
+                    handler.sendEmptyMessage(2); // 输出：网络连接有问题！
+                }
+            }
+        }.start();
+    }
+
 
     public void onTabClicked(View view) {
         switch (view.getId()) {

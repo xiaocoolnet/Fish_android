@@ -6,6 +6,7 @@
 package cn.xiaocool.fish.fragment;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.os.Bundle;
@@ -27,13 +28,12 @@ import com.baidu.location.BDLocationListener;
 import cn.xiaocool.fish.R;
 import cn.xiaocool.fish.adapter.HomeNoticeAdapter;
 import cn.xiaocool.fish.main.BoatFishActivity;
-import cn.xiaocool.fish.main.FishPointActivity;
 import cn.xiaocool.fish.main.HomeNoticeActivity;
 import cn.xiaocool.fish.main.UserActivity;
 import cn.xiaocool.fish.main.WeatherActivity;
+import cn.xiaocool.fish.net.HttpTool;
 import cn.xiaocool.fish.service.LocationService;
 import cn.xiaocool.fish.utils.IntentUtils;
-import cn.xiaocool.fish.utils.ToastUtils;
 import cn.xiaocool.fish.view.HomeGalleryView;
 
 public class HomeFragment extends Fragment implements View.OnClickListener{
@@ -44,15 +44,34 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
     private HomeGalleryView gallery;
     private HomeNoticeAdapter adapter;
     private ImageView iv_slidingmunu_btn;
+    private String notice_title_1;
+    private String notice_title_2;
+    private String notice_title_3;
+    private String notice_title_4;
+    public String[] titles;
 
     private Handler h = new Handler() {
         public void handleMessage(android.os.Message msg) {
             switch (msg.what) {
                 case 1:
-                    ToastUtils.ToastShort(mContext, "网络连接成功");
+                    Toast.makeText(mContext, "网络连接成功", 0).show();
                     break;
                 case 2:
-                    ToastUtils.ToastShort(mContext, "网络问题，请稍后重试！");
+                    Toast.makeText(mContext, "网络问题，请稍后重试！", 0).show();
+                    SharedPreferences home_notice1 = mContext.getSharedPreferences("home_notice", mContext.MODE_PRIVATE);
+                    notice_title_1 = home_notice1.getString("notice_title_1", "");
+                    notice_title_2 = home_notice1.getString("notice_title_2", "");
+                    notice_title_3 = home_notice1.getString("notice_title_3", "");
+                    notice_title_4 = home_notice1.getString("notice_title_4", "");
+                    titles = new String[]{notice_title_1, notice_title_2, notice_title_3, notice_title_4};
+                    break;
+                case 3:
+                    SharedPreferences home_notice = mContext.getSharedPreferences("home_notice", mContext.MODE_PRIVATE);
+                    notice_title_1 = home_notice.getString("notice_title_1", "");
+                    notice_title_2 = home_notice.getString("notice_title_2", "");
+                    notice_title_3 = home_notice.getString("notice_title_3", "");
+                    notice_title_4 = home_notice.getString("notice_title_4", "");
+                    titles = new String[]{notice_title_1, notice_title_2, notice_title_3, notice_title_4};
                     break;
                 default:
                     break;
@@ -87,6 +106,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
         mContext = getActivity();
         ImageNotice();
         initView(); // 初始化界面
+        setNotice();
         initEvent(); // 初始化事件
     }
 
@@ -111,15 +131,27 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
         tvTitle.setTypeface(typeFace);
     }
 
+    private void setNotice() {
+        new Thread() {
+            public void run() {
+                if (HttpTool.isConnnected(mContext)){
+                    h.sendEmptyMessage(3);// 调用服务器登录函数
+                }else {
+                    h.sendEmptyMessage(2); // 输出：网络连接有问题！
+                }
+            }
+        }.start();
+        return;
+    }
+
     @Override
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.rl_logo_weather :
-                //IntentUtils.getIntent(mContext, WeatherActivity.class);
                 IntentUtils.getIntent(mContext, WeatherActivity.class);
                 break;
             case R.id.rl_logo_fishing_point :
-                IntentUtils.getIntent(mContext, FishPointActivity.class);
+//              IntentUtils.getIntent(mContext, FishPointActivity.class);
                 break;
             case R.id.rl_logo_fishing_boat :
                 IntentUtils.getIntent(mContext, BoatFishActivity.class);
@@ -199,7 +231,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
         gallery.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                tvTitle.setText(adapter.titles[position]);
+                tvTitle.setText(titles[position]);
             }
 
             @Override
@@ -211,12 +243,22 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
         gallery.setOnItemClickListener(new AdapterView.OnItemClickListener() { // 设置点击事件监听
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Toast.makeText(mContext, "第" + (position + 1) + "条公告信息", Toast.LENGTH_SHORT).show();
-                if (position == 2) {
-                    IntentUtils.getIntent(mContext, HomeNoticeActivity.class);
-                }
+                //Toast.makeText(mContext,"第"+(position + 1)+"条公告信息",Toast.LENGTH_SHORT).show();
+                    Intent intent=new Intent();
+                    intent.putExtra("position", position);
+                    intent.setClass(mContext, HomeNoticeActivity.class);
+                    startActivity(intent);
             }
         });
+    }
+
+    private void Delay(int ms){
+        try {
+            Thread.currentThread();
+            Thread.sleep(ms);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 
 }
