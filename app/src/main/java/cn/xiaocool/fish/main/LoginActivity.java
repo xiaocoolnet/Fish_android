@@ -110,8 +110,6 @@ public class LoginActivity extends Activity implements View.OnClickListener {
                             user.setUserSex(item.getString("sex"));
                             user.setUserAge(item.getString("age"));
                             user.writeData(mContext);
-                            Toast.makeText(LoginActivity.this, "你好："+user_nicename,
-                                    Toast.LENGTH_SHORT).show();
                             IntentUtils.getIntent(LoginActivity.this, com.easemob.chat.activity.MainActivity.class);
                             finish();
                         } else {

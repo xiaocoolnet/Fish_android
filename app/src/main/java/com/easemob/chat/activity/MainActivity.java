@@ -17,7 +17,9 @@ import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.view.KeyEvent;
 import android.view.View;
+import android.view.animation.AlphaAnimation;
 import android.widget.Button;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -45,10 +47,10 @@ import cn.xiaocool.fish.R;
 import cn.xiaocool.fish.bean.UserInfo;
 import cn.xiaocool.fish.fragment.FisherFragment;
 import cn.xiaocool.fish.fragment.HomeFragment;
+import cn.xiaocool.fish.main.InitDataActivity;
 import cn.xiaocool.fish.net.HttpTool;
 import cn.xiaocool.fish.net.constant.NetBaseConstant;
 import cn.xiaocool.fish.utils.IntentUtils;
-import cn.xiaocool.fish.view.FishApplication;
 
 import com.easemob.chat.TextMessageBody;
 import com.easemob.chat.db.InviteMessgeDao;
@@ -75,6 +77,7 @@ import java.util.UUID;
 public class MainActivity extends BaseActivity implements EMEventListener {
 
 	protected static final String TAG = "MainActivity";
+	private boolean isAppExit; // 退出app标志位
 	// 未读消息textview
 	private TextView unreadLabel;
 	// 未读通讯录textview
@@ -97,7 +100,7 @@ public class MainActivity extends BaseActivity implements EMEventListener {
 	
 	private MyConnectionListener connectionListener = null;
 	private MyGroupChangeListener groupChangeListener = null;
-	private String result_data;
+	private String result_data,result_data1;
 	private String notice_title_1,notice_content_1;
 	private String notice_title_2,notice_content_2;
 	private String notice_title_3,notice_content_3;
@@ -106,6 +109,8 @@ public class MainActivity extends BaseActivity implements EMEventListener {
 	private static String UID;
 	private UserInfo user;
 	private Context mContext;
+	private String currentUsername;
+	private String currentPassword;
 
 	Handler handler = new Handler() {
 
@@ -136,7 +141,7 @@ public class MainActivity extends BaseActivity implements EMEventListener {
 						notice_title_4 = notice_data_4.getString("title");
 						notice_content_4 = notice_data_4.getString("content");
 
-						sharedPreferences = getSharedPreferences("home_notice", Context.MODE_PRIVATE);
+						sharedPreferences = getSharedPreferences("home_notice", MODE_PRIVATE);
 						SharedPreferences.Editor editor = sharedPreferences.edit();
 						editor.putString("notice_title_1", notice_title_1);
 						editor.putString("notice_title_2", notice_title_2);
@@ -170,21 +175,22 @@ public class MainActivity extends BaseActivity implements EMEventListener {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		
+
 		if (savedInstanceState != null && savedInstanceState.getBoolean(Constant.ACCOUNT_REMOVED, false)) {
 			// 防止被移除后，没点确定按钮然后按了home键，长期在后台又进app导致的crash
 			// 三个fragment里加的判断同理
-		    DemoHXSDKHelper.getInstance().logout(true,null);
+			DemoHXSDKHelper.getInstance().logout(true,null);
 			finish();
-			startActivity(new Intent(this, cn.xiaocool.fish.main.LoginActivity.class));
+			startActivity(new Intent(this, LoginActivity.class));
 			return;
 		} else if (savedInstanceState != null && savedInstanceState.getBoolean("isConflict", false)) {
 			// 防止被T后，没点确定按钮然后按了home键，长期在后台又进app导致的crash
 			// 三个fragment里加的判断同理
 			finish();
-			startActivity(new Intent(this, cn.xiaocool.fish.main.LoginActivity.class));
+			startActivity(new Intent(this, LoginActivity.class));
 			return;
 		}
+
 		setContentView(R.layout.ease_activity_main);
 		initView();
 
@@ -217,6 +223,7 @@ public class MainActivity extends BaseActivity implements EMEventListener {
 		getNotice();
 		//异步获取当前用户的昵称和头像
 		((DemoHXSDKHelper) HXSDKHelper.getInstance()).getUserProfileManager().asyncGetCurrentUserInfo();
+		//getID();
 	}
 
 	private void init() {     
@@ -230,10 +237,28 @@ public class MainActivity extends BaseActivity implements EMEventListener {
 		groupChangeListener = new MyGroupChangeListener();
 		// 注册群聊相关的listener
         EMGroupManager.getInstance().addGroupChangeListener(groupChangeListener);
-		
-		
+
 		//内部测试方法，请忽略
 		registerInternalDebugReceiver();
+	}
+
+	private void getID() {
+		sharedPreferences = getSharedPreferences("user_do_info", MODE_PRIVATE);
+		currentUsername = sharedPreferences.getString("currentUsername", "");
+		currentPassword = sharedPreferences.getString("currentPassword", "");
+		result_data1 = HttpTool.Login(currentUsername, currentPassword, NetBaseConstant.Token);
+		try {
+			JSONObject json = new JSONObject(result_data1);
+			String data = json.getString("data");
+			JSONObject item = new JSONObject(data);
+			String user_id = user.setUserId(item.getString("id"));
+			sharedPreferences = getSharedPreferences("user_id", MODE_PRIVATE);
+			SharedPreferences.Editor editor = sharedPreferences.edit();
+			editor.putString("user_id", user_id);
+			editor.commit();// 提交修改
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
 	}
 
 	private void getNotice() {
@@ -305,22 +330,6 @@ public class MainActivity extends BaseActivity implements EMEventListener {
                 groupUser.setNick(strGroup);
                 groupUser.setHeader("");
                 userlist.put(Constant.GROUP_USERNAME, groupUser);
-                
-//                 // 添加"聊天室"
-//                User chatRoomItem = new User();
-//                String strChatRoom = context.getString(R.string.chat_room);
-//                chatRoomItem.setUsername(Constant.CHAT_ROOM);
-//                chatRoomItem.setNick(strChatRoom);
-//                chatRoomItem.setHeader("");
-//                userlist.put(Constant.CHAT_ROOM, chatRoomItem);
-//
-//                // 添加"Robot"
-//        		User robotUser = new User();
-//        		String strRobot = context.getString(R.string.robot_chat);
-//        		robotUser.setUsername(Constant.CHAT_ROBOT);
-//        		robotUser.setNick(strRobot);
-//        		robotUser.setHeader("");
-//        		userlist.put(Constant.CHAT_ROBOT, robotUser);
         		
                  // 存入内存
                 ((DemoHXSDKHelper) HXSDKHelper.getInstance()).setContactList(userlist);
@@ -1051,7 +1060,6 @@ public class MainActivity extends BaseActivity implements EMEventListener {
 			} catch (Exception e) {
 				EMLog.e(TAG, "---------color conflictBuilder error" + e.getMessage());
 			}
-
 		}
 
 	}
@@ -1140,4 +1148,21 @@ public class MainActivity extends BaseActivity implements EMEventListener {
 		super.onCreateContextMenu(menu, v, menuInfo);
 		//getMenuInflater().inflate(R.menu.context_tab_contact, menu);
 	}
+
+	public void AppExit() {
+		if (!isAppExit) {
+			isAppExit = true;
+			Toast.makeText(MainActivity.this, "再点击退出闲来垂钓APP", Toast.LENGTH_LONG)
+					.show();
+			handler.sendEmptyMessageDelayed(1, 2000);
+
+		} else {// 2s内再次按back时,isExit= true，执行以下操作，app退出
+			Intent intent = new Intent(Intent.ACTION_MAIN);
+			intent.addCategory(Intent.CATEGORY_HOME);
+			startActivity(intent);
+			System.exit(0);
+
+		}
+	}
+
 }

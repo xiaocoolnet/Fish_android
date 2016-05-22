@@ -1,7 +1,7 @@
 /*
  * Copyright (c) 2016 4 22.
  * 公司:北京校酷网络有限公司
- * 工作室：Hello Fish  闲来垂钓APP （添加好友Activity）
+ * 工作室：Hello Fish  闲来垂钓APP （发布渔获Activity）
  */
 package cn.xiaocool.fish.main;
 
@@ -13,7 +13,7 @@ import android.widget.ImageView;
 
 import cn.xiaocool.fish.R;
 
-public class AddFisherActivity extends Activity implements View.OnClickListener {
+public class PublishActivity extends Activity implements View.OnClickListener {
 
     private ImageView btn_exit; // 返回上一页
 
@@ -31,7 +31,7 @@ public class AddFisherActivity extends Activity implements View.OnClickListener 
 
     private void initView() {
         requestWindowFeature(Window.FEATURE_NO_TITLE); // 去掉标题栏
-        setContentView(R.layout.activity_add_fisher); // 添加好友界面
+        setContentView(R.layout.activity_publish); // 添加好友界面
         // 控件实例化
         btn_exit = (ImageView) findViewById(R.id.btn_exit);
     }
@@ -41,6 +41,7 @@ public class AddFisherActivity extends Activity implements View.OnClickListener 
         switch (v.getId()){
             case R.id.btn_exit :
                 finish();
+                break;
             default:
                 break;
         }

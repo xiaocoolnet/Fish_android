@@ -139,6 +139,8 @@ public class SettingActivity extends Activity implements View.OnClickListener {
     }
 
     void logout() {
+        DataCleanManager.cleanInternalCache(SettingActivity.this);
+        DataCleanManager.cleanDatabases(SettingActivity.this);
         final ProgressDialog pd = new ProgressDialog(SettingActivity.this);
         String st = getResources().getString(R.string.Are_logged_out);
         pd.setMessage(st);

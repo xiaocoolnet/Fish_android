@@ -56,6 +56,7 @@
             android:layout_height="40dp" />
 
         <EditText
+            android:visibility="invisible"
             android:id="@+id/et_get_user_name"
             android:layout_alignLeft="@id/phone_number"
             android:layout_width="@dimen/register_ed_width_210"
@@ -70,6 +71,7 @@
             android:singleLine="true"/>
 
         <TextView
+            android:visibility="invisible"
             android:layout_centerHorizontal="true"
             android:id="@+id/tv_get_phone"
             android:layout_alignLeft="@id/phone_number"

@@ -2,14 +2,13 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#eff2f6"
+    android:background="@drawable/ll_user_bg"
     android:orientation="vertical" >
     
 	<RelativeLayout
         android:id="@+id/title"
         android:layout_width="match_parent"
         android:layout_height="@dimen/height_top_bar"
-        android:background="@color/top_bar_normal_bg"
         android:gravity="center_vertical" >
 
         <include layout="@layout/ease_commom_back_btn" />
@@ -19,103 +18,77 @@
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:text="@string/title_user_profile"
-            android:textColor="#fff"
+            android:textColor="@color/title_bar_color"
             android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/btn_setuserinfo"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="编辑"
+            android:textColor="@color/title_bar_color"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="12dp"/>
     </RelativeLayout>
     <LinearLayout 
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:background="#FFFFFF"
         android:orientation="vertical"
-        >
+        android:layout_marginTop="60dp">
+
         <RelativeLayout 
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:paddingTop="10dp"
-            android:paddingBottom="10dp"
-            >
-            <ImageView 
+            android:layout_gravity="center_horizontal">
+
+            <ImageView
                 android:id="@+id/user_head_avatar"
-                android:layout_width="60dip"
-                android:layout_height="60dip"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentTop="true"
-                android:layout_margin="8dip"
-                android:scaleType="centerCrop"
-                android:src="@drawable/default_avatar"
-                />
-            <ImageView 
+                android:layout_centerHorizontal="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/activity_user_logo"
+                android:layout_margin="@dimen/tv_margin_top_6.5"
+                android:scrollbars="none" />
+
+            <ImageView
                 android:id="@+id/user_head_headphoto_update"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
                 android:layout_above="@+id/user_head_avatar"
                 android:layout_alignBottom="@+id/user_head_avatar"
                 android:layout_alignRight="@+id/user_head_avatar"
                 android:layout_margin="3dip"
                 android:src="@drawable/profile_headphoto_update_icon"
                 />
-            
-            <LinearLayout 
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_toRightOf="@+id/user_head_avatar"
-                android:orientation="vertical"
-                >
-                <LinearLayout 
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dip"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal"
-                    >
-                    <TextView 
-                        android:id="@+id/user_username"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textColor="#000000"
-                        android:textSize="16sp"
-                        />
-                </LinearLayout>
-            </LinearLayout>
         </RelativeLayout>
-        <View 
-            android:layout_width="match_parent"
-            android:layout_height="1px"
-            android:background="@color/gray_pressed"
-            
-            />
         <RelativeLayout 
             android:id="@+id/rl_nickname"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="#ffffff"
-            android:paddingTop="10dp"
-            android:paddingBottom="10dip"
+            android:layout_height="@dimen/fragmet_home_logo_size_50"
+            android:layout_marginTop="5dp"
             >
-            <TextView 
+            <TextView
+                android:visibility="gone"
 				android:layout_width="wrap_content"                
 				android:layout_height="wrap_content"
-				android:layout_margin="5dp"
 				android:layout_alignParentLeft="true"
 				android:text="@string/nickname"
-				android:textSize="16sp"
-				android:gravity="center_vertical"
-				android:textColor="#808080"
-                android:background="#FFFFFF"
-                />
-            <TextView 
+                android:gravity="center"
+                android:textColor="@color/title_bar_color"
+                android:textSize="20dp" />
+
+            <TextView
                 android:id="@+id/user_nickname"
-				android:layout_width="wrap_content"                
-				android:layout_height="wrap_content"
-				android:layout_margin="5dp"
-				android:layout_alignParentRight="true"
-				android:paddingRight="20dip"
-				android:textSize="16sp"
-				android:gravity="center_vertical"
-				android:textColor="#3366cc"
-                android:background="#FFFFFF"
+				android:layout_width="match_parent"
+				android:layout_height="match_parent"
+                android:gravity="center"
+                android:textColor="@color/title_bar_color"
+                android:textSize="20dp"
                 />
-            <ImageView 
+            <ImageView
+                android:visibility="gone"
                 android:id="@+id/ic_right_arrow"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -125,5 +98,65 @@
                 android:layout_margin="5dip"
                 />
         </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/user_head_avatar"
+            android:orientation="vertical"
+            android:layout_margin="@dimen/fragmet_home_logo_size_5"
+            >
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dip"
+                android:gravity="center"
+                android:orientation="horizontal"
+                >
+                <TextView
+                    android:id="@+id/user_username"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/title_bar_color"
+                    android:textSize="@dimen/fragmet_home_logo_size_15"
+                    />
+            </LinearLayout>
+        </LinearLayout>
+
+        <!--年龄-->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:layout_margin="@dimen/fragmet_home_logo_size_5">
+
+            <TextView
+                android:id="@+id/tv_get_user_sex"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:textColor="@color/title_bar_color"
+                android:textSize="@dimen/fragmet_home_logo_size_15" />
+            <TextView
+                android:id="@+id/tv_get_user_age"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:textColor="@color/title_bar_color"
+                android:layout_marginLeft="12dp"
+                android:textSize="@dimen/fragmet_home_logo_size_15" />
+
+            <TextView
+                android:id="@+id/tv_get_user_city"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:layout_marginLeft="12dp"
+                android:textColor="@color/title_bar_color"
+                android:textSize="@dimen/fragmet_home_logo_size_15" />
+
+        </LinearLayout>
     </LinearLayout>
+
 </LinearLayout>

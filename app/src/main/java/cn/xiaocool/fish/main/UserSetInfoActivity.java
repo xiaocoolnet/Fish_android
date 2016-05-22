@@ -20,6 +20,8 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.easemob.chat.activity.UserProfileActivity;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -54,7 +56,8 @@ public class UserSetInfoActivity extends Activity implements View.OnClickListene
                         if (status.equals("success")) {
                             Toast.makeText(UserSetInfoActivity.this,"修改资料成功", Toast.LENGTH_SHORT).show();
                             Delay(1000);
-                            IntentUtils.getIntent(UserSetInfoActivity.this, UserActivity.class); // 跳转到编辑用户资料
+                            IntentUtils.getIntent(UserSetInfoActivity.this, UserProfileActivity.class); // 跳转到编辑用户资料
+                            finish();
                         } else {
                             Toast.makeText(UserSetInfoActivity.this,"修改资料失败", Toast.LENGTH_SHORT).show();
                         }

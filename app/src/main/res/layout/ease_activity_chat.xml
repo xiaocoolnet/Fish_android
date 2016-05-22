@@ -83,7 +83,6 @@
             android:paddingTop="4dp" >
 
             <Button
-                android:visibility="gone"
                 android:id="@+id/btn_set_mode_voice"
                 android:layout_width="32dp"
                 android:layout_height="32dp"
@@ -173,7 +172,6 @@
             </RelativeLayout>
 
             <Button
-                android:visibility="gone"
                 android:id="@+id/btn_more"
                 android:layout_width="32dip"
                 android:layout_height="32dip"
@@ -294,11 +292,11 @@
                     </LinearLayout>
 
                     <LinearLayout
-                        android:visibility="gone"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:gravity="center"
+                        android:visibility="gone"
                         android:orientation="vertical" >
 
                         <RelativeLayout
@@ -325,7 +323,6 @@
                     </LinearLayout>
 
                     <LinearLayout
-                        android:visibility="gone"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"

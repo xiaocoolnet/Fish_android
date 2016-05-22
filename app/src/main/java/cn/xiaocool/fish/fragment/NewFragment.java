@@ -5,9 +5,12 @@
  */
 package cn.xiaocool.fish.fragment;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -38,10 +41,19 @@ import com.easemob.chat.EMChatManager;
 import com.easemob.chat.EMConversation;
 import com.easemob.chat.EMConversation.EMConversationType;
 import cn.xiaocool.fish.R;
+import cn.xiaocool.fish.bean.UserInfo;
+import cn.xiaocool.fish.net.HttpTool;
+import cn.xiaocool.fish.net.constant.NetBaseConstant;
+import cn.xiaocool.fish.utils.IntentUtils;
+import cn.xiaocool.fish.utils.ToastUtils;
+import cn.xiaocool.fish.view.FishApplication;
 
 import com.easemob.chat.activity.ChatActivity;
 import com.easemob.chat.adapter.ChatAllHistoryAdapter;
 import com.easemob.chat.db.InviteMessgeDao;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -61,6 +73,51 @@ public class NewFragment extends Fragment implements OnClickListener {
     private EditText query;
     private ImageButton clearSearch;
     public RelativeLayout errorItem;
+    private SharedPreferences sharedPreferences;
+    private static String UID;
+    private UserInfo user;
+    private String currentUsername;
+    private String currentPassword;
+    private String result_data;
+    private Context mContext;
+    private Handler handler = new Handler() {
+        public void handleMessage(android.os.Message msg) {
+            switch (msg.what) {
+                case 3:
+                    try {
+                        JSONObject json = new JSONObject(result_data);
+                        String status = json.getString("status");
+                        String data = json.getString("data");
+                        if (status.equals("success")) {
+                            JSONObject item = new JSONObject(data);
+                            FishApplication.UID = Integer.parseInt(item.getString("id"));
+                            String user_id = user.setUserId(item.getString("id"));
+
+                            sharedPreferences = mContext.getSharedPreferences("user_id", mContext.MODE_PRIVATE);
+                            SharedPreferences.Editor editor = sharedPreferences.edit();
+                            editor.putString("user_id", user_id);
+                            editor.commit();// 提交修改
+
+                            String user_nicename=user.setUserName(item.getString("user_nicename"));
+                            user.setUserSex(item.getString("sex"));
+                            user.setUserAge(item.getString("age"));
+                            user.writeData(mContext);
+                            Toast.makeText(mContext, "你好："+user_nicename,
+                                    Toast.LENGTH_SHORT).show();
+                            IntentUtils.getIntent((Activity) mContext, com.easemob.chat.activity.MainActivity.class);
+                        } else {
+                            Toast.makeText(mContext, data, Toast.LENGTH_SHORT).show();
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                    break;
+                default:
+                    break;
+            }
+        }
+
+    };
 
     public TextView errorText;
     private boolean hidden;
@@ -73,9 +130,11 @@ public class NewFragment extends Fragment implements OnClickListener {
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
+
         super.onActivityCreated(savedInstanceState);
         if (savedInstanceState != null && savedInstanceState.getBoolean("isConflict", false))
             return;
+
         inputMethodManager = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
         errorItem = (RelativeLayout) getView().findViewById(R.id.rl_error_item);
         errorText = (TextView) errorItem.findViewById(R.id.tv_connect_errormsg);
@@ -168,6 +227,22 @@ public class NewFragment extends Fragment implements OnClickListener {
                 inputMethodManager.hideSoftInputFromWindow(getActivity().getCurrentFocus().getWindowToken(),
                         InputMethodManager.HIDE_NOT_ALWAYS);
         }
+    }
+
+    private void getID() {
+        sharedPreferences = mContext.getSharedPreferences("user_do_info", mContext.MODE_PRIVATE);
+        currentUsername = sharedPreferences.getString("currentUsername", "");
+        currentPassword = sharedPreferences.getString("currentPassword", "");
+        user.setUserPhone(currentUsername);
+        user.setUserPassword(currentPassword);
+        user.writeData(mContext);
+        //线程
+        new Thread() {
+            public void run() {
+                result_data = HttpTool.Login(currentUsername, currentPassword, NetBaseConstant.Token);
+                handler.sendEmptyMessage(3);// 调用服务器登录函数
+            }
+        }.start();
     }
 
     @Override

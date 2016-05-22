@@ -1,16 +1,22 @@
 package com.easemob.chat.activity;
 
+import android.app.Activity;
 import android.app.AlertDialog.Builder;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.provider.MediaStore;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.EditText;
@@ -24,9 +30,18 @@ import com.easemob.applib.controller.HXSDKHelper;
 import com.easemob.chat.DemoHXSDKHelper;
 import com.easemob.chat.EMChatManager;
 import cn.xiaocool.fish.R;
+import cn.xiaocool.fish.bean.UserInfo;
+import cn.xiaocool.fish.main.UserSetInfoActivity;
+import cn.xiaocool.fish.net.HttpTool;
+import cn.xiaocool.fish.net.constant.NetBaseConstant;
+import cn.xiaocool.fish.utils.IntentUtils;
+
 import com.easemob.chat.domain.User;
 import com.easemob.chat.utils.UserUtils;
 import com.squareup.picasso.Picasso;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.ByteArrayOutputStream;
 
@@ -41,6 +56,58 @@ public class UserProfileActivity extends BaseActivity implements OnClickListener
 	private TextView tvUsername;
 	private ProgressDialog dialog;
 	private RelativeLayout rlNickName;
+	private TextView tv_get_user_sex;
+	private TextView tv_get_user_age;
+	private TextView tv_get_user_city;
+	private SharedPreferences sharedPreferences;
+	private String result_data;
+	private String userName;
+	private String userSex;
+	private String userCity;
+	private String userAge;
+	private TextView btn_setuserinfo;
+	private Handler handler = new Handler() {
+		public void handleMessage(Message msg) {
+			switch (msg.what) {
+				case 0:
+					try {
+						JSONObject jsonObject = new JSONObject(result_data);
+						String status = jsonObject.getString("status");
+						if (status.equals("success")){
+							String data = jsonObject.getString("data");
+							JSONObject object = new JSONObject(data);
+							userName = object.getString("user_nicename");
+							userAge = object.getString("age")+"岁";
+							userSex = object.getString("sex");
+							if(userSex.equals("0")){
+								userSex="男";
+							}else{
+								userSex="女";
+							}
+							userCity = object.getString("city");
+
+							sharedPreferences = getSharedPreferences("user_info", Context.MODE_PRIVATE);
+							SharedPreferences.Editor editor = sharedPreferences.edit();
+							editor.putString("userName", userName);
+							editor.putString("userAge", userAge);
+							editor.putString("userSex", userSex);
+							editor.putString("userCity", userCity);
+							editor.commit();// 提交修改
+
+							tv_get_user_sex.setText(userSex.toString());
+							tv_get_user_age.setText(userAge.toString());
+							tv_get_user_city.setText(userCity.toString());
+
+						}
+					} catch (JSONException e) {
+						e.printStackTrace();
+					}
+					break;
+				default:
+					break;
+			}
+		}
+	};
 	
 	
 	
@@ -49,9 +116,33 @@ public class UserProfileActivity extends BaseActivity implements OnClickListener
 		super.onCreate(arg0);
 		setContentView(R.layout.ease_activity_user_profile);
 		initView();
+		User();
+		getUserInfo();
 		initListener();
 	}
-	
+
+	private void getUserInfo() {
+		sharedPreferences = getSharedPreferences("user_info", Activity.MODE_PRIVATE);
+		String userAge = sharedPreferences.getString("userAge", "");
+		String userSex = sharedPreferences.getString("userSex", "");
+		String userCity = sharedPreferences.getString("userCity", "");
+		tv_get_user_sex.setText(userSex.toString());
+		tv_get_user_age.setText(userAge.toString());
+		tv_get_user_city.setText(userCity.toString());
+	}
+
+	private void User() {
+		//线程
+		new Thread() {
+			public void run() {
+				sharedPreferences = getSharedPreferences("user_id", Activity.MODE_PRIVATE);
+				String user_id = sharedPreferences.getString("user_id", "");
+				result_data = HttpTool.GetUser(user_id, NetBaseConstant.Token);
+				handler.sendEmptyMessage(0);
+			}
+		}.start();
+	}
+
 	private void initView() {
 		headAvatar = (ImageView) findViewById(R.id.user_head_avatar);
 		headPhotoUpdate = (ImageView) findViewById(R.id.user_head_headphoto_update);
@@ -59,6 +150,11 @@ public class UserProfileActivity extends BaseActivity implements OnClickListener
 		tvNickName = (TextView) findViewById(R.id.user_nickname);
 		rlNickName = (RelativeLayout) findViewById(R.id.rl_nickname);
 		iconRightArrow = (ImageView) findViewById(R.id.ic_right_arrow);
+		tv_get_user_sex = (TextView) findViewById(R.id.tv_get_user_sex);
+		tv_get_user_age = (TextView) findViewById(R.id.tv_get_user_age);
+		tv_get_user_city = (TextView) findViewById(R.id.tv_get_user_city);
+		btn_setuserinfo = (TextView) findViewById(R.id.btn_setuserinfo);
+		btn_setuserinfo.setOnClickListener(this);
 	}
 	
 	private void initListener() {
@@ -67,12 +163,10 @@ public class UserProfileActivity extends BaseActivity implements OnClickListener
 		boolean enableUpdate = intent.getBooleanExtra("setting", false);
 		if (enableUpdate) {
 			headPhotoUpdate.setVisibility(View.VISIBLE);
-			iconRightArrow.setVisibility(View.VISIBLE);
 			rlNickName.setOnClickListener(this);
 			headAvatar.setOnClickListener(this);
 		} else {
 			headPhotoUpdate.setVisibility(View.GONE);
-			iconRightArrow.setVisibility(View.INVISIBLE);
 		}
 		if (username == null) {
 			tvUsername.setText(EMChatManager.getInstance().getCurrentUser());
@@ -96,6 +190,9 @@ public class UserProfileActivity extends BaseActivity implements OnClickListener
 		case R.id.user_head_avatar:
 			uploadHeadPhoto();
 			break;
+			case R.id.btn_setuserinfo:
+				IntentUtils.getIntent(UserProfileActivity.this, UserSetInfoActivity.class); // 跳转到编辑用户资料
+				break;
 		case R.id.rl_nickname:
 			final EditText editText = new EditText(this);
 			new Builder(this).setTitle(R.string.setting_nickname).setIcon(android.R.drawable.ic_dialog_info).setView(editText)

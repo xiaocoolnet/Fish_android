@@ -24,6 +24,7 @@ import android.widget.Toast;
 
 import com.baidu.location.BDLocation;
 import com.baidu.location.BDLocationListener;
+import com.easemob.chat.activity.UserProfileActivity;
 
 import cn.xiaocool.fish.R;
 import cn.xiaocool.fish.adapter.HomeNoticeAdapter;
@@ -160,7 +161,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
                 //IntentUtils.getIntent(mContext, LocationActivity.class);
                 break;
             case R.id.iv_slidingmunu_btn :
-                IntentUtils.getIntent(mContext, UserActivity.class);
+                startActivity(new Intent(mContext, UserProfileActivity.class).putExtra("setting", true));
                 break;
             default:
                 break;

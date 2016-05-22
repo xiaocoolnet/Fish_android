@@ -13,11 +13,13 @@ import android.widget.ImageView;
 import android.widget.ListView;
 
 import cn.xiaocool.fish.R;
+import cn.xiaocool.fish.utils.IntentUtils;
 
 public class FisherMessageActivity extends Activity implements View.OnClickListener {
 
     private ImageView btn_exit; // 返回上一页
     private ListView lv_fisher_message;
+    private ImageView iv_publish;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,6 +31,7 @@ public class FisherMessageActivity extends Activity implements View.OnClickListe
     private void initEvent() {
         // 添加点击事件
         btn_exit.setOnClickListener(this);
+        iv_publish.setOnClickListener(this);
     }
 
     private void initView() {
@@ -37,6 +40,7 @@ public class FisherMessageActivity extends Activity implements View.OnClickListe
         // 控件实例化
         btn_exit = (ImageView) findViewById(R.id.btn_exit);
         lv_fisher_message = (ListView) findViewById(R.id.lv_fisher_message);
+        iv_publish = (ImageView) findViewById(R.id.iv_publish);
     }
 
     @Override
@@ -44,6 +48,10 @@ public class FisherMessageActivity extends Activity implements View.OnClickListe
         switch (v.getId()){
             case R.id.btn_exit :
                 finish();
+                break;
+            case R.id.iv_publish :
+                IntentUtils.getIntent(FisherMessageActivity.this, PublishActivity.class);
+                break;
             default:
                 break;
         }

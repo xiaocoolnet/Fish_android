@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/fisher_bg"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/title_bar_height_50">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="发布渔获"
+            android:textColor="@color/title_bar_color"
+            android:textSize="18sp" />
+        <RelativeLayout
+            android:layout_width="@dimen/title_bar_height_50"
+            android:layout_height="fill_parent"
+            android:gravity="center" >
+            <ImageView
+                android:id="@+id/btn_exit"
+                android:layout_width="@dimen/left_arrow"
+                android:layout_height="@dimen/left_arrow"
+                android:contentDescription="@string/app_name"
+                android:src="@drawable/left_arrow" />
+        </RelativeLayout>
+    </RelativeLayout>
+
+
+</LinearLayout>
